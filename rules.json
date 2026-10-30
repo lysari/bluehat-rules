@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version": 2026103001,
+  "version": 2026103002,
   "rules": [
     {
       "id": "setting.sip",
@@ -8,7 +8,12 @@
       "severity": "high",
       "category": "hardening",
       "check": "setting",
-      "setting": "sip"
+      "setting": "sip",
+      "summary": "System Integrity Protection stops any software, even with your admin password, from changing macOS system files. With it off, malware can hide inside the system and survive updates.",
+      "remedy": "Restart into Recovery (hold the power button on Apple silicon), open Terminal from the Utilities menu, run csrutil enable, then restart.",
+      "references": [
+        "https://support.apple.com/en-us/102149"
+      ]
     },
     {
       "id": "setting.gatekeeper",
@@ -16,7 +21,9 @@
       "severity": "high",
       "category": "hardening",
       "check": "setting",
-      "setting": "gatekeeper"
+      "setting": "gatekeeper",
+      "summary": "Gatekeeper blocks apps that aren't from the App Store or an identified, notarized developer. With it off, any downloaded app can run without a warning.",
+      "remedy": "Open Terminal and run sudo spctl --global-enable, then check System Settings › Privacy & Security allows apps from the App Store and identified developers."
     },
     {
       "id": "setting.firewall",
@@ -24,7 +31,9 @@
       "severity": "medium",
       "category": "hardening",
       "check": "setting",
-      "setting": "firewall"
+      "setting": "firewall",
+      "summary": "The Application Firewall blocks incoming connections to apps you haven't allowed. With it off, any service on your Mac can be reached from the network you're on.",
+      "remedy": "Open System Settings › Network › Firewall and turn it on."
     },
     {
       "id": "launch.remote-script",
@@ -37,7 +46,9 @@
         "(curl|wget)\\s.*(-o|--output)\\s*/(private/)?tmp/",
         "base64\\s+(-d|-D|--decode)",
         "/dev/tcp/"
-      ]
+      ],
+      "summary": "A launch item starts automatically and fetches code from the internet to run it. This is the most common way malware installs itself and updates.",
+      "remedy": "Show the plist in Finder. If you don't know what installed it, run launchctl bootout gui/$(id -u) <path> for a LaunchAgent (or sudo launchctl bootout system <path> for a LaunchDaemon), move the file to the Trash, and restart."
     },
     {
       "id": "launch.temp-binary",
@@ -49,7 +60,9 @@
         "^(/private)?/tmp/",
         "^/Users/Shared/",
         "^/var/folders/"
-      ]
+      ],
+      "summary": "Real apps don't start programs from temporary or shared folders. Malware drops its program there because every user can write to them.",
+      "remedy": "Show the plist in Finder, unload it with launchctl bootout, then move the plist and the program it points to into the Trash."
     },
     {
       "id": "launch.inline-script",
@@ -62,7 +75,9 @@
         "python3?\\s+-c\\s",
         "perl\\s+-e\\s",
         "(ba|z)?sh\\s+-c\\s.*(curl|wget|nc\\s)"
-      ]
+      ],
+      "summary": "The launch item runs a script written directly in its settings instead of a real app. Installers rarely do this; adware and malware often do.",
+      "remedy": "Read the command in the finding. If it isn't from software you installed on purpose, unload it with launchctl bootout and move the plist to the Trash."
     },
     {
       "id": "profile.remote-script",
@@ -75,7 +90,9 @@
         "eval\\s*\"?\\$\\((curl|wget)",
         "base64\\s+(-d|-D|--decode).*\\|\\s*(ba|z)?sh",
         "/dev/tcp/"
-      ]
+      ],
+      "summary": "This line runs every time you open Terminal and downloads code from the internet, or decodes hidden code, and runs it.",
+      "remedy": "Open the file in a text editor (open -e <file>), delete the line, save, and open a new Terminal window."
     },
     {
       "id": "profile.dylib-injection",
@@ -85,7 +102,9 @@
       "check": "shellProfile",
       "patterns": [
         "DYLD_INSERT_LIBRARIES"
-      ]
+      ],
+      "summary": "DYLD_INSERT_LIBRARIES loads extra code into every program started from your shell. Attackers use it to spy on commands and steal credentials.",
+      "remedy": "Open the file in a text editor, delete the DYLD_INSERT_LIBRARIES line, save, and open a new Terminal window."
     },
     {
       "id": "process.reverse-shell",
@@ -98,7 +117,9 @@
         "\\bn(c|cat)\\b.*\\s-(e|c)\\s",
         "\\bsocat\\b.*exec:",
         "pty\\.spawn\\("
-      ]
+      ],
+      "summary": "A process is connecting a shell back to another computer. Whoever is on the other side can type commands on your Mac right now.",
+      "remedy": "Disconnect from the network, quit the process in Activity Monitor, then scan again to find the launch item or cron job that started it. Change your passwords from another device."
     },
     {
       "id": "process.miner",
@@ -111,7 +132,9 @@
         "\\bminerd\\b",
         "\\bcpuminer\\b",
         "stratum\\+(tcp|ssl)://"
-      ]
+      ],
+      "summary": "A cryptocurrency miner is running. Unless you started it, someone is using your Mac's power for their profit, and it usually arrives with other malware.",
+      "remedy": "Quit it in Activity Monitor, then scan again to find and remove the launch item that starts it."
     },
     {
       "id": "process.network-scanner",
@@ -122,7 +145,9 @@
       "patterns": [
         "\\bmasscan\\b",
         "\\bzmap\\b"
-      ]
+      ],
+      "summary": "A tool that scans large parts of the internet or your network is running. Worms use these to find their next victims.",
+      "remedy": "If you didn't start it, quit it in Activity Monitor and look for the launch item that started it."
     },
     {
       "id": "crontab.remote-script",
@@ -135,7 +160,9 @@
         "base64\\s+(-d|-D|--decode)",
         "/dev/tcp/",
         "(^|\\s)(/private)?/tmp/"
-      ]
+      ],
+      "summary": "A scheduled job downloads or decodes code and runs it on a timer, so malware keeps coming back.",
+      "remedy": "Run crontab -e in Terminal, delete the line, and save."
     },
     {
       "id": "port.backdoor",
@@ -143,7 +170,16 @@
       "severity": "high",
       "category": "backdoor",
       "check": "listeningPort",
-      "ports": [1337, 4444, 5555, 12345, 31337, 54321]
+      "ports": [
+        1337,
+        4444,
+        5555,
+        12345,
+        31337,
+        54321
+      ],
+      "summary": "A program is listening on a port that backdoors and hacking tools use by default. Others on your network may be able to connect to it.",
+      "remedy": "The finding shows which program has the port open. If you don't recognize it, quit it and remove whatever starts it."
     },
     {
       "id": "port.irc-botnet",
@@ -151,7 +187,13 @@
       "severity": "high",
       "category": "worm",
       "check": "listeningPort",
-      "ports": [6666, 6667, 6697]
+      "ports": [
+        6666,
+        6667,
+        6697
+      ],
+      "summary": "Botnets and worms use IRC ports to receive commands. A listener here can mean your Mac is part of one.",
+      "remedy": "Quit the program shown in the finding unless you run an IRC server on purpose."
     },
     {
       "id": "port.remote-access",
@@ -159,7 +201,12 @@
       "severity": "info",
       "category": "hardening",
       "check": "listeningPort",
-      "ports": [22, 5900]
+      "ports": [
+        22,
+        5900
+      ],
+      "summary": "Remote Login (SSH) or Screen Sharing is on. That's fine if you use it, but it lets others on your network try to log in.",
+      "remedy": "If you don't use it, turn off Remote Login and Screen Sharing in System Settings › General › Sharing. Otherwise ignore this finding."
     },
     {
       "id": "malware.silver-sparrow",
@@ -177,6 +224,11 @@
         "~/Library/LaunchAgents/init_agent.plist",
         "~/Library/LaunchAgents/verx.plist",
         "~/Library/LaunchAgents/init_verx.plist"
+      ],
+      "summary": "Silver Sparrow is a macOS malware family that checks in with its servers every hour and can download and run anything its authors send.",
+      "remedy": "Move the files listed to the Trash, unload the launch agents with launchctl bootout, and restart.",
+      "references": [
+        "https://redcanary.com/blog/clipping-silver-sparrows-wings/"
       ]
     },
     {
@@ -190,7 +242,9 @@
         "/Library/AppQuest/com.apple.questd",
         "~/Library/LaunchAgents/com.apple.questd.plist",
         "/Library/LaunchDaemons/com.apple.questd.plist"
-      ]
+      ],
+      "summary": "EvilQuest encrypts your files for ransom, steals files and records keystrokes.",
+      "remedy": "Disconnect from the network, unload the launch item with launchctl bootout, move the files to the Trash, and restore encrypted files from a backup."
     },
     {
       "id": "malware.keranger",
@@ -203,6 +257,11 @@
         "~/Library/.kernel_pid",
         "~/Library/.kernel_time",
         "~/Library/.kernel_complete"
+      ],
+      "summary": "KeRanger is ransomware that arrived inside a hacked Transmission installer and encrypts your documents.",
+      "remedy": "Move the files to the Trash, delete the infected app, and restore encrypted files from a backup.",
+      "references": [
+        "https://unit42.paloaltonetworks.com/new-os-x-ransomware-keranger-infected-transmission-bittorrent-client-installer/"
       ]
     },
     {
@@ -214,6 +273,11 @@
       "paths": [
         "~/Library/Application Support/com.apple.iCloud.sync.daemon/icloudsyncd",
         "~/Library/LaunchAgents/com.apple.iCloud.sync.daemon.plist"
+      ],
+      "summary": "Keydnap is a backdoor that steals passwords from your keychain and lets attackers control your Mac.",
+      "remedy": "Unload and delete the launch agent and the icloudsyncd file, then change the passwords stored in your keychain from another device.",
+      "references": [
+        "https://www.welivesecurity.com/2016/07/06/new-osxkeydnap-malware-hungry-credentials/"
       ]
     },
     {
@@ -225,7 +289,9 @@
       "paths": [
         "~/.client",
         "~/Library/LaunchAgents/com.client.client.plist"
-      ]
+      ],
+      "summary": "FruitFly is a backdoor that can take screenshots, turn on the camera and log keystrokes.",
+      "remedy": "Unload the launch agent, move ~/.client and the plist to the Trash, and restart."
     },
     {
       "id": "malware.proton",
@@ -236,7 +302,9 @@
       "paths": [
         "~/Library/LaunchAgents/com.Eltima.UpdaterAgent.plist",
         "~/Library/.rand/updateragent.app"
-      ]
+      ],
+      "summary": "Proton is a remote access trojan spread through a hacked video player installer. It steals passwords, keychains and browser data.",
+      "remedy": "Delete the files and the infected app, then change your passwords from another device."
     },
     {
       "id": "hash.eicar-test",
@@ -246,6 +314,11 @@
       "check": "fileHash",
       "hashes": [
         "275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f"
+      ],
+      "summary": "This is the EICAR test file, which every antivirus treats as a threat on purpose. It is harmless and only proves the scanner works.",
+      "remedy": "Move it to the Trash when you're done testing.",
+      "references": [
+        "https://www.eicar.org/download-anti-malware-testfile/"
       ]
     }
   ]

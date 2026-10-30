@@ -20,6 +20,9 @@ The app downloads only `rules.signed.json` from this repository and rejects it u
 | `severity` | `info`, `low`, `medium`, `high`, `critical` |
 | `category` | `malware`, `rce`, `worm`, `backdoor`, `persistence`, `miner`, `hardening` |
 | `check` | one of the check types below |
+| `summary` | optional, up to 600 characters: why the finding matters (the app has a default per category) |
+| `remedy` | optional, up to 600 characters: how to fix it (the app has a default per check type) |
+| `references` | optional, up to 5 `https` links to source reports |
 
 | `check` | Needs | Looks at |
 |---|---|---|
