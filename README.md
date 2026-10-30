@@ -29,7 +29,7 @@ Sign and push at least every 14 days, even with no rule changes (raise `version`
 | `check` | Needs | Looks at |
 |---|---|---|
 | `path` | `paths` (start with `/` or `~/`) | files that must not exist |
-| `launchItem` | `patterns` (regex) | program and arguments of LaunchAgents and LaunchDaemons |
+| `launchItem` | `patterns` (regex) | program and arguments of LaunchAgents and LaunchDaemons, and the plist's path |
 | `shellProfile` | `patterns` | lines of `~/.zshrc`, `~/.zprofile`, `~/.bashrc` and other shell startup files |
 | `process` | `patterns` | command lines of running processes |
 | `crontab` | `patterns` | lines of the user's crontab |

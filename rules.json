@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version": 2026103004,
+  "version": 2026103005,
   "rules": [
     {
       "id": "setting.sip",
@@ -45,7 +45,8 @@
         "(curl|wget)[^|;]*\\|\\s*(sudo\\s+)?(ba|z|da)?sh\\b",
         "(curl|wget)\\s.*(-o|--output)\\s*/(private/)?tmp/",
         "base64\\s+(-d|-D|--decode)",
-        "/dev/tcp/"
+        "/dev/tcp/",
+        "(curl|wget)[^|;]*\\|\\s*osascript"
       ],
       "summary": "A launch item starts automatically and fetches code from the internet to run it. This is the most common way malware installs itself and updates.",
       "remedy": "Show the plist in Finder. If you don't know what installed it, run launchctl bootout gui/$(id -u) <path> for a LaunchAgent (or sudo launchctl bootout system <path> for a LaunchDaemon), move the file to the Trash, and restart."
@@ -89,7 +90,8 @@
         "(curl|wget)[^|;]*\\|\\s*(sudo\\s+)?(ba|z|da)?sh\\b",
         "eval\\s*\"?\\$\\((curl|wget)",
         "base64\\s+(-d|-D|--decode).*\\|\\s*(ba|z)?sh",
-        "/dev/tcp/"
+        "/dev/tcp/",
+        "(curl|wget)[^|;]*\\|\\s*osascript"
       ],
       "summary": "This line runs every time you open Terminal and downloads code from the internet, or decodes hidden code, and runs it.",
       "remedy": "Open the file in a text editor (open -e <file>), delete the line, save, and open a new Terminal window."
@@ -159,7 +161,8 @@
         "(curl|wget)[^|;]*\\|\\s*(ba|z|da)?sh\\b",
         "base64\\s+(-d|-D|--decode)",
         "/dev/tcp/",
-        "(^|\\s)(/private)?/tmp/"
+        "(^|\\s)(/private)?/tmp/",
+        "(curl|wget)[^|;]*\\|\\s*osascript"
       ],
       "summary": "A scheduled job downloads or decodes code and runs it on a timer, so malware keeps coming back.",
       "remedy": "Run crontab -e in Terminal, delete the line, and save."
@@ -338,6 +341,147 @@
       "check": "appSignature",
       "summary": "Gatekeeper would refuse to open this app, so it runs only because Gatekeeper was bypassed. Cracked and trojanized apps look like this, and so do apps whose files changed after the developer signed them.",
       "remedy": "If you didn't build it yourself or knowingly allow it, delete the app and download it again from the developer or the App Store. If an app updates itself into this state, reinstalling it fixes the signature."
+    },
+    {
+      "id": "malware.amos",
+      "title": "Atomic Stealer (AMOS) backdoor files",
+      "severity": "critical",
+      "category": "malware",
+      "check": "path",
+      "paths": [
+        "/Library/LaunchDaemons/com.finder.helper.plist",
+        "~/.helper",
+        "~/.agent",
+        "~/.mainhelper"
+      ],
+      "summary": "Atomic Stealer is the most widespread macOS stealer. It takes passwords, browser data and crypto wallets, and newer versions leave a backdoor that restarts itself and takes commands every minute. Assume your passwords, browser sessions and crypto wallets were stolen.",
+      "remedy": "Disconnect from the network. Run sudo launchctl bootout system /Library/LaunchDaemons/com.finder.helper.plist, delete the plist and the hidden .helper, .agent and .mainhelper files in your home folder, and restart. From another device, change your Apple Account, email and banking passwords, sign out of other sessions, and move any crypto to a new wallet.",
+      "references": [
+        "https://www.trendmicro.com/en_us/research/25/i/an-mdr-analysis-of-the-amos-stealer-campaign.html"
+      ]
+    },
+    {
+      "id": "malware.crashstealer",
+      "title": "CrashStealer files",
+      "severity": "critical",
+      "category": "malware",
+      "check": "path",
+      "paths": [
+        "~/Library/LaunchAgents/com.apple.crashreporter.helper.plist",
+        "~/Library/Caches/com.apple.crashreporter/CrashReporter.app",
+        "/private/tmp/.CrashReporter",
+        "~/.cache/com.apple.crashreporter",
+        "~/.cache/.sys_auth"
+      ],
+      "summary": "CrashStealer poses as Apple's crash reporter, asks for your password, copies your keychain and browser data, and starts again at every login. Assume your passwords, browser sessions and crypto wallets were stolen.",
+      "remedy": "Run launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/com.apple.crashreporter.helper.plist, delete the files listed, and restart. From another device, change your Apple Account, email and banking passwords, sign out of other sessions, and move any crypto to a new wallet.",
+      "references": [
+        "https://www.jamf.com/blog/crashstealer-macos-infostealer-analysis/"
+      ]
+    },
+    {
+      "id": "malware.clicklock",
+      "title": "ClickLock stealer and GSocket backdoor files",
+      "severity": "critical",
+      "category": "backdoor",
+      "check": "path",
+      "paths": [
+        "~/Library/LaunchAgents/com.authirity.plist",
+        "~/Library/LaunchAgents/com.chromer.plist",
+        "~/.cacheb",
+        "~/Library/Application Support/iCloudsync"
+      ],
+      "summary": "ClickLock arrives through fake 'paste this into Terminal' instructions. It steals browser data and installs a GSocket backdoor disguised as iCloud that gives attackers a remote shell. Assume your passwords, browser sessions and crypto wallets were stolen.",
+      "remedy": "Unload both launch agents with launchctl bootout gui/$(id -u) <plist>, delete the files listed, and restart. From another device, change your Apple Account, email and banking passwords, sign out of other sessions, and move any crypto to a new wallet.",
+      "references": [
+        "https://rhisac.org/threat-intelligence/new-clicklock-stealer-macos-malware-spread-via-clickfix-campaign/"
+      ]
+    },
+    {
+      "id": "malware.sapphire-sleet",
+      "title": "Sapphire Sleet (North Korea) backdoor files",
+      "severity": "critical",
+      "category": "backdoor",
+      "check": "path",
+      "paths": [
+        "/Library/LaunchDaemons/com.google.webkit.service.plist",
+        "~/Library/LaunchAgents/com.apple.identification.plist",
+        "~/com.apple.cli",
+        "~/com.microsoft.helper",
+        "~/.google.doc",
+        "~/.google.docs",
+        "~/.com.apple.helpers",
+        "~/Library/Services/services",
+        "~/Library/Application Support/iCloud/icloudz",
+        "~/Library/Google/com.google.chromes.updaters",
+        "~/Library/Identification/.verify",
+        "/private/tmp/lg4err"
+      ],
+      "summary": "Sapphire Sleet is a North Korean group that targets crypto and finance workers with fake Zoom and Teams updates. Its backdoors run as fake Google and Apple services and steal credentials and wallets.",
+      "remedy": "Treat this Mac as compromised: disconnect it, back up only your documents, erase and reinstall macOS, then change every password from a clean device. Report it to your security team if this is a work Mac.",
+      "references": [
+        "https://www.microsoft.com/en-us/security/blog/2026/04/16/dissecting-sapphire-sleets-macos-intrusion-from-lure-to-compromise/"
+      ]
+    },
+    {
+      "id": "malware.icmacos",
+      "title": "ICMacOS (Icarus) stealer files",
+      "severity": "critical",
+      "category": "malware",
+      "check": "path",
+      "paths": [
+        "~/Library/LaunchAgents/com.apple.systemupdater.plist",
+        "/private/tmp/.update-helper.log",
+        "/private/tmp/.cache-update.log",
+        "/private/tmp/.update-tmp",
+        "/private/tmp/.systemd-private-helper.zip"
+      ],
+      "summary": "ICMacOS steals credentials and keeps remote access through a launch agent with an Apple-like name. Assume your passwords, browser sessions and crypto wallets were stolen.",
+      "remedy": "Run launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/com.apple.systemupdater.plist, delete the files listed, and restart. From another device, change your Apple Account, email and banking passwords, sign out of other sessions, and move any crypto to a new wallet.",
+      "references": [
+        "https://socradar.io/blog/icmacos-infostealer-rat/",
+        "https://cybersecuritynews.com/icmacos-malware-evolves/"
+      ]
+    },
+    {
+      "id": "launch.apple-impersonation",
+      "title": "Launch item pretends to be part of macOS",
+      "severity": "high",
+      "category": "persistence",
+      "check": "launchItem",
+      "patterns": [
+        "/Library/Launch(Agents|Daemons)/com\\.apple\\.[^/]*\\.plist$"
+      ],
+      "summary": "Apple's own launch items live only in /System, which nothing else can write to. A com.apple.* launch item in your Library or /Library was put there by something else, which is how several 2026 stealers hide.",
+      "remedy": "Show the plist in Finder and look at the program it starts. Unless you know which app installed it, unload it with launchctl bootout and move the plist and its program to the Trash."
+    },
+    {
+      "id": "process.stealer-activity",
+      "title": "Stealer is collecting or uploading data right now",
+      "severity": "critical",
+      "category": "malware",
+      "check": "process",
+      "patterns": [
+        "curl\\s.*-F\\s*\\\"?file=@/(private/)?tmp/",
+        "\\bditto\\s+-c\\s+-k\\s+--sequesterRsrc\\s.*\\s/(private/)?tmp/",
+        "osascript\\b.*display dialog.*hidden answer",
+        "(curl|wget)[^|;]*\\|\\s*osascript"
+      ],
+      "summary": "A running process is doing what macOS stealers do: zipping your data into a temporary folder and uploading it, showing a fake password prompt, or running a downloaded AppleScript.",
+      "remedy": "Disconnect from the network now, quit the process in Activity Monitor, and scan again to find what started it. From another device, change your Apple Account, email and banking passwords, sign out of other sessions, and move any crypto to a new wallet."
+    },
+    {
+      "id": "process.stealer-backdoor",
+      "title": "Stealer backdoor is running",
+      "severity": "critical",
+      "category": "backdoor",
+      "check": "process",
+      "patterns": [
+        "/Users/[^/]+/\\.(agent|helper|mainhelper)(\\s|$)",
+        "\\bSystemUIServerl\\b"
+      ],
+      "summary": "A process matching a known stealer backdoor is running (AMOS's hidden .helper or .agent loop, or ClickLock's fake SystemUIServer). Attackers can send it commands.",
+      "remedy": "Disconnect from the network, then follow the steps for the matching malware files finding. Killing the process alone isn't enough; AMOS restarts it within a second."
     }
   ]
 }
