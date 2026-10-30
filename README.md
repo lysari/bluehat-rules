@@ -42,4 +42,6 @@ Sign and push at least every 14 days, even with no rule changes (raise `version`
 | `sshKey` | optional `patterns` | keys in `~/.ssh/authorized_keys` and `authorized_keys2`; without patterns every key is reported, with patterns only matching lines |
 | `profile` | optional `patterns` | configuration profiles from `profiles show` (user profiles; computer-wide profiles need root); without patterns every non-internal profile is reported, with patterns only profiles with a matching payload type |
 
+| `browserExtension` | `patterns` | one line per extension in Chrome, Brave, Edge, Arc, Chromium, Vivaldi (every profile, newest version) and Firefox (user add-ons): `browser=<name> id=<id> name=<name> update=<update URL, addons.mozilla.org for Mozilla-signed add-ons, or none> permissions=<comma-separated>` |
+
 An older Bluehat skips rules whose `check` it doesn't know and says how many it skipped, so new check types never break existing installs.

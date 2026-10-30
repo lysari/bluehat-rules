@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version": 2026103006,
+  "version": 2026103007,
   "rules": [
     {
       "id": "setting.sip",
@@ -517,6 +517,42 @@
       "check": "profile",
       "summary": "Configuration profiles change system settings and are normally installed only by schools and companies. This one is listed so you know it's there.",
       "remedy": "If you recognize it, ignore this finding. Otherwise remove it in System Settings › General › Device Management."
+    },
+    {
+      "id": "extension.sideloaded",
+      "title": "Browser extension not from an official store",
+      "severity": "high",
+      "category": "malware",
+      "check": "browserExtension",
+      "patterns": [
+        "\\supdate=(?!(https://clients2\\.google\\.com/service/update2/crx|https://edge\\.microsoft\\.com/extensionwebstorebase/v1/crx|addons\\.mozilla\\.org)\\s)"
+      ],
+      "summary": "This extension updates from somewhere other than the Chrome Web Store, Edge Add-ons or Mozilla, or isn't signed by Mozilla. Malware installs extensions this way to read your browsing, steal sessions and swap search results, because store review can't stop it.",
+      "remedy": "Remove it from the browser's extensions page. If it keeps coming back, look for a configuration profile or launch item that reinstalls it (Bluehat checks both), then change passwords for sites you used while it was installed."
+    },
+    {
+      "id": "extension.cookie-access",
+      "title": "Browser extension can read cookies on every site",
+      "severity": "low",
+      "category": "hardening",
+      "check": "browserExtension",
+      "patterns": [
+        "\\spermissions=(?=\\S*\\bcookies\\b)(?=\\S*(<all_urls>|\\*://\\*/\\*|https?://\\*/\\*))"
+      ],
+      "summary": "With cookie access on every site, this extension could take over any account you're signed in to. Many honest extensions ask for this, but it's the permission session-stealing extensions need.",
+      "remedy": "Keep it only if you trust the developer and use it. Otherwise remove it, or limit it to specific sites in the browser's extension settings."
+    },
+    {
+      "id": "extension.debugger-proxy",
+      "title": "Browser extension can debug pages or reroute traffic",
+      "severity": "low",
+      "category": "hardening",
+      "check": "browserExtension",
+      "patterns": [
+        "\\spermissions=\\S*\\b(debugger|proxy)\\b"
+      ],
+      "summary": "The debugger permission lets an extension read and change everything on a page, including passwords as you type them. The proxy permission lets it send all your browsing through another server. VPN and developer tools need these; malicious extensions abuse them.",
+      "remedy": "Keep it only if it's a VPN or developer tool you installed on purpose. Otherwise remove it."
     }
   ]
 }
