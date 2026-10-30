@@ -39,4 +39,7 @@ Sign and push at least every 14 days, even with no rule changes (raise `version`
 | `launchItemSignature` | nothing | programs started by LaunchAgents and LaunchDaemons that are unsigned, ad-hoc signed or tampered (every architecture checked) |
 | `appSignature` | nothing | apps in `/Applications`, `~/Applications` and `~/Downloads` (and one folder down) that are unsigned, ad-hoc signed or changed after signing |
 
+| `sshKey` | optional `patterns` | keys in `~/.ssh/authorized_keys` and `authorized_keys2`; without patterns every key is reported, with patterns only matching lines |
+| `profile` | optional `patterns` | configuration profiles from `profiles show` (user profiles; computer-wide profiles need root); without patterns every non-internal profile is reported, with patterns only profiles with a matching payload type |
+
 An older Bluehat skips rules whose `check` it doesn't know and says how many it skipped, so new check types never break existing installs.

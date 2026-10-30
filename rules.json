@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version": 2026103005,
+  "version": 2026103006,
   "rules": [
     {
       "id": "setting.sip",
@@ -482,6 +482,41 @@
       ],
       "summary": "A process matching a known stealer backdoor is running (AMOS's hidden .helper or .agent loop, or ClickLock's fake SystemUIServer). Attackers can send it commands.",
       "remedy": "Disconnect from the network, then follow the steps for the matching malware files finding. Killing the process alone isn't enough; AMOS restarts it within a second."
+    },
+    {
+      "id": "ssh.authorized-key",
+      "title": "SSH key can log in to your Mac",
+      "severity": "medium",
+      "category": "backdoor",
+      "check": "sshKey",
+      "summary": "Anyone holding the private half of this key can log in as you without a password whenever Remote Login is on. Attackers add their own key here to keep access even after you change your password.",
+      "remedy": "If you added this key yourself, ignore this finding; a new key will still show up. Otherwise delete its line from ~/.ssh/authorized_keys, and turn off Remote Login in System Settings › General › Sharing if you don't use it."
+    },
+    {
+      "id": "profile.risky-payload",
+      "title": "Profile controls your proxy, DNS, certificates or browser",
+      "severity": "high",
+      "category": "persistence",
+      "check": "profile",
+      "patterns": [
+        "^com\\.apple\\.proxy\\.http\\.global$",
+        "^com\\.apple\\.dnsSettings\\.managed$",
+        "^com\\.apple\\.security\\.(root|pem|pkcs1)$",
+        "^com\\.apple\\.webcontent-filter$",
+        "^com\\.google\\.Chrome$",
+        "^com\\.apple\\.ManagedClient\\.preferences$"
+      ],
+      "summary": "This configuration profile can route your traffic through someone else's proxy or DNS, trust their certificate so they can read encrypted traffic, or force browser settings and extensions. Adware and spyware install profiles like this because they survive deleting the app.",
+      "remedy": "Unless your school or company installed it, remove it in System Settings › General › Device Management, then check your browser's search engine and extensions."
+    },
+    {
+      "id": "profile.installed",
+      "title": "Configuration profile is installed",
+      "severity": "info",
+      "category": "hardening",
+      "check": "profile",
+      "summary": "Configuration profiles change system settings and are normally installed only by schools and companies. This one is listed so you know it's there.",
+      "remedy": "If you recognize it, ignore this finding. Otherwise remove it in System Settings › General › Device Management."
     }
   ]
 }
