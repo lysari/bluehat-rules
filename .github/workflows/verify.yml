@@ -1,0 +1,21 @@
+name: Verify rules
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+      - name: Check signature, contents, version and expiry
+        env:
+          TRUSTED_KEYS: ejbt4bgFPpvJCdj/67M3kWasEgEs1eKUs9v/ii97PhA=
+        run: python3 .github/scripts/verify_rules.py

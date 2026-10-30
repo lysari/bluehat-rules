@@ -2,7 +2,7 @@
 
 Detection rules for the Bluehat macOS menu bar scanner.
 
-The app downloads only `rules.signed.json` from this repository and rejects it unless it is signed by the owner's Ed25519 key, whose public half is built into the app. Rules are data only: each rule picks one of the check types the app has built in, so nothing in this repository can make the app run code.
+The app downloads only `rules.signed.json` from this repository and rejects it unless it is signed by one of the owner's Ed25519 keys, whose public halves are built into the app. Rules are data only: each rule picks one of the check types the app has built in, so nothing in this repository can make the app run code.
 
 ## Update the rules
 
@@ -11,7 +11,18 @@ The app downloads only `rules.signed.json` from this repository and rejects it u
 3. Sign: `devbox run sign-rules` from the Bluehat project. The signer adds a signed `issued` time to the published copy; don't put it in `rules.json` yourself.
 4. Commit and push both `rules.json` and `rules.signed.json`.
 
-Sign and push at least every 14 days, even with no rule changes (raise `version`). The app warns when the rules it trusts were signed more than 14 days ago, so someone who blocks updates or keeps serving an old signed file can't silently freeze your rules.
+Sign and push at least every 14 days, even with no rule changes (raise `version`). The signer stamps `issued` and `expires` (30 days later) into the signed copy. The app warns 14 days after signing and refuses expired rules, so someone who blocks updates or keeps serving an old signed file can't freeze your rules, and the app refuses versions below its built-in minimum, so old signed files without an expiry can't be replayed to a fresh install.
+
+## Checks on every push
+
+`.github/workflows/verify.yml` runs `.github/scripts/verify_rules.py` (Python standard library and OpenSSL only). It fails when `rules.signed.json` isn't signed by a trusted key, doesn't match `rules.json`, has no `issued`/`expires`, has expired, has duplicate ids, or changed without a higher `version`. Its `TRUSTED_KEYS` must list the same public keys as the app's `RuleFeed.trustedKeys`. It is a consistency check, not the security boundary: the app verifies everything itself.
+
+## Signing keys
+
+- Primary key: in the owner's login Keychain (service `bluehat-rules-signing`), created with `bluehat-sign keygen`.
+- Backup key: create one offline with `bluehat-sign backup-keygen /Volumes/<encrypted drive>/bluehat-backup.key`, add its public key to `RuleFeed.trustedKeys` and to `TRUSTED_KEYS` in the workflow, rebuild and reinstall the app. Keep the file off this Mac and out of git.
+- Primary key lost: sign with `bluehat-sign sign rules/rules.json --key-file <backup file>`, then create a new Keychain key and add it as above.
+- Primary key leaked: remove its public key from `RuleFeed.trustedKeys` and `TRUSTED_KEYS`, sign with the backup key, rebuild and reinstall the app, then create a new key and a new backup.
 
 ## Rule format
 
