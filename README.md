@@ -36,3 +36,7 @@ Sign and push at least every 14 days, even with no rule changes (raise `version`
 | `listeningPort` | `ports` | TCP ports with a listening process |
 | `fileHash` | `hashes` (lowercase SHA-256) | files in Downloads, Desktop, `/Users/Shared` and `/private/tmp` |
 | `setting` | `setting`: `sip`, `gatekeeper`, `firewall` | macOS protections that are switched off |
+| `launchItemSignature` | nothing | programs started by LaunchAgents and LaunchDaemons that are unsigned, ad-hoc signed or tampered (every architecture checked) |
+| `appSignature` | nothing | apps in `/Applications`, `~/Applications` and `~/Downloads` (and one folder down) that are unsigned, ad-hoc signed or changed after signing |
+
+An older Bluehat skips rules whose `check` it doesn't know and says how many it skipped, so new check types never break existing installs.

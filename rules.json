@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version": 2026103003,
+  "version": 2026103004,
   "rules": [
     {
       "id": "setting.sip",
@@ -320,6 +320,24 @@
       "references": [
         "https://www.eicar.org/download-anti-malware-testfile/"
       ]
+    },
+    {
+      "id": "launch.unsigned-program",
+      "title": "Launch item starts an unsigned or tampered program",
+      "severity": "high",
+      "category": "persistence",
+      "check": "launchItemSignature",
+      "summary": "Software that starts by itself at login or boot is almost always signed by its developer. An unsigned, ad-hoc signed or modified program here is how most macOS malware keeps itself running.",
+      "remedy": "Show the launch item in Finder and look up the program it starts. If you didn't install it, unload it with launchctl bootout, move the plist and the program to the Trash, and restart."
+    },
+    {
+      "id": "app.unsigned",
+      "title": "App is unsigned or its signature is broken",
+      "severity": "medium",
+      "category": "malware",
+      "check": "appSignature",
+      "summary": "Gatekeeper would refuse to open this app, so it runs only because Gatekeeper was bypassed. Cracked and trojanized apps look like this, and so do apps whose files changed after the developer signed them.",
+      "remedy": "If you didn't build it yourself or knowingly allow it, delete the app and download it again from the developer or the App Store. If an app updates itself into this state, reinstalling it fixes the signature."
     }
   ]
 }
