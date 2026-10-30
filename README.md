@@ -8,8 +8,10 @@ The app downloads only `rules.signed.json` from this repository and rejects it u
 
 1. Edit `rules.json`.
 2. Raise `version` (format `YYYYMMDDNN`). The app refuses a version lower than the last one it verified.
-3. Sign: `swift run bluehat-sign sign rules/rules.json` from the Bluehat project.
+3. Sign: `devbox run sign-rules` from the Bluehat project. The signer adds a signed `issued` time to the published copy; don't put it in `rules.json` yourself.
 4. Commit and push both `rules.json` and `rules.signed.json`.
+
+Sign and push at least every 14 days, even with no rule changes (raise `version`). The app warns when the rules it trusts were signed more than 14 days ago, so someone who blocks updates or keeps serving an old signed file can't silently freeze your rules.
 
 ## Rule format
 
