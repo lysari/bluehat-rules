@@ -1,0 +1,252 @@
+{
+  "schema": 1,
+  "version": 2026103001,
+  "rules": [
+    {
+      "id": "setting.sip",
+      "title": "System Integrity Protection is disabled",
+      "severity": "high",
+      "category": "hardening",
+      "check": "setting",
+      "setting": "sip"
+    },
+    {
+      "id": "setting.gatekeeper",
+      "title": "Gatekeeper is disabled",
+      "severity": "high",
+      "category": "hardening",
+      "check": "setting",
+      "setting": "gatekeeper"
+    },
+    {
+      "id": "setting.firewall",
+      "title": "Application Firewall is disabled",
+      "severity": "medium",
+      "category": "hardening",
+      "check": "setting",
+      "setting": "firewall"
+    },
+    {
+      "id": "launch.remote-script",
+      "title": "Launch item downloads and runs a remote script",
+      "severity": "critical",
+      "category": "rce",
+      "check": "launchItem",
+      "patterns": [
+        "(curl|wget)[^|;]*\\|\\s*(sudo\\s+)?(ba|z|da)?sh\\b",
+        "(curl|wget)\\s.*(-o|--output)\\s*/(private/)?tmp/",
+        "base64\\s+(-d|-D|--decode)",
+        "/dev/tcp/"
+      ]
+    },
+    {
+      "id": "launch.temp-binary",
+      "title": "Launch item runs a program from a temp or shared folder",
+      "severity": "high",
+      "category": "persistence",
+      "check": "launchItem",
+      "patterns": [
+        "^(/private)?/tmp/",
+        "^/Users/Shared/",
+        "^/var/folders/"
+      ]
+    },
+    {
+      "id": "launch.inline-script",
+      "title": "Launch item runs an inline script",
+      "severity": "medium",
+      "category": "persistence",
+      "check": "launchItem",
+      "patterns": [
+        "osascript\\s+-e",
+        "python3?\\s+-c\\s",
+        "perl\\s+-e\\s",
+        "(ba|z)?sh\\s+-c\\s.*(curl|wget|nc\\s)"
+      ]
+    },
+    {
+      "id": "profile.remote-script",
+      "title": "Shell startup file runs remote or hidden code",
+      "severity": "critical",
+      "category": "rce",
+      "check": "shellProfile",
+      "patterns": [
+        "(curl|wget)[^|;]*\\|\\s*(sudo\\s+)?(ba|z|da)?sh\\b",
+        "eval\\s*\"?\\$\\((curl|wget)",
+        "base64\\s+(-d|-D|--decode).*\\|\\s*(ba|z)?sh",
+        "/dev/tcp/"
+      ]
+    },
+    {
+      "id": "profile.dylib-injection",
+      "title": "Shell startup file injects a library into every program",
+      "severity": "high",
+      "category": "malware",
+      "check": "shellProfile",
+      "patterns": [
+        "DYLD_INSERT_LIBRARIES"
+      ]
+    },
+    {
+      "id": "process.reverse-shell",
+      "title": "Reverse shell is running",
+      "severity": "critical",
+      "category": "backdoor",
+      "check": "process",
+      "patterns": [
+        "(ba|z)?sh\\s+-i\\s*[<>]&?\\s*/dev/tcp/",
+        "\\bn(c|cat)\\b.*\\s-(e|c)\\s",
+        "\\bsocat\\b.*exec:",
+        "pty\\.spawn\\("
+      ]
+    },
+    {
+      "id": "process.miner",
+      "title": "Cryptocurrency miner is running",
+      "severity": "high",
+      "category": "miner",
+      "check": "process",
+      "patterns": [
+        "\\bxmrig\\b",
+        "\\bminerd\\b",
+        "\\bcpuminer\\b",
+        "stratum\\+(tcp|ssl)://"
+      ]
+    },
+    {
+      "id": "process.network-scanner",
+      "title": "Mass network scanner is running (worm spreading)",
+      "severity": "high",
+      "category": "worm",
+      "check": "process",
+      "patterns": [
+        "\\bmasscan\\b",
+        "\\bzmap\\b"
+      ]
+    },
+    {
+      "id": "crontab.remote-script",
+      "title": "Cron job downloads or runs hidden code",
+      "severity": "critical",
+      "category": "rce",
+      "check": "crontab",
+      "patterns": [
+        "(curl|wget)[^|;]*\\|\\s*(ba|z|da)?sh\\b",
+        "base64\\s+(-d|-D|--decode)",
+        "/dev/tcp/",
+        "(^|\\s)(/private)?/tmp/"
+      ]
+    },
+    {
+      "id": "port.backdoor",
+      "title": "Port commonly used by backdoors is listening",
+      "severity": "high",
+      "category": "backdoor",
+      "check": "listeningPort",
+      "ports": [1337, 4444, 5555, 12345, 31337, 54321]
+    },
+    {
+      "id": "port.irc-botnet",
+      "title": "IRC port used by botnets and worms is listening",
+      "severity": "high",
+      "category": "worm",
+      "check": "listeningPort",
+      "ports": [6666, 6667, 6697]
+    },
+    {
+      "id": "port.remote-access",
+      "title": "Remote access service is on",
+      "severity": "info",
+      "category": "hardening",
+      "check": "listeningPort",
+      "ports": [22, 5900]
+    },
+    {
+      "id": "malware.silver-sparrow",
+      "title": "Silver Sparrow malware files",
+      "severity": "critical",
+      "category": "malware",
+      "check": "path",
+      "paths": [
+        "~/Library/._insu",
+        "/tmp/agent.sh",
+        "/tmp/version.json",
+        "/tmp/version.plist",
+        "~/Library/Application Support/agent_updater/agent.sh",
+        "~/Library/Application Support/verx_updater/verx.sh",
+        "~/Library/LaunchAgents/init_agent.plist",
+        "~/Library/LaunchAgents/verx.plist",
+        "~/Library/LaunchAgents/init_verx.plist"
+      ]
+    },
+    {
+      "id": "malware.evilquest",
+      "title": "EvilQuest (ThiefQuest) ransomware files",
+      "severity": "critical",
+      "category": "malware",
+      "check": "path",
+      "paths": [
+        "~/Library/AppQuest/com.apple.questd",
+        "/Library/AppQuest/com.apple.questd",
+        "~/Library/LaunchAgents/com.apple.questd.plist",
+        "/Library/LaunchDaemons/com.apple.questd.plist"
+      ]
+    },
+    {
+      "id": "malware.keranger",
+      "title": "KeRanger ransomware files",
+      "severity": "critical",
+      "category": "malware",
+      "check": "path",
+      "paths": [
+        "~/Library/kernel_service",
+        "~/Library/.kernel_pid",
+        "~/Library/.kernel_time",
+        "~/Library/.kernel_complete"
+      ]
+    },
+    {
+      "id": "malware.keydnap",
+      "title": "Keydnap backdoor files",
+      "severity": "critical",
+      "category": "backdoor",
+      "check": "path",
+      "paths": [
+        "~/Library/Application Support/com.apple.iCloud.sync.daemon/icloudsyncd",
+        "~/Library/LaunchAgents/com.apple.iCloud.sync.daemon.plist"
+      ]
+    },
+    {
+      "id": "malware.fruitfly",
+      "title": "FruitFly backdoor files",
+      "severity": "critical",
+      "category": "backdoor",
+      "check": "path",
+      "paths": [
+        "~/.client",
+        "~/Library/LaunchAgents/com.client.client.plist"
+      ]
+    },
+    {
+      "id": "malware.proton",
+      "title": "Proton remote access trojan files",
+      "severity": "critical",
+      "category": "backdoor",
+      "check": "path",
+      "paths": [
+        "~/Library/LaunchAgents/com.Eltima.UpdaterAgent.plist",
+        "~/Library/.rand/updateragent.app"
+      ]
+    },
+    {
+      "id": "hash.eicar-test",
+      "title": "EICAR antivirus test file (harmless, used to test the scanner)",
+      "severity": "info",
+      "category": "malware",
+      "check": "fileHash",
+      "hashes": [
+        "275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f"
+      ]
+    }
+  ]
+}
