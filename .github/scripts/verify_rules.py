@@ -1,13 +1,23 @@
 import base64
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
+import unicodedata
 from datetime import datetime, timezone
 
 ED25519_PUBLIC_KEY_PREFIX = bytes.fromhex("302a300506032b6570032100")
 STAMPED_FIELDS = ("issued", "expires")
+FEED_FILE = "feed.signed.json"
+FEED_SCHEMA = 1
+MAX_FEED_HASHES = 10000
+MAX_FEED_BYTES = 4_000_000
+MAX_FAMILY_LENGTH = 64
+FEED_ENTRY_FIELDS = {"sha256", "family", "firstSeen"}
+SHA256_PATTERN = re.compile(r"[0-9a-f]{64}")
+DATE_PATTERN = re.compile(r"[0-9]{4}-[0-9]{2}-[0-9]{2}")
 
 
 def fail(message):
@@ -35,6 +45,18 @@ def verified_by(key, payload, signature, directory):
     return result.returncode == 0
 
 
+def verified_envelope(path, keys, key_list_name):
+    if not keys:
+        fail(f"{key_list_name} is empty")
+    envelope = json.load(open(path))
+    payload = base64.b64decode(envelope["rules"])
+    signature = base64.b64decode(envelope["signature"])
+    with tempfile.TemporaryDirectory() as directory:
+        if not any(verified_by(key, payload, signature, directory) for key in keys):
+            fail(f"{path} is not signed by a key in {key_list_name}")
+    return envelope, json.loads(payload)
+
+
 def previous_signed_version():
     result = subprocess.run(["git", "show", "HEAD~1:rules.signed.json"], capture_output=True)
     if result.returncode != 0:
@@ -47,18 +69,53 @@ def parse_time(value):
     return datetime.fromisoformat(value.replace("Z", "+00:00"))
 
 
-def main():
-    trusted_keys = os.environ.get("TRUSTED_KEYS", "").split()
-    if not trusted_keys:
-        fail("TRUSTED_KEYS is empty")
-    envelope = json.load(open("rules.signed.json"))
-    payload = base64.b64decode(envelope["rules"])
-    signature = base64.b64decode(envelope["signature"])
-    with tempfile.TemporaryDirectory() as directory:
-        if not any(verified_by(key, payload, signature, directory) for key in trusted_keys):
-            fail("rules.signed.json is not signed by a trusted key")
+def feed_entry_problem(entry):
+    if not isinstance(entry, dict) or set(entry) != FEED_ENTRY_FIELDS:
+        return f"fields must be {sorted(FEED_ENTRY_FIELDS)}"
+    if not isinstance(entry["sha256"], str) or not SHA256_PATTERN.fullmatch(entry["sha256"]):
+        return "sha256 is not 64 lowercase hex characters"
+    family = entry["family"]
+    if not isinstance(family, str) or len(family) > MAX_FAMILY_LENGTH:
+        return f"family is longer than {MAX_FAMILY_LENGTH} characters"
+    if any(unicodedata.category(character) in ("Cc", "Cf") for character in family):
+        return "family contains control characters"
+    first_seen = entry["firstSeen"]
+    if not isinstance(first_seen, str) or not DATE_PATTERN.fullmatch(first_seen):
+        return "firstSeen is not YYYY-MM-DD"
+    try:
+        datetime.strptime(first_seen, "%Y-%m-%d")
+    except ValueError:
+        return "firstSeen is not a real date"
+    return None
 
-    signed = json.loads(payload)
+
+def verify_feed():
+    if os.path.getsize(FEED_FILE) >= MAX_FEED_BYTES:
+        fail(f"{FEED_FILE} is larger than {MAX_FEED_BYTES} bytes")
+    _, feed = verified_envelope(FEED_FILE, os.environ.get("FEED_KEYS", "").split(), "FEED_KEYS")
+    if feed.get("schema") != FEED_SCHEMA:
+        fail(f"feed schema {feed.get('schema')} is not {FEED_SCHEMA}")
+    if not isinstance(feed.get("version"), int):
+        fail("feed has no integer version")
+    for field in STAMPED_FIELDS:
+        if not isinstance(feed.get(field), str):
+            fail(f"feed has no {field} time")
+    if parse_time(feed["expires"]) <= datetime.now(timezone.utc):
+        fail(f"feed expired at {feed['expires']}")
+    hashes = feed.get("hashes")
+    if not isinstance(hashes, list) or not 0 < len(hashes) <= MAX_FEED_HASHES:
+        fail(f"feed must list 1-{MAX_FEED_HASHES} hashes")
+    for index, entry in enumerate(hashes):
+        problem = feed_entry_problem(entry)
+        if problem:
+            fail(f"feed entry {index}: {problem}")
+    if len({entry["sha256"] for entry in hashes}) != len(hashes):
+        fail("feed hashes are not unique")
+    print(f"Verified feed v{feed['version']}: {len(hashes)} hashes, signed {feed['issued']}, expires {feed['expires']}")
+
+
+def main():
+    envelope, signed = verified_envelope("rules.signed.json", os.environ.get("TRUSTED_KEYS", "").split(), "TRUSTED_KEYS")
     source = json.load(open("rules.json"))
     if {key: value for key, value in signed.items() if key not in STAMPED_FIELDS} != source:
         fail("rules.signed.json does not match rules.json; run devbox run sign-rules and commit both files")
@@ -78,6 +135,9 @@ def main():
         fail(f"version {signed['version']} must be higher than the previous {previous_version}")
 
     print(f"Verified v{signed['version']}: {len(ids)} rules, signed {signed['issued']}, expires {signed['expires']}")
+
+    if os.path.exists(FEED_FILE):
+        verify_feed()
 
 
 main()

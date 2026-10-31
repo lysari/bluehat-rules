@@ -1,0 +1,43 @@
+name: Update feed
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-feed
+  cancel-in-progress: false
+
+jobs:
+  update:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Build and sign feed.signed.json from MalwareBazaar
+        env:
+          ABUSE_CH_AUTH_KEY: ${{ secrets.ABUSE_CH_AUTH_KEY }}
+          FEED_SIGNING_KEY: ${{ secrets.FEED_SIGNING_KEY }}
+        run: python3 -I .github/scripts/update_feed.py
+      - name: Commit and push the feed if it changed
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          if [ -z "$(git status --porcelain -- feed.signed.json)" ]; then
+            echo "feed.signed.json unchanged"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add feed.signed.json
+          git commit -m "chore(feed): update fingerprints"
+          auth=$(printf 'x-access-token:%s' "$GITHUB_TOKEN" | base64 -w0)
+          echo "::add-mask::$auth"
+          git -c http.extraheader="AUTHORIZATION: basic $auth" push origin HEAD:main
