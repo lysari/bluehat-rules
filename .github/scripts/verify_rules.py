@@ -5,7 +5,6 @@ import re
 import subprocess
 import sys
 import tempfile
-import unicodedata
 from datetime import datetime, timezone
 
 ED25519_PUBLIC_KEY_PREFIX = bytes.fromhex("302a300506032b6570032100")
@@ -14,10 +13,10 @@ FEED_FILE = "feed.signed.json"
 FEED_SCHEMA = 1
 MAX_FEED_HASHES = 10000
 MAX_FEED_BYTES = 4_000_000
-MAX_FAMILY_LENGTH = 64
 FEED_ENTRY_FIELDS = {"sha256", "family", "firstSeen"}
 SHA256_PATTERN = re.compile(r"[0-9a-f]{64}")
 DATE_PATTERN = re.compile(r"[0-9]{4}-[0-9]{2}-[0-9]{2}")
+FAMILY_PATTERN = re.compile(r"[A-Za-z0-9][A-Za-z0-9 ._-]{0,63}")
 
 
 def fail(message):
@@ -75,10 +74,8 @@ def feed_entry_problem(entry):
     if not isinstance(entry["sha256"], str) or not SHA256_PATTERN.fullmatch(entry["sha256"]):
         return "sha256 is not 64 lowercase hex characters"
     family = entry["family"]
-    if not isinstance(family, str) or len(family) > MAX_FAMILY_LENGTH:
-        return f"family is longer than {MAX_FAMILY_LENGTH} characters"
-    if any(unicodedata.category(character) in ("Cc", "Cf") for character in family):
-        return "family contains control characters"
+    if not isinstance(family, str) or (family and not FAMILY_PATTERN.fullmatch(family)):
+        return "family is not empty or 1-64 letters, digits, spaces, '.', '_' or '-' starting with a letter or digit"
     first_seen = entry["firstSeen"]
     if not isinstance(first_seen, str) or not DATE_PATTERN.fullmatch(first_seen):
         return "firstSeen is not YYYY-MM-DD"

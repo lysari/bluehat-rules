@@ -17,7 +17,11 @@ Hand-written rules expire 1 year after signing: the signer stamps `issued` and `
 
 `feed.signed.json` lists SHA-256 hashes of recent macOS malware samples from [MalwareBazaar](https://bazaar.abuse.ch/) (abuse.ch), so the app's file hash check knows current attacks without a hand-written rule for each sample.
 
-- `.github/workflows/update-feed.yml` runs `.github/scripts/update_feed.py` daily at 03:17 UTC (and on demand from the Actions tab). It queries MalwareBazaar for macOS file types (`macho`, `dmg`, `pkg`, `app`) and macOS tags (`macOS`, `osx`, `AMOS`, `AtomicStealer` and other stealer families), keeps samples with a macOS file type or tag, merges them with the current feed, drops hashes first seen more than 365 days ago, keeps the 10000 newest, signs the result and commits it as `github-actions[bot]`. The log lists each query's status and sample count.
+- `.github/workflows/update-feed.yml` runs `.github/scripts/update_feed.py` daily at 03:17 UTC (and on demand from the Actions tab). It queries MalwareBazaar for macOS file types (`macho`, `dmg`, `pkg`, `app`) and macOS tags (`macOS`, `osx`, `AMOS`, `AtomicStealer` and other stealer families), keeps samples with a macOS file type or tag **and** a malware family from MalwareBazaar (its `signature` field), merges them with the current feed, drops hashes first seen more than 365 days ago, keeps the 10000 newest, signs the result and commits it as `github-actions[bot]`. The log lists each query's status and sample count, and how many macOS samples were left out for having no family.
+- Why a family is required: anyone with a free MalwareBazaar account can upload a file and tag it `macOS`, and every feed hash is reported as critical, so an uploaded copy of a popular legitimate app would otherwise be signed into the feed. The uploader's tags alone no longer put a file in the feed; MalwareBazaar must also have classified it as a malware family. The trade-off is that samples with only tags (for example new or unclassified ones) are no longer in the feed.
+- One run may add at most 500 new hashes (`MAX_NEW_HASHES` in `update_feed.py`). Above that the job fails without writing anything and logs the new hashes by family. Review them on MalwareBazaar, and if they are genuine raise the limit in a reviewed commit.
+- Every run checks the published hashes again with the current rules: an entry that no longer passes the entry checks, or whose sample MalwareBazaar now lists without a family or macOS marker, is dropped.
+- MalwareBazaar requests refuse redirects (so the `Auth-Key` header is never sent to another host) and read at most 20,000,000 bytes of each response.
 - It only commits when the set of hashes changed or the published feed expires within 2 days. The feed expires 7 days after signing, so it stays valid while the job runs and goes stale within a week if the job stops.
 - It needs two repository secrets: `ABUSE_CH_AUTH_KEY` (MalwareBazaar API key, from [auth.abuse.ch](https://auth.abuse.ch/)) and `FEED_SIGNING_KEY` (the CI feed key, a PKCS#8 PEM Ed25519 private key).
 - The CI feed key can only sign the feed. The app and `verify.yml` accept it for `feed.signed.json` (`FEED_KEYS`) and never for `rules.signed.json` (`TRUSTED_KEYS`), so a leaked CI key can add hashes but can't change the rules. The hand-written rules are still signed only by the owner's keys.
@@ -30,13 +34,13 @@ The envelope is `{"rules": "<base64 payload>", "signature": "<base64 Ed25519 sig
 | `version` | UTC time of the run as `YYYYMMDDHHMM` |
 | `issued`, `expires` | ISO 8601 UTC times, `expires` is 7 days after `issued` |
 | `source` | `MalwareBazaar` |
-| `hashes` | up to 10000 entries, newest `firstSeen` first: `sha256` (64 lowercase hex), `family` (0-64 characters, no control characters, empty when unknown), `firstSeen` (`YYYY-MM-DD`) |
+| `hashes` | up to 10000 entries, newest `firstSeen` first: `sha256` (64 lowercase hex), `family` (empty when unknown or invalid, otherwise 1-64 ASCII letters, digits, spaces, `.`, `_` or `-`, starting with a letter or digit: `^[A-Za-z0-9][A-Za-z0-9 ._-]{0,63}$`), `firstSeen` (`YYYY-MM-DD`) |
 
 The whole file stays under 4,000,000 bytes.
 
 ## Checks on every push
 
-`.github/workflows/verify.yml` runs `.github/scripts/verify_rules.py` (Python standard library and OpenSSL only). It fails when `rules.signed.json` isn't signed by a trusted key, doesn't match `rules.json`, has no `issued`/`expires`, has expired, has duplicate ids, or changed without a higher `version`, and when `feed.signed.json` isn't signed by a key in `FEED_KEYS`, has expired, is too large, or has an invalid or duplicate entry. Its `TRUSTED_KEYS` must list the same public keys as the app's `RuleFeed.trustedKeys`, and `FEED_KEYS` the keys the app accepts for the feed: the CI feed key plus the owner's keys. Pushes by the feed job don't trigger this workflow (GitHub doesn't start workflows from `GITHUB_TOKEN` pushes); the next owner push checks the feed too. It is a consistency check, not the security boundary: the app verifies everything itself.
+`.github/workflows/verify.yml` runs `.github/scripts/verify_rules.py` (Python standard library and OpenSSL only). It fails when `rules.signed.json` isn't signed by a trusted key, doesn't match `rules.json`, has no `issued`/`expires`, has expired, has duplicate ids, or changed without a higher `version`, and when `feed.signed.json` isn't signed by a key in `FEED_KEYS`, has expired, is too large, or has an invalid or duplicate entry. Its `TRUSTED_KEYS` must list the same public keys as the app's `RuleFeed.trustedKeys`, and `FEED_KEYS` the keys the app accepts for the feed: the CI feed key plus the owner's keys. Pushes by the feed job don't trigger this workflow (GitHub doesn't start workflows from `GITHUB_TOKEN` pushes), so `update-feed.yml` runs the same script, with the same `TRUSTED_KEYS` and `FEED_KEYS`, after building the feed and before committing it: a feed that fails the checks is never pushed. Change the key lists in both workflows together. Because it checks the rules as well, the feed job also stops while `rules.signed.json` doesn't match `rules.json` or has expired. It is a consistency check, not the security boundary: the app verifies everything itself.
 
 ## Signing keys
 
@@ -77,5 +81,10 @@ The whole file stays under 4,000,000 bytes.
 | `profile` | optional `patterns` | configuration profiles from `profiles show` (user profiles; computer-wide profiles need root); without patterns every non-internal profile is reported, with patterns only profiles with a matching payload type |
 
 | `browserExtension` | `patterns` | one line per extension in Chrome, Brave, Edge, Arc, Chromium, Vivaldi (every profile, newest version) and Firefox (user add-ons): `browser=<name> id=<id> name=<name> update=<update URL, addons.mozilla.org for Mozilla-signed add-ons, or none> permissions=<comma-separated>` |
+
+Patterns run against text an attacker can control (process command lines, launch item arguments, extension names), so write them to run in linear time:
+
+- Never use an unbounded `.*`, `.+`, `\S*` or negated class like `[^|;]*`. Give every repetition of those an upper bound, such as `.{0,512}`, `[^|;]{0,512}`, `\S{0,4096}` or `[^/]{1,255}`. `\s*` and `\s+` are fine directly before a token that can't start with whitespace.
+- When a gap sits between two parts, also stop it at the pattern's own start, written exactly as before the gap: `osascript\b(?:(?!osascript\b).){0,512}display dialog` instead of `osascript\b.*display dialog`, and `(curl|wget)(?:(?!curl|wget)[^|;]){0,512}\|` instead of `(curl|wget)[^|;]*\|`. A bound alone is still slow on a long line that repeats the start; with the stop, every pattern finishes in under 0.1 s on a 1 MB line.
 
 An older Bluehat skips rules whose `check` it doesn't know and says how many it skipped, so new check types never break existing installs.

@@ -26,6 +26,16 @@ jobs:
           ABUSE_CH_AUTH_KEY: ${{ secrets.ABUSE_CH_AUTH_KEY }}
           FEED_SIGNING_KEY: ${{ secrets.FEED_SIGNING_KEY }}
         run: python3 -I .github/scripts/update_feed.py
+      - name: Check signature, contents, version and expiry before publishing
+        env:
+          TRUSTED_KEYS: >-
+            ejbt4bgFPpvJCdj/67M3kWasEgEs1eKUs9v/ii97PhA=
+            7QnEa2pH6FwbhIMqMbVO/y2bhumiHbtIqshgdxzKSJA=
+          FEED_KEYS: >-
+            srVF3Dxj32r6pMW0M+0MMsUdr75RyoD94CafL7iFnoE=
+            ejbt4bgFPpvJCdj/67M3kWasEgEs1eKUs9v/ii97PhA=
+            7QnEa2pH6FwbhIMqMbVO/y2bhumiHbtIqshgdxzKSJA=
+        run: python3 -I .github/scripts/verify_rules.py
       - name: Commit and push the feed if it changed
         env:
           GITHUB_TOKEN: ${{ github.token }}

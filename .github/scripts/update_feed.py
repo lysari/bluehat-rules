@@ -6,9 +6,9 @@ import re
 import subprocess
 import sys
 import tempfile
-import unicodedata
 import urllib.parse
 import urllib.request
+from collections import Counter
 from datetime import datetime, timedelta, timezone
 
 API_URL = "https://mb-api.abuse.ch/api/v1/"
@@ -17,19 +17,28 @@ SOURCE = "MalwareBazaar"
 SCHEMA = 1
 MACOS_FILE_TYPES = ("macho", "dmg", "pkg", "app")
 MACOS_TAGS = ("macOS", "macos", "osx", "AMOS", "AtomicStealer", "Poseidon", "Banshee", "Cuckoo", "Odyssey", "MacSync")
-PLATFORM_MARKERS = ("macos", "osx", "mac", "apple")
-MACOS_MARKERS = PLATFORM_MARKERS + ("amos", "atomicstealer")
+MACOS_MARKERS = ("macos", "osx", "mac", "apple", "amos", "atomicstealer")
 QUERY_LIMIT = 1000
 REQUEST_TIMEOUT_SECONDS = 60
+MAX_RESPONSE_BYTES = 20_000_000
 MAX_HASHES = 10000
+MAX_NEW_HASHES = 500
 MAX_ENVELOPE_BYTES = 4_000_000
-MAX_FAMILY_LENGTH = 64
 RETENTION_DAYS = 365
 VALIDITY_DAYS = 7
 REFRESH_BEFORE_EXPIRY_DAYS = 2
 ENTRY_FIELDS = {"sha256", "family", "firstSeen"}
 SHA256_PATTERN = re.compile(r"[0-9a-f]{64}")
 DATE_PATTERN = re.compile(r"[0-9]{4}-[0-9]{2}-[0-9]{2}")
+FAMILY_PATTERN = re.compile(r"[A-Za-z0-9][A-Za-z0-9 ._-]{0,63}")
+
+
+class RedirectRefuser(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, request, response, code, message, headers, new_url):
+        return None
+
+
+OPENER = urllib.request.build_opener(RedirectRefuser)
 
 
 def log(message):
@@ -51,8 +60,11 @@ def parse_time(value):
 
 def query_bazaar(auth_key, form):
     request = urllib.request.Request(API_URL, data=urllib.parse.urlencode(form).encode(), headers={"Auth-Key": auth_key})
-    with urllib.request.urlopen(request, timeout=REQUEST_TIMEOUT_SECONDS) as response:
-        return json.load(response)
+    with OPENER.open(request, timeout=REQUEST_TIMEOUT_SECONDS) as response:
+        body = response.read(MAX_RESPONSE_BYTES + 1)
+    if len(body) > MAX_RESPONSE_BYTES:
+        raise ValueError(f"response is larger than {MAX_RESPONSE_BYTES} bytes")
+    return json.loads(body)
 
 
 def fetch_samples(auth_key):
@@ -92,11 +104,14 @@ def is_macos(sample):
     return any(tag.lower() in MACOS_MARKERS for tag in tags_of(sample))
 
 
+def has_family(sample):
+    family = sample.get("signature")
+    return isinstance(family, str) and family != ""
+
+
 def family_of(sample):
-    signature = sample.get("signature")
-    if isinstance(signature, str) and signature:
-        return signature
-    return next((tag for tag in tags_of(sample) if tag.lower() not in PLATFORM_MARKERS + MACOS_FILE_TYPES), "")
+    family = sample.get("signature")
+    return family if isinstance(family, str) and FAMILY_PATTERN.fullmatch(family) else ""
 
 
 def entry_from(sample):
@@ -114,10 +129,8 @@ def entry_problem(entry):
     if not isinstance(entry["sha256"], str) or not SHA256_PATTERN.fullmatch(entry["sha256"]):
         return "sha256 is not 64 lowercase hex characters"
     family = entry["family"]
-    if not isinstance(family, str) or len(family) > MAX_FAMILY_LENGTH:
-        return f"family is longer than {MAX_FAMILY_LENGTH} characters"
-    if any(unicodedata.category(character) in ("Cc", "Cf") for character in family):
-        return "family contains control characters"
+    if not isinstance(family, str) or (family and not FAMILY_PATTERN.fullmatch(family)):
+        return "family is not empty or 1-64 letters, digits, spaces, '.', '_' or '-' starting with a letter or digit"
     first_seen = entry["firstSeen"]
     if not isinstance(first_seen, str) or not DATE_PATTERN.fullmatch(first_seen):
         return "firstSeen is not YYYY-MM-DD"
@@ -129,16 +142,26 @@ def entry_problem(entry):
 
 
 def collect_entries(samples):
-    return [entry_from(sample) for sample in samples if is_macos(sample)]
+    macos_samples = [sample for sample in samples if is_macos(sample)]
+    entries = [entry_from(sample) for sample in macos_samples if has_family(sample)]
+    included = {entry["sha256"] for entry in entries}
+    unnamed = {entry_from(sample)["sha256"] for sample in macos_samples} - included
+    log(f"{len(unnamed)} macOS samples have no MalwareBazaar family (signature) and are left out")
+    excluded = {entry_from(sample)["sha256"] for sample in samples} - included
+    return entries, excluded
 
 
-def merge_entries(existing_entries, new_entries, now):
+def merge_entries(existing_entries, new_entries, excluded, now):
     merged = {}
+    dropped = 0
     for entry in existing_entries + new_entries:
         problem = entry_problem(entry)
         if problem:
             sha256 = entry.get("sha256") if isinstance(entry, dict) else None
             log(f"skipping {str(sha256)[:80]!r}: {problem}")
+            continue
+        if entry["sha256"] in excluded:
+            dropped += 1
             continue
         current = merged.get(entry["sha256"])
         if current is None or entry["firstSeen"] < current["firstSeen"]:
@@ -146,6 +169,8 @@ def merge_entries(existing_entries, new_entries, now):
     cutoff = (now - timedelta(days=RETENTION_DAYS)).date().isoformat()
     entries = sorted((entry for entry in merged.values() if entry["firstSeen"] >= cutoff), key=lambda entry: entry["sha256"])
     entries.sort(key=lambda entry: entry["firstSeen"], reverse=True)
+    if dropped:
+        log(f"dropped {dropped} published hashes that MalwareBazaar now lists without a family or macOS marker")
     return entries[:MAX_HASHES]
 
 
@@ -212,23 +237,29 @@ def main():
     now = datetime.now(timezone.utc)
     existing_feed = read_feed(FEED_FILE)
     existing_entries = existing_feed["hashes"] if existing_feed else []
-    entries = merge_entries(existing_entries, collect_entries(fetch_samples(auth_key)), now)
+    new_entries, excluded = collect_entries(fetch_samples(auth_key))
+    entries = merge_entries(existing_entries, new_entries, excluded, now)
     if not entries:
         fail("the merged feed has no hashes")
+    existing_hashes = {entry["sha256"] for entry in existing_entries}
+    added = [entry for entry in entries if entry["sha256"] not in existing_hashes]
+    if len(added) > MAX_NEW_HASHES:
+        families = Counter(entry["family"] or "unknown" for entry in added).most_common(20)
+        log(f"new hashes by family: {families}")
+        fail(f"{len(added)} new hashes is more than the {MAX_NEW_HASHES} one run may add; review them and raise MAX_NEW_HASHES if they are genuine")
     if not needs_update(existing_feed, entries, now):
         log(f"Feed unchanged: {len(entries)} hashes, expires {existing_feed['expires']}")
         return
     feed = build_feed(entries, now)
     if existing_feed and feed["version"] <= existing_feed["version"]:
         fail(f"version {feed['version']} is not higher than the published {existing_feed['version']}; run again in a minute")
-    payload = json.dumps(feed, sort_keys=True, separators=(",", ":")).encode()
+    payload = json.dumps(feed, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
     envelope = build_envelope(payload, sign(payload, signing_key))
     if len(envelope) >= MAX_ENVELOPE_BYTES:
         fail(f"feed envelope is {len(envelope)} bytes, the limit is {MAX_ENVELOPE_BYTES}")
     with open(FEED_FILE, "wb") as handle:
         handle.write(envelope)
-    added = len({entry["sha256"] for entry in entries} - {entry["sha256"] for entry in existing_entries})
-    log(f"Wrote {FEED_FILE} v{feed['version']}: {len(entries)} hashes ({added} new), expires {feed['expires']}")
+    log(f"Wrote {FEED_FILE} v{feed['version']}: {len(entries)} hashes ({len(added)} new), expires {feed['expires']}")
 
 
 if __name__ == "__main__":

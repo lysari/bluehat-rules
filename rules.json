@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version": 2026103101,
+  "version": 2026103102,
   "rules": [
     {
       "id": "setting.sip",
@@ -42,11 +42,11 @@
       "category": "rce",
       "check": "launchItem",
       "patterns": [
-        "(curl|wget)[^|;]*\\|\\s*(sudo\\s+)?(ba|z|da)?sh\\b",
-        "(curl|wget)\\s.*(-o|--output)\\s*/(private/)?tmp/",
+        "(curl|wget)(?:(?!curl|wget)[^|;]){0,512}\\|\\s*(sudo\\s+)?(ba|z|da)?sh\\b",
+        "(curl|wget)\\s(?:(?!(curl|wget)\\s).){0,512}(-o|--output)\\s*/(private/)?tmp/",
         "base64\\s+(-d|-D|--decode)",
         "/dev/tcp/",
-        "(curl|wget)[^|;]*\\|\\s*osascript"
+        "(curl|wget)(?:(?!curl|wget)[^|;]){0,512}\\|\\s*osascript"
       ],
       "summary": "A launch item starts automatically and fetches code from the internet to run it. This is the most common way malware installs itself and updates.",
       "remedy": "Show the plist in Finder. If you don't know what installed it, run launchctl bootout gui/$(id -u) <path> for a LaunchAgent (or sudo launchctl bootout system <path> for a LaunchDaemon), move the file to the Trash, and restart."
@@ -75,7 +75,7 @@
         "osascript\\s+-e",
         "python3?\\s+-c\\s",
         "perl\\s+-e\\s",
-        "(ba|z)?sh\\s+-c\\s.*(curl|wget|nc\\s)"
+        "(ba|z)?sh\\s+-c\\s(?:(?!sh\\s+-c\\s).){0,512}(curl|wget|nc\\s)"
       ],
       "summary": "The launch item runs a script written directly in its settings instead of a real app. Installers rarely do this; adware and malware often do.",
       "remedy": "Read the command in the finding. If it isn't from software you installed on purpose, unload it with launchctl bootout and move the plist to the Trash."
@@ -87,11 +87,11 @@
       "category": "rce",
       "check": "shellProfile",
       "patterns": [
-        "(curl|wget)[^|;]*\\|\\s*(sudo\\s+)?(ba|z|da)?sh\\b",
+        "(curl|wget)(?:(?!curl|wget)[^|;]){0,512}\\|\\s*(sudo\\s+)?(ba|z|da)?sh\\b",
         "eval\\s*\"?\\$\\((curl|wget)",
-        "base64\\s+(-d|-D|--decode).*\\|\\s*(ba|z)?sh",
+        "base64\\s+(-d|-D|--decode)(?:(?!base64\\s+(-d|-D|--decode)).){0,512}\\|\\s*(ba|z)?sh",
         "/dev/tcp/",
-        "(curl|wget)[^|;]*\\|\\s*osascript"
+        "(curl|wget)(?:(?!curl|wget)[^|;]){0,512}\\|\\s*osascript"
       ],
       "summary": "This line runs every time you open Terminal and downloads code from the internet, or decodes hidden code, and runs it.",
       "remedy": "Open the file in a text editor (open -e <file>), delete the line, save, and open a new Terminal window."
@@ -116,8 +116,8 @@
       "check": "process",
       "patterns": [
         "(ba|z)?sh\\s+-i\\s*[<>]&?\\s*/dev/tcp/",
-        "\\bn(c|cat)\\b.*\\s-(e|c)\\s",
-        "\\bsocat\\b.*exec:",
+        "\\bn(c|cat)\\b(?:(?!\\bn(c|cat)\\b).){0,512}\\s-(e|c)\\s",
+        "\\bsocat\\b(?:(?!\\bsocat\\b).){0,512}exec:",
         "pty\\.spawn\\("
       ],
       "summary": "A process is connecting a shell back to another computer. Whoever is on the other side can type commands on your Mac right now.",
@@ -158,11 +158,11 @@
       "category": "rce",
       "check": "crontab",
       "patterns": [
-        "(curl|wget)[^|;]*\\|\\s*(ba|z|da)?sh\\b",
+        "(curl|wget)(?:(?!curl|wget)[^|;]){0,512}\\|\\s*(ba|z|da)?sh\\b",
         "base64\\s+(-d|-D|--decode)",
         "/dev/tcp/",
         "(^|\\s)(/private)?/tmp/",
-        "(curl|wget)[^|;]*\\|\\s*osascript"
+        "(curl|wget)(?:(?!curl|wget)[^|;]){0,512}\\|\\s*osascript"
       ],
       "summary": "A scheduled job downloads or decodes code and runs it on a timer, so malware keeps coming back.",
       "remedy": "Run crontab -e in Terminal, delete the line, and save."
@@ -450,7 +450,7 @@
       "category": "persistence",
       "check": "launchItem",
       "patterns": [
-        "/Library/Launch(Agents|Daemons)/com\\.apple\\.[^/]*\\.plist$"
+        "/Library/Launch(Agents|Daemons)/com\\.apple\\.[^/]{0,255}\\.plist$"
       ],
       "summary": "Apple's own launch items live only in /System, which nothing else can write to. A com.apple.* launch item in your Library or /Library was put there by something else, which is how several 2026 stealers hide.",
       "remedy": "Show the plist in Finder and look at the program it starts. Unless you know which app installed it, unload it with launchctl bootout and move the plist and its program to the Trash."
@@ -462,10 +462,10 @@
       "category": "malware",
       "check": "process",
       "patterns": [
-        "curl\\s.*-F\\s*\\\"?file=@/(private/)?tmp/",
-        "\\bditto\\s+-c\\s+-k\\s+--sequesterRsrc\\s.*\\s/(private/)?tmp/",
-        "osascript\\b.*display dialog.*hidden answer",
-        "(curl|wget)[^|;]*\\|\\s*osascript"
+        "curl\\s(?:(?!curl\\s).){0,512}-F\\s*\\\"?file=@/(private/)?tmp/",
+        "\\bditto\\s+-c\\s+-k\\s+--sequesterRsrc\\s(?:(?!\\bditto\\s+-c\\s+-k\\s+--sequesterRsrc\\s).){0,512}\\s/(private/)?tmp/",
+        "osascript\\b(?:(?!osascript\\b).){0,512}display dialog(?:(?!display dialog).){0,512}hidden answer",
+        "(curl|wget)(?:(?!curl|wget)[^|;]){0,512}\\|\\s*osascript"
       ],
       "summary": "A running process is doing what macOS stealers do: zipping your data into a temporary folder and uploading it, showing a fake password prompt, or running a downloaded AppleScript.",
       "remedy": "Disconnect from the network now, quit the process in Activity Monitor, and scan again to find what started it. From another device, change your Apple Account, email and banking passwords, sign out of other sessions, and move any crypto to a new wallet."
@@ -477,7 +477,7 @@
       "category": "backdoor",
       "check": "process",
       "patterns": [
-        "/Users/[^/]+/\\.(agent|helper|mainhelper)(\\s|$)",
+        "/Users/[^/]{1,255}/\\.(agent|helper|mainhelper)(\\s|$)",
         "\\bSystemUIServerl\\b"
       ],
       "summary": "A process matching a known stealer backdoor is running (AMOS's hidden .helper or .agent loop, or ClickLock's fake SystemUIServer). Attackers can send it commands.",
@@ -537,7 +537,7 @@
       "category": "hardening",
       "check": "browserExtension",
       "patterns": [
-        "\\spermissions=(?=\\S*\\bcookies\\b)(?=\\S*(<all_urls>|\\*://\\*/\\*|https?://\\*/\\*))"
+        "\\spermissions=(?=\\S{0,4096}\\bcookies\\b)(?=\\S{0,4096}(<all_urls>|\\*://\\*/\\*|https?://\\*/\\*))"
       ],
       "summary": "With cookie access on every site, this extension could take over any account you're signed in to. Many honest extensions ask for this, but it's the permission session-stealing extensions need.",
       "remedy": "Keep it only if you trust the developer and use it. Otherwise remove it, or limit it to specific sites in the browser's extension settings."
@@ -549,7 +549,7 @@
       "category": "hardening",
       "check": "browserExtension",
       "patterns": [
-        "\\spermissions=\\S*\\b(debugger|proxy)\\b"
+        "\\spermissions=\\S{0,4096}\\b(debugger|proxy)\\b"
       ],
       "summary": "The debugger permission lets an extension read and change everything on a page, including passwords as you type them. The proxy permission lets it send all your browsing through another server. VPN and developer tools need these; malicious extensions abuse them.",
       "remedy": "Keep it only if it's a VPN or developer tool you installed on purpose. Otherwise remove it."
