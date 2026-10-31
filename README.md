@@ -13,6 +13,22 @@ The app downloads only `rules.signed.json` (hand-written rules) and `feed.signed
 
 Hand-written rules expire 1 year after signing: the signer stamps `issued` and `expires` (1 year later) into the signed copy, and the app warns 30 days before expiry and refuses expired rules, so sign and push again (raise `version`) before then, even with no rule changes. Someone who blocks updates or keeps serving an old signed file can't freeze your rules for longer than that, and the app refuses versions below its built-in minimum, so old signed files without an expiry can't be replayed to a fresh install. Fingerprints update daily on their own (see below).
 
+## Vulnerable software versions (OSV)
+
+`.github/scripts/update_cve_rules.py` writes `softwareVersion` rules for known CVEs in Node.js, PHP, Python (CPython), OpenSSL, Git and Ruby into `rules.json`. Run it by hand from this folder, then review the diff and publish as in [Update the rules](#update-the-rules) (raise `version`, sign, commit):
+
+```sh
+python3 -I .github/scripts/update_cve_rules.py
+```
+
+- Source: [OSV.dev](https://osv.dev). For each product it queries `https://api.osv.dev/v1/query` for the product's upstream repository (`GIT` ecosystem, for example `https://github.com/nodejs/node`) and uses only the `CVE-` records. Their version ranges come from OSV's NVD and CVE List conversion: `ranges[].database_specific.extracted_events` of that repository with source `CPE_RANGE` or `CPE_STRING` (only CPEs of the product itself, such as `nodejs:node.js`) or `AFFECTED_FIELD`, `ranges[].database_specific.versions`, and `database_specific.unresolved_ranges` for the product's CPE. Git commit ranges, version lists of tags, OSS-Fuzz (`OSV-`) and PSF records without their own `CVE-` record are not used, nor are distribution packages, PyPI or RubyGems.
+- Every version must be an upstream release number. A prerelease bound is moved to its release (`introduced` and `fixed` `3.13.0rc1` become `3.13.0`, `lastAffected` `3.13.0rc1` becomes `fixed` `3.13.0`); any other version, and a range with no end, is dropped. Overlapping or touching ranges are merged, which changes no result.
+- Severity: the CVSS 3 base score of the record, or else the `database_specific.severity` of its Bitnami alias (`BIT-…`) on OSV. Records with neither, or below `high` (`MIN_SEVERITY`), and withdrawn or disputed records are skipped.
+- Category is `rce` when the CVE has CWE-77, CWE-78, CWE-94 or CWE-95 or its text mentions code execution or command injection, otherwise `hardening`. Title, summary and remedy are built from the record text, cleaned of control characters and cut to the rule limits; references are the NVD and OSV pages plus the record's first valid `https` links (5 at most).
+- At most 400 rules (`MAX_GENERATED_RULES`), newest published first, so `rules.json` stays under the app's 500 rules and the signed file under its 2,000,000 bytes; the script stops without writing when either limit would be passed or an id is used twice.
+- The script owns every rule with `check` `softwareVersion` and an id starting `cve.` (`cve.<product>.<advisory in lowercase>`): each run replaces all of them and leaves every other rule as it is. Give hand-written version rules another id prefix.
+- Generated rules sit after the other rules, sorted by product and CVE number, so a run with no new OSV data changes nothing. Downloads are kept in memory only, refuse redirects and are read up to 50,000,000 bytes per response.
+
 ## Malware fingerprint feed
 
 `feed.signed.json` lists SHA-256 hashes of recent macOS malware samples from [MalwareBazaar](https://bazaar.abuse.ch/) (abuse.ch), so the app's file hash check knows current attacks without a hand-written rule for each sample.
@@ -81,10 +97,25 @@ The whole file stays under 4,000,000 bytes.
 | `profile` | optional `patterns` | configuration profiles from `profiles show` (user profiles; computer-wide profiles need root); without patterns every non-internal profile is reported, with patterns only profiles with a matching payload type |
 
 | `browserExtension` | `patterns` | one line per extension in Chrome, Brave, Edge, Arc, Chromium, Vivaldi (every profile, newest version) and Firefox (user add-ons): `browser=<name> id=<id> name=<name> update=<update URL, addons.mozilla.org for Mozilla-signed add-ons, or none> permissions=<comma-separated>` |
+| `softwareVersion` | `product`, `advisory`, `ranges` (see below) | installed Node.js, PHP, Python, OpenSSL, Git and Ruby versions: Homebrew Cellar folders, nvm, Volta, fnm, asdf, mise, pyenv and rbenv install folders, `/Library/Frameworks/Python.framework` and the Node.js installer in `/usr/local` |
 
 Patterns run against text an attacker can control (process command lines, launch item arguments, extension names), so write them to run in linear time:
 
 - Never use an unbounded `.*`, `.+`, `\S*` or negated class like `[^|;]*`. Give every repetition of those an upper bound, such as `.{0,512}`, `[^|;]{0,512}`, `\S{0,4096}` or `[^/]{1,255}`. `\s*` and `\s+` are fine directly before a token that can't start with whitespace.
 - When a gap sits between two parts, also stop it at the pattern's own start, written exactly as before the gap: `osascript\b(?:(?!osascript\b).){0,512}display dialog` instead of `osascript\b.*display dialog`, and `(curl|wget)(?:(?!curl|wget)[^|;]){0,512}\|` instead of `(curl|wget)[^|;]*\|`. A bound alone is still slow on a long line that repeats the start; with the stop, every pattern finishes in under 0.1 s on a 1 MB line.
+
+`softwareVersion` fields:
+
+| Field | Values |
+|---|---|
+| `product` | `node`, `php`, `python`, `openssl`, `git`, `ruby`; any other value makes the whole rulebook fail to load |
+| `advisory` | the advisory id, such as `CVE-2024-21892`: `^[A-Z][A-Z0-9]{1,15}-[A-Za-z0-9._-]{1,48}$` |
+| `ranges` | 1-200 affected ranges, each `{"introduced": "<version>"}` plus `"fixed"` (first version without the bug) or `"lastAffected"` (last version with it), never both. `"introduced": "0"` means from the first release. `fixed` must be after `introduced`, `lastAffected` not before it |
+
+Versions are upstream release numbers as installers name their folders (`20.11.1`, `3.12.4`, `1.1.1w`): `^v?[0-9]{1,9}(\.[0-9]{1,9}){0,5}([a-z]{1,2})?$`, with letter suffixes only for `openssl`. Prereleases (`3.13.0rc1`, `20.0.0-rc.1`) and distribution package versions (`18.19.0+dfsg-6~deb12u1`) are rejected. A missing part counts as 0 (`3.12` = `3.12.0`).
+
+```json
+{"id": "cve.node.cve-2024-21892", "title": "Node.js privilege escalation on Linux capabilities (CVE-2024-21892)", "severity": "high", "category": "rce", "check": "softwareVersion", "product": "node", "advisory": "CVE-2024-21892", "ranges": [{"introduced": "18.0.0", "fixed": "18.19.1"}, {"introduced": "20.0.0", "fixed": "20.11.1"}], "remedy": "Upgrade Node.js to 20.11.1 or later in each listed install.", "references": ["https://nvd.nist.gov/vuln/detail/CVE-2024-21892"]}
+```
 
 An older Bluehat skips rules whose `check` it doesn't know and says how many it skipped, so new check types never break existing installs.
