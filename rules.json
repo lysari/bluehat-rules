@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version": 2026110103,
+  "version": 2026110104,
   "rules": [
     {
       "id": "setting.sip",
@@ -341,6 +341,20 @@
       "check": "appSignature",
       "summary": "Gatekeeper would refuse to open this app, so it runs only because Gatekeeper was bypassed. Cracked and trojanized apps look like this, and so do apps whose files changed after the developer signed them.",
       "remedy": "If you didn't build it yourself or knowingly allow it, delete the app and download it again from the developer or the App Store. If an app updates itself into this state, reinstalling it fixes the signature."
+    },
+    {
+      "id": "app.unnotarized",
+      "title": "App is signed with a Developer ID but not notarized",
+      "severity": "low",
+      "category": "hardening",
+      "check": "notarization",
+      "summary": "Since macOS Catalina, Apple scans each Developer ID app for malware before Gatekeeper opens it without a warning, a step called notarization. This build was never notarized, so Apple never scanned it and Gatekeeper only opens it after someone clicks Open Anyway or it arrives without a download warning. Many apps from before 2020 look like this and are fine; its developer is still identified by the signature.",
+      "remedy": "Look for a newer version on the developer's website; current releases are almost always notarized. If the app is old and you trust its developer, ignore this finding. If you don't know where it came from, quit it and move it to the Trash.",
+      "references": [
+        "https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution",
+        "https://support.apple.com/guide/security/gatekeeper-and-runtime-protection-sec5599b66df/web",
+        "https://support.apple.com/en-us/102445"
+      ]
     },
     {
       "id": "malware.amos",
