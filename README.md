@@ -44,7 +44,7 @@ The whole file stays under 4,000,000 bytes.
 
 ## Signing keys
 
-- Primary key: in the owner's login Keychain (service `bluehat-rules-signing`), created with `bluehat-sign keygen`.
+- Primary key: in the owner's login Keychain (service `bluehat-rules-signing`), created with `bluehat-sign keygen`. The item trusts no app, so every read (including each `sign-rules`) shows a macOS approval dialog; nothing can read it silently.
 - Current trusted keys: primary `07:50:0B:8A:44:2C:EE:F7` (Keychain), backup `45:F7:3C:B2:FC:D3:CE:3E` (offline).
 - CI feed key: public key `srVF3Dxj32r6pMW0M+0MMsUdr75RyoD94CafL7iFnoE=`, private key only in the `FEED_SIGNING_KEY` repository secret. Feed only; never add it to `TRUSTED_KEYS` or `RuleFeed.trustedKeys`. If it leaks, remove it from the app's feed keys and `FEED_KEYS`, create a new one and replace the secret.
 - Backup key: create one offline with `bluehat-sign backup-keygen /Volumes/<encrypted drive>/bluehat-backup.key`, add its public key to `RuleFeed.trustedKeys` and to `TRUSTED_KEYS` in the workflow, rebuild and reinstall the app. Keep the file off this Mac and out of git.
