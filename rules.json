@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version": 2026110101,
+  "version": 2026110102,
   "rules": [
     {
       "id": "setting.sip",
@@ -1037,6 +1037,48 @@
       "references": [
         "https://github.com/nrwl/nx/security/advisories/GHSA-cxm3-wv7p-598c",
         "https://www.stepsecurity.io/blog/supply-chain-security-alert-popular-nx-build-system-package-compromised-with-data-stealing-malware"
+      ]
+    },
+    {
+      "id": "sysext.unknown-vendor",
+      "title": "System or kernel extension from an unlisted vendor",
+      "severity": "medium",
+      "category": "persistence",
+      "check": "systemExtension",
+      "teams": [
+        "W5364U7YZB",
+        "AH4XFXJ7DK",
+        "UBF8T346G9",
+        "EQHXZ8M8AV",
+        "X9E956P446",
+        "4AYE5J54KN",
+        "VBG97UB4TA",
+        "MLZF7K7B5R",
+        "G43BCU2T37"
+      ],
+      "bundles": [
+        "io.macfuse",
+        "com.github.osxfuse",
+        "org.virtualbox"
+      ],
+      "summary": "System and kernel extensions run with more power than apps: they can filter or reroute network traffic, watch every file and process, or drive hardware, and they keep running after their app quits. Spyware and adware install them for that reason. This one isn't from a vendor on Bluehat's short list of well-known ones, which doesn't make it bad: many genuine VPNs, security tools and device drivers aren't listed.",
+      "remedy": "If you know the app it came from, ignore this finding. Otherwise open System Settings › General › Login Items & Extensions, turn the extension off, and delete the app that installed it. For a kernel extension, run the vendor's uninstaller and restart.",
+      "references": [
+        "https://support.apple.com/guide/deployment/system-and-kernel-extensions-in-macos-depa5fb8376f/web",
+        "https://developer.apple.com/documentation/systemextensions"
+      ]
+    },
+    {
+      "id": "xprotect.outdated",
+      "title": "XProtect malware definitions are out of date",
+      "severity": "medium",
+      "category": "hardening",
+      "check": "xprotect",
+      "minimumVersion": 5360,
+      "summary": "XProtect is the malware scanner built into macOS. Apple updates its definitions on its own every few weeks, and old definitions miss current stealers and backdoors. Updates usually stop when Install Security Responses and system files is turned off, or when the Mac can't reach Apple's servers.",
+      "remedy": "Open System Settings › General › Software Update, click the info button next to Automatic Updates, and turn on Install Security Responses and system files. Stay online and restart; macOS updates XProtect on its own. If it still shows a day later, install any waiting macOS update.",
+      "references": [
+        "https://support.apple.com/guide/security/protecting-against-malware-sec469d47bd8/web"
       ]
     },
     {

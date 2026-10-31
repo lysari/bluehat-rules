@@ -102,6 +102,8 @@ The whole file stays under 4,000,000 bytes.
 | `softwareVersion` | `product`, `advisory`, `ranges` (see below) | installed Node.js, PHP, Python, OpenSSL, Git and Ruby versions: Homebrew Cellar folders, nvm, Volta, fnm, asdf, mise, pyenv and rbenv install folders, `/Library/Frameworks/Python.framework` and the Node.js installer in `/usr/local` |
 | `npmPackage` | `packages` (see below) | npm packages in `package-lock.json`, `npm-shrinkwrap.json`, `yarn.lock` and `pnpm-lock.yaml` of each project (a folder with a `package.json` in the user's project folders), and in the global `node_modules` of Homebrew, `/usr/local` and each Node.js install |
 | `projectFile` | `files`, `patterns` | lines of the named files in each project (a folder with a `package.json` in the user's project folders); the finding names the first matching line of each file |
+| `systemExtension` | optional `teams`, `bundles` (see below) | system extensions from `systemextensionsctl list` and loaded third-party kernel extensions from `kmutil showloaded` (`com.apple.*` skipped); every one not from a listed vendor is reported |
+| `xprotect` | `minimumVersion` (see below) | the version of Apple's XProtect malware definitions, the higher `CFBundleShortVersionString` of `/Library/Apple/System/Library/CoreServices/XProtect.bundle` and `/private/var/protected/xprotect/XProtect.bundle`; reported when it is below `minimumVersion` |
 
 Patterns run against text an attacker can control (process command lines, launch item arguments, extension names), so write them to run in linear time:
 
@@ -124,6 +126,47 @@ Patterns run against text an attacker can control (process command lines, launch
 |---|---|
 | `files` | 1-20 file names, matched without regard to case; `*` matches any run of characters (`*.config.js`, `package.json`): `^(?=.*[A-Za-z0-9])[A-Za-z0-9._*-]{1,64}$`, no `..` and no folders |
 | `patterns` | regexes, each run on every line of the file. Only the first 1,000,000 bytes of a file and the first 8,192 UTF-16 units of each line are read, so a pattern must still match when the end of a long line is cut off, for example by matching the long run of padding itself rather than the code after it |
+
+`systemExtension` fields:
+
+| Field | Values |
+|---|---|
+| `teams` | optional, 1-200 Apple team IDs (10 uppercase letters or digits: `^[A-Z0-9]{10}$`). A system extension whose team ID is listed is not reported. macOS checks a system extension's code signature before it runs, so its team ID can't be faked |
+| `bundles` | optional, 1-200 bundle IDs of 2-8 dot-separated parts of letters, digits and `-` (`io.macfuse`): `^[A-Za-z0-9-]{1,64}(\.[A-Za-z0-9-]{1,64}){1,7}$`. A kernel extension whose bundle ID is a listed one or starts with it followed by `.` is not reported (`io.macfuse` covers `io.macfuse.filesystems.macfuse`, not `io.macfusex`), compared without regard to case. `kmutil` shows no team ID, and a bundle ID is chosen by the kext's author, so list only vendors whose kexts are common; system extensions are matched by `teams` only |
+
+Without `teams` and `bundles` every third-party extension is reported. Each finding names the extension, so ignoring one leaves the others: `Tailscale Network Extension (io.tailscale.ipn.macsys.network-extension) · team W5364U7YZB · activated enabled` or `Kernel extension (io.macfuse.filesystems.macfuse) · loaded` (no version, so an update doesn't bring back an ignored finding; a state change does). Both tools run without root; when one is missing or fails, it adds no findings.
+
+The `sysext.unknown-vendor` rule lists these vendors' Developer ID teams; Tailscale and Fortinet were confirmed with `systemextensionsctl list` on a real install. Confirm a new team ID the same way before adding it:
+
+| Team ID or bundle ID | Vendor | Products |
+|---|---|---|
+| `W5364U7YZB` | Tailscale | Tailscale network extension |
+| `AH4XFXJ7DK` | Fortinet | FortiClient VPN and security |
+| `UBF8T346G9` | Microsoft | Defender for Endpoint |
+| `EQHXZ8M8AV` | Google | Santa (older releases) and other Google tools |
+| `X9E956P446` | CrowdStrike | Falcon sensor |
+| `4AYE5J54KN` | SentinelOne | SentinelOne agent |
+| `VBG97UB4TA` | Objective-See | LuLu, BlockBlock and other free tools |
+| `MLZF7K7B5R` | Objective Development | Little Snitch |
+| `G43BCU2T37` | Fumihiko Takayama | Karabiner-Elements driver |
+| `io.macfuse`, `com.github.osxfuse` | macFUSE (formerly OSXFUSE) | file system kernel extension |
+| `org.virtualbox` | Oracle VirtualBox | VirtualBox kernel extensions (Intel Macs) |
+
+```json
+{"id": "sysext.unknown-vendor", "title": "System or kernel extension from an unlisted vendor", "severity": "medium", "category": "persistence", "check": "systemExtension", "teams": ["W5364U7YZB"], "bundles": ["io.macfuse"]}
+```
+
+`xprotect` fields:
+
+| Field | Values |
+|---|---|
+| `minimumVersion` | a positive whole number, the lowest XProtect version that counts as current (`xprotect version` prints the installed one, for example `5368`) |
+
+The check compares version numbers, not dates: Apple ships XProtect updates at no fixed interval, so a maximum age would flag every Mac during a quiet spell, while a version below one Apple has already shipped always means missed updates. The finding names both numbers (`XProtect version 5301 is older than 5360`). Set `minimumVersion` a few releases below the newest one, so a Mac that is one or two updates behind isn't flagged, and raise it each time the rules are signed again. When no XProtect version can be read, the check reports nothing.
+
+```json
+{"id": "xprotect.outdated", "title": "XProtect malware definitions are out of date", "severity": "medium", "category": "hardening", "check": "xprotect", "minimumVersion": 5360}
+```
 
 `softwareVersion` fields:
 
