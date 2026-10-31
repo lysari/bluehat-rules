@@ -20,6 +20,7 @@ Sign and push at least every 14 days, even with no rule changes (raise `version`
 ## Signing keys
 
 - Primary key: in the owner's login Keychain (service `bluehat-rules-signing`), created with `bluehat-sign keygen`.
+- Current trusted keys: primary `07:50:0B:8A:44:2C:EE:F7` (Keychain), backup `45:F7:3C:B2:FC:D3:CE:3E` (offline).
 - Backup key: create one offline with `bluehat-sign backup-keygen /Volumes/<encrypted drive>/bluehat-backup.key`, add its public key to `RuleFeed.trustedKeys` and to `TRUSTED_KEYS` in the workflow, rebuild and reinstall the app. Keep the file off this Mac and out of git.
 - Primary key lost: sign with `bluehat-sign sign rules/rules.json --key-file <backup file>`, then create a new Keychain key and add it as above.
 - Primary key leaked: remove its public key from `RuleFeed.trustedKeys` and `TRUSTED_KEYS`, sign with the backup key, rebuild and reinstall the app, then create a new key and a new backup.
