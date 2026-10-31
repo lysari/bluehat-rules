@@ -1,6 +1,7 @@
 import base64
 import http.client
 import io
+import ipaddress
 import json
 import os
 import re
@@ -15,6 +16,7 @@ from collections import Counter
 from datetime import datetime, timedelta, timezone
 
 API_URL = "https://mb-api.abuse.ch/api/v1/"
+THREATFOX_URL = "https://threatfox-api.abuse.ch/api/v1/"
 OSV_EXPORT_URL = "https://osv-vulnerabilities.storage.googleapis.com/npm/all.zip"
 FEED_FILE = "feed.signed.json"
 SOURCE = "MalwareBazaar"
@@ -23,6 +25,12 @@ MACOS_FILE_TYPES = ("macho", "dmg", "pkg", "app")
 MACOS_TAGS = ("macOS", "macos", "osx", "AMOS", "AtomicStealer", "Poseidon", "Banshee", "Cuckoo", "Odyssey", "MacSync")
 MACOS_MARKERS = ("macos", "osx", "mac", "apple", "amos", "atomicstealer")
 QUERY_LIMIT = 1000
+THREATFOX_DAYS = 3
+THREATFOX_FAMILIES = ("osx.amos", "osx.banshee", "osx.poseidon", "osx.odyssey")
+MACOS_MALWARE_PREFIX = "osx."
+C2_IOC_TYPE = "ip:port"
+C2_THREAT_TYPE = "botnet_cc"
+MIN_CONFIDENCE = 75
 REQUEST_TIMEOUT_SECONDS = 60
 MAX_RESPONSE_BYTES = 20_000_000
 MAX_EXPORT_BYTES = 1_000_000_000
@@ -36,9 +44,13 @@ MAX_VERSION_LENGTH = 256
 MAX_ENVELOPE_BYTES = 4_000_000
 SIGNATURE_BYTES = 64
 RETENTION_DAYS = 365
+HOST_RETENTION_DAYS = 30
+MAX_HOSTS = 5000
 VALIDITY_DAYS = 7
 REFRESH_BEFORE_EXPIRY_DAYS = 2
 ENTRY_FIELDS = {"sha256", "family", "firstSeen"}
+HOST_FIELDS = {"host", "family", "firstSeen"}
+HOST_PATTERN = re.compile(r"(\[[0-9a-f:.]{2,45}\]|[0-9.]{7,15}):[1-9][0-9]{0,4}")
 SHA256_PATTERN = re.compile(r"[0-9a-f]{64}")
 DATE_PATTERN = re.compile(r"[0-9]{4}-[0-9]{2}-[0-9]{2}")
 FAMILY_PATTERN = re.compile(r"[A-Za-z0-9][A-Za-z0-9 ._-]{0,63}")
@@ -90,8 +102,8 @@ def field(container, key, kind):
     return value if isinstance(value, kind) else kind()
 
 
-def query_bazaar(auth_key, form):
-    request = urllib.request.Request(API_URL, data=urllib.parse.urlencode(form).encode(), headers={"Auth-Key": auth_key})
+def query_abuse_ch(url, auth_key, payload):
+    request = urllib.request.Request(url, data=payload.encode(), headers={"Auth-Key": auth_key})
     with OPENER.open(request, timeout=REQUEST_TIMEOUT_SECONDS) as response:
         body = response.read(MAX_RESPONSE_BYTES + 1)
     if len(body) > MAX_RESPONSE_BYTES:
@@ -99,29 +111,39 @@ def query_bazaar(auth_key, form):
     return json.loads(body)
 
 
-def fetch_samples(auth_key):
-    queries = [{"query": "get_file_type", "file_type": file_type, "limit": QUERY_LIMIT} for file_type in MACOS_FILE_TYPES]
-    queries += [{"query": "get_taginfo", "tag": tag, "limit": QUERY_LIMIT} for tag in MACOS_TAGS]
-    samples = []
+def fetch_records(url, auth_key, queries, encode, source):
+    records = []
     succeeded = 0
     for form in queries:
-        label = f"{form['query']} {form.get('file_type', form.get('tag'))}"
+        label = " ".join(str(value) for key, value in form.items() if key != "limit")
         try:
-            response = query_bazaar(auth_key, form)
+            response = query_abuse_ch(url, auth_key, encode(form))
         except (OSError, ValueError, http.client.HTTPException) as error:
             log(f"{label}: request failed ({type(error).__name__}: {error})")
             continue
         status = response.get("query_status") if isinstance(response, dict) else None
         data = response.get("data") if status == "ok" else None
         if not isinstance(data, list):
-            log(f"{label}: {status!r}, 0 samples")
+            log(f"{label}: {status!r}, 0 records")
             continue
         succeeded += 1
-        log(f"{label}: ok, {len(data)} samples")
-        samples += [sample for sample in data if isinstance(sample, dict)]
+        log(f"{label}: ok, {len(data)} records")
+        records += [record for record in data if isinstance(record, dict)]
     if succeeded == 0:
-        fail("every MalwareBazaar query failed")
-    return samples
+        fail(f"every {source} query failed")
+    return records
+
+
+def fetch_samples(auth_key):
+    queries = [{"query": "get_file_type", "file_type": file_type, "limit": QUERY_LIMIT} for file_type in MACOS_FILE_TYPES]
+    queries += [{"query": "get_taginfo", "tag": tag, "limit": QUERY_LIMIT} for tag in MACOS_TAGS]
+    return fetch_records(API_URL, auth_key, queries, urllib.parse.urlencode, "MalwareBazaar")
+
+
+def fetch_iocs(auth_key):
+    queries = [{"query": "get_iocs", "days": THREATFOX_DAYS}]
+    queries += [{"query": "malwareinfo", "malware": family, "limit": QUERY_LIMIT} for family in THREATFOX_FAMILIES]
+    return fetch_records(THREATFOX_URL, auth_key, queries, json.dumps, "ThreatFox")
 
 
 def tags_of(sample):
@@ -204,6 +226,105 @@ def merge_entries(existing_entries, new_entries, excluded, now):
     if dropped:
         log(f"dropped {dropped} published hashes that MalwareBazaar now lists without a family or macOS marker")
     return entries[:MAX_HASHES]
+
+
+def host_of(ioc):
+    value = ioc.get("ioc")
+    if not isinstance(value, str) or ioc.get("ioc_type") != C2_IOC_TYPE:
+        return None
+    address, _, port = value.rpartition(":")
+    if not port.isascii() or not port.isdigit() or not 0 < int(port) <= 65535 or port.startswith("0"):
+        return None
+    try:
+        parsed = ipaddress.ip_address(address.removeprefix("[").removesuffix("]"))
+    except ValueError:
+        return None
+    if not parsed.is_global:
+        return None
+    return f"[{parsed.compressed}]:{port}" if parsed.version == 6 else f"{parsed}:{port}"
+
+
+def is_macos_c2(ioc):
+    malware = ioc.get("malware")
+    confidence = ioc.get("confidence_level")
+    return (
+        isinstance(malware, str)
+        and malware.startswith(MACOS_MALWARE_PREFIX)
+        and ioc.get("threat_type") == C2_THREAT_TYPE
+        and isinstance(confidence, int)
+        and confidence >= MIN_CONFIDENCE
+    )
+
+
+def host_entry_from(ioc):
+    family = ioc.get("malware_printable")
+    try:
+        first_seen = datetime.strptime(ioc.get("first_seen"), "%Y-%m-%d %H:%M:%S UTC").date().isoformat()
+    except (TypeError, ValueError):
+        first_seen = None
+    return {"host": host_of(ioc), "family": family if isinstance(family, str) and FAMILY_PATTERN.fullmatch(family) else "", "firstSeen": first_seen}
+
+
+def host_problem(entry):
+    if not isinstance(entry, dict) or set(entry) != HOST_FIELDS:
+        return f"fields must be {sorted(HOST_FIELDS)}"
+    host = entry["host"]
+    if not isinstance(host, str) or not HOST_PATTERN.fullmatch(host):
+        return "host is not an IPv4 address:port or [IPv6 address]:port"
+    address, _, port = host.rpartition(":")
+    try:
+        parsed = ipaddress.ip_address(address.removeprefix("[").removesuffix("]"))
+    except ValueError:
+        return "host is not an IPv4 address:port or [IPv6 address]:port"
+    if (parsed.version == 6) != address.startswith("[") or not parsed.is_global or int(port) > 65535:
+        return "host is not a public address, or its port is not 1-65535"
+    family = entry["family"]
+    if not isinstance(family, str) or (family and not FAMILY_PATTERN.fullmatch(family)):
+        return "family is not empty or 1-64 letters, digits, spaces, '.', '_' or '-' starting with a letter or digit"
+    first_seen = entry["firstSeen"]
+    if not isinstance(first_seen, str) or not DATE_PATTERN.fullmatch(first_seen):
+        return "firstSeen is not YYYY-MM-DD"
+    try:
+        datetime.strptime(first_seen, "%Y-%m-%d")
+    except ValueError:
+        return "firstSeen is not a real date"
+    return None
+
+
+def collect_hosts(iocs):
+    candidates = [ioc for ioc in iocs if host_of(ioc)]
+    entries = [host_entry_from(ioc) for ioc in candidates if is_macos_c2(ioc)]
+    included = {entry["host"] for entry in entries}
+    excluded = {host_of(ioc) for ioc in candidates} - included
+    log(f"ThreatFox: {len(iocs)} IOCs, {len(included)} macOS C2 ip:port with confidence {MIN_CONFIDENCE} or more")
+    return entries, excluded
+
+
+def merge_hosts(existing_hosts, new_hosts, excluded, now):
+    merged = {}
+    dropped = 0
+    for entry in existing_hosts + new_hosts:
+        problem = host_problem(entry)
+        if problem:
+            host = entry.get("host") if isinstance(entry, dict) else None
+            log(f"skipping C2 address {str(host)[:80]!r}: {problem}")
+            continue
+        if entry["host"] in excluded:
+            dropped += 1
+            continue
+        current = merged.get(entry["host"])
+        if current is None or entry["firstSeen"] < current["firstSeen"]:
+            merged[entry["host"]] = entry
+    cutoff = (now - timedelta(days=HOST_RETENTION_DAYS)).date().isoformat()
+    hosts = sorted((entry for entry in merged.values() if entry["firstSeen"] >= cutoff), key=lambda entry: entry["host"])
+    hosts.sort(key=lambda entry: entry["firstSeen"], reverse=True)
+    if dropped:
+        log(f"dropped {dropped} published C2 addresses that ThreatFox now lists below the confidence threshold or for another family or threat type")
+    if len(hosts) > MAX_HOSTS:
+        log(f"kept the {MAX_HOSTS} newest of {len(hosts)} C2 addresses")
+    kept = hosts[:MAX_HOSTS]
+    log(f"C2 addresses by family: {Counter(entry['family'] or 'unknown' for entry in kept).most_common()}")
+    return kept
 
 
 def fetch_export():
@@ -338,10 +459,12 @@ def needs_update(existing_feed, feed, now):
         return True
     if feed["packages"] != existing_feed.get("packages", []):
         return True
+    if feed["hosts"] != existing_feed.get("hosts", []):
+        return True
     return parse_time(existing_feed["expires"]) - now <= timedelta(days=REFRESH_BEFORE_EXPIRY_DAYS)
 
 
-def build_feed(entries, packages, now):
+def build_feed(entries, packages, hosts, now):
     issued = now.replace(microsecond=0)
     return {
         "schema": SCHEMA,
@@ -351,6 +474,7 @@ def build_feed(entries, packages, now):
         "source": SOURCE,
         "hashes": entries,
         "packages": packages,
+        "hosts": hosts,
     }
 
 
@@ -358,17 +482,17 @@ def payload_of(feed):
     return json.dumps(feed, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
 
 
-def fitted_feed(entries, packages, now):
+def fitted_feed(entries, packages, hosts, now):
     kept, limit = 0, len(packages)
     while kept < limit:
         middle = (kept + limit + 1) // 2
-        if len(build_envelope(payload_of(build_feed(entries, packages[:middle], now)), bytes(SIGNATURE_BYTES))) < MAX_ENVELOPE_BYTES:
+        if len(build_envelope(payload_of(build_feed(entries, packages[:middle], hosts, now)), bytes(SIGNATURE_BYTES))) < MAX_ENVELOPE_BYTES:
             kept = middle
         else:
             limit = middle - 1
     if kept < len(packages):
         log(f"left out the {len(packages) - kept} lowest-priority npm packages so the feed stays under {MAX_ENVELOPE_BYTES} bytes")
-    return build_feed(entries, packages[:kept], now)
+    return build_feed(entries, packages[:kept], hosts, now)
 
 
 def sign(payload, private_key_pem):
@@ -422,9 +546,11 @@ def main():
         fail(f"the OSV npm export could not be read ({type(error).__name__}: {error})")
     if not packages:
         fail("the OSV npm export gave no malicious packages")
-    feed = fitted_feed(entries, packages, now)
+    new_hosts, excluded_hosts = collect_hosts(fetch_iocs(auth_key))
+    hosts = merge_hosts(existing_feed.get("hosts", []) if existing_feed else [], new_hosts, excluded_hosts, now)
+    feed = fitted_feed(entries, packages, hosts, now)
     if not needs_update(existing_feed, feed, now):
-        log(f"Feed unchanged: {len(entries)} hashes, {len(feed['packages'])} npm packages, expires {existing_feed['expires']}")
+        log(f"Feed unchanged: {len(entries)} hashes, {len(feed['packages'])} npm packages, {len(hosts)} C2 addresses, expires {existing_feed['expires']}")
         return
     if existing_feed and feed["version"] <= existing_feed["version"]:
         fail(f"version {feed['version']} is not higher than the published {existing_feed['version']}; run again in a minute")
@@ -435,7 +561,7 @@ def main():
     with open(FEED_FILE, "wb") as handle:
         handle.write(envelope)
     every_version = sum(1 for entry in feed["packages"] if entry["versions"] == EVERY_VERSION)
-    log(f"Wrote {FEED_FILE} v{feed['version']}: {len(entries)} hashes ({len(added)} new), {len(feed['packages'])} npm packages ({every_version} for every version), expires {feed['expires']}")
+    log(f"Wrote {FEED_FILE} v{feed['version']}: {len(entries)} hashes ({len(added)} new), {len(feed['packages'])} npm packages ({every_version} for every version), {len(hosts)} C2 addresses, expires {feed['expires']}")
 
 
 if __name__ == "__main__":

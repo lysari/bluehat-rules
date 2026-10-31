@@ -1,4 +1,5 @@
 import base64
+import ipaddress
 import json
 import os
 import re
@@ -13,12 +14,14 @@ FEED_FILE = "feed.signed.json"
 FEED_SCHEMA = 1
 MAX_FEED_HASHES = 10000
 MAX_FEED_PACKAGES = 20000
+MAX_FEED_HOSTS = 5000
 MAX_PACKAGE_VERSIONS = 100
 MAX_PACKAGE_NAME_BYTES = 214
 MAX_VERSION_LENGTH = 256
 MAX_FEED_BYTES = 4_000_000
 FEED_ENTRY_FIELDS = {"sha256", "family", "firstSeen"}
 FEED_PACKAGE_FIELDS = {"name", "versions", "advisory", "family"}
+FEED_HOST_FIELDS = {"host", "family", "firstSeen"}
 EVERY_VERSION = "*"
 SHA256_PATTERN = re.compile(r"[0-9a-f]{64}")
 DATE_PATTERN = re.compile(r"[0-9]{4}-[0-9]{2}-[0-9]{2}")
@@ -26,6 +29,7 @@ FAMILY_PATTERN = re.compile(r"[A-Za-z0-9][A-Za-z0-9 ._-]{0,63}")
 PACKAGE_NAME_PATTERN = re.compile(r"(@[a-z0-9~-][a-z0-9._~-]*/)?[a-z0-9~-][a-z0-9._~-]*")
 VERSION_PATTERN = re.compile(r"(0|[1-9][0-9]{0,15})\.(0|[1-9][0-9]{0,15})\.(0|[1-9][0-9]{0,15})(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?")
 ADVISORY_PATTERN = re.compile(r"[A-Z][A-Z0-9]{1,15}-[A-Za-z0-9._-]{1,48}")
+HOST_PATTERN = re.compile(r"(\[[0-9a-f:.]{2,45}\]|[0-9.]{7,15}):[1-9][0-9]{0,4}")
 
 
 def fail(message):
@@ -118,6 +122,32 @@ def feed_package_problem(entry):
     return None
 
 
+def feed_host_problem(entry):
+    if not isinstance(entry, dict) or set(entry) != FEED_HOST_FIELDS:
+        return f"fields must be {sorted(FEED_HOST_FIELDS)}"
+    host = entry["host"]
+    if not isinstance(host, str) or not HOST_PATTERN.fullmatch(host):
+        return "host is not an IPv4 address:port or [IPv6 address]:port"
+    address, _, port = host.rpartition(":")
+    try:
+        parsed = ipaddress.ip_address(address.removeprefix("[").removesuffix("]"))
+    except ValueError:
+        return "host is not an IPv4 address:port or [IPv6 address]:port"
+    if (parsed.version == 6) != address.startswith("[") or not parsed.is_global or int(port) > 65535:
+        return "host is not a public address, or its port is not 1-65535"
+    family = entry["family"]
+    if not isinstance(family, str) or (family and not FAMILY_PATTERN.fullmatch(family)):
+        return "family is not empty or 1-64 letters, digits, spaces, '.', '_' or '-' starting with a letter or digit"
+    first_seen = entry["firstSeen"]
+    if not isinstance(first_seen, str) or not DATE_PATTERN.fullmatch(first_seen):
+        return "firstSeen is not YYYY-MM-DD"
+    try:
+        datetime.strptime(first_seen, "%Y-%m-%d")
+    except ValueError:
+        return "firstSeen is not a real date"
+    return None
+
+
 def verify_feed():
     if os.path.getsize(FEED_FILE) >= MAX_FEED_BYTES:
         fail(f"{FEED_FILE} is larger than {MAX_FEED_BYTES} bytes")
@@ -147,7 +177,16 @@ def verify_feed():
         problem = feed_package_problem(entry)
         if problem:
             fail(f"feed npm package {index}: {problem}")
-    print(f"Verified feed v{feed['version']}: {len(hashes)} hashes, {len(packages)} npm packages, signed {feed['issued']}, expires {feed['expires']}")
+    hosts = feed.get("hosts", [])
+    if not isinstance(hosts, list) or len(hosts) > MAX_FEED_HOSTS:
+        fail(f"feed must list at most {MAX_FEED_HOSTS} C2 addresses")
+    for index, entry in enumerate(hosts):
+        problem = feed_host_problem(entry)
+        if problem:
+            fail(f"feed C2 address {index}: {problem}")
+    if len({entry["host"] for entry in hosts}) != len(hosts):
+        fail("feed C2 addresses are not unique")
+    print(f"Verified feed v{feed['version']}: {len(hashes)} hashes, {len(packages)} npm packages, {len(hosts)} C2 addresses, signed {feed['issued']}, expires {feed['expires']}")
 
 
 def main():
