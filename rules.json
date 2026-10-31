@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version": 2026103103,
+  "version": 2026110101,
   "rules": [
     {
       "id": "setting.sip",
@@ -553,6 +553,491 @@
       ],
       "summary": "The debugger permission lets an extension read and change everything on a page, including passwords as you type them. The proxy permission lets it send all your browsing through another server. VPN and developer tools need these; malicious extensions abuse them.",
       "remedy": "Keep it only if it's a VPN or developer tool you installed on purpose. Otherwise remove it."
+    },
+    {
+      "id": "npm.qix-compromise-2025-09",
+      "title": "Hijacked chalk and debug releases (September 2025 npm compromise)",
+      "severity": "critical",
+      "category": "malware",
+      "check": "npmPackage",
+      "packages": [
+        {
+          "name": "ansi-regex",
+          "versions": [
+            "6.2.1"
+          ],
+          "advisory": "MAL-2025-46966"
+        },
+        {
+          "name": "ansi-styles",
+          "versions": [
+            "6.2.2"
+          ],
+          "advisory": "MAL-2025-46967"
+        },
+        {
+          "name": "backslash",
+          "versions": [
+            "0.2.1"
+          ],
+          "advisory": "MAL-2025-46968"
+        },
+        {
+          "name": "chalk",
+          "versions": [
+            "5.6.1"
+          ],
+          "advisory": "MAL-2025-46969"
+        },
+        {
+          "name": "chalk-template",
+          "versions": [
+            "1.1.1"
+          ],
+          "advisory": "MAL-2025-46970"
+        },
+        {
+          "name": "color-convert",
+          "versions": [
+            "3.1.1"
+          ],
+          "advisory": "MAL-2025-46971"
+        },
+        {
+          "name": "color-name",
+          "versions": [
+            "2.0.1"
+          ],
+          "advisory": "MAL-2025-46972"
+        },
+        {
+          "name": "color-string",
+          "versions": [
+            "2.1.1"
+          ],
+          "advisory": "MAL-2025-46973"
+        },
+        {
+          "name": "debug",
+          "versions": [
+            "4.4.2"
+          ],
+          "advisory": "MAL-2025-46974"
+        },
+        {
+          "name": "error-ex",
+          "versions": [
+            "1.3.3"
+          ],
+          "advisory": "MAL-2025-46975"
+        },
+        {
+          "name": "has-ansi",
+          "versions": [
+            "6.0.1"
+          ],
+          "advisory": "MAL-2025-46976"
+        },
+        {
+          "name": "is-arrayish",
+          "versions": [
+            "0.3.3"
+          ],
+          "advisory": "MAL-2025-46977"
+        },
+        {
+          "name": "simple-swizzle",
+          "versions": [
+            "0.2.3"
+          ],
+          "advisory": "MAL-2025-46978"
+        },
+        {
+          "name": "slice-ansi",
+          "versions": [
+            "7.1.1"
+          ],
+          "advisory": "MAL-2025-46979"
+        },
+        {
+          "name": "strip-ansi",
+          "versions": [
+            "7.1.1"
+          ],
+          "advisory": "MAL-2025-46980"
+        },
+        {
+          "name": "supports-color",
+          "versions": [
+            "10.2.1"
+          ],
+          "advisory": "MAL-2025-46981"
+        },
+        {
+          "name": "supports-hyperlinks",
+          "versions": [
+            "4.1.1"
+          ],
+          "advisory": "MAL-2025-46982"
+        },
+        {
+          "name": "wrap-ansi",
+          "versions": [
+            "9.0.1"
+          ],
+          "advisory": "MAL-2025-46983"
+        },
+        {
+          "name": "color",
+          "versions": [
+            "5.0.1"
+          ],
+          "advisory": "MAL-2025-46985"
+        }
+      ],
+      "summary": "On 8 September 2025 an attacker phished the maintainer of chalk, debug and 17 related packages and published versions with code that hijacks crypto wallet transactions in web pages. These packages are installed billions of times a week, so most JavaScript projects pulled one in that day.",
+      "references": [
+        "https://osv.dev/vulnerability/MAL-2025-46969",
+        "https://osv.dev/vulnerability/MAL-2025-46974"
+      ]
+    },
+    {
+      "id": "project.config-hidden-code",
+      "title": "Code hidden off-screen in a project config file",
+      "severity": "high",
+      "category": "malware",
+      "check": "projectFile",
+      "files": [
+        "*.config.js",
+        "*.config.cjs",
+        "*.config.mjs",
+        "*.config.ts",
+        "*.config.cts",
+        "*.config.mts",
+        ".eslintrc.js",
+        ".eslintrc.cjs",
+        ".prettierrc.js",
+        ".prettierrc.cjs",
+        ".prettierrc.mjs",
+        "gulpfile.js",
+        "Gruntfile.js"
+      ],
+      "patterns": [
+        "\\S[ \\t]{150}",
+        "^[ \\t]{150,8192}\\S",
+        "^[ \\t]{8000}"
+      ],
+      "summary": "A line in a config file in this project has a run of 150 or more spaces or tabs before or after code, which pushes the rest of the line far off the edge of an editor. Fake job interview projects hide malware this way in tailwind.config.js, next.config.js and similar files, which run as soon as the project is built or started.",
+      "references": [
+        "https://asec.ahnlab.com/en/87299/",
+        "https://unit42.paloaltonetworks.com/two-campaigns-by-north-korea-bad-actors-target-job-hunters/"
+      ]
+    },
+    {
+      "id": "project.config-eval-decoded",
+      "title": "Config file runs decoded code",
+      "severity": "critical",
+      "category": "malware",
+      "check": "projectFile",
+      "files": [
+        "*.config.js",
+        "*.config.cjs",
+        "*.config.mjs",
+        "*.config.ts",
+        "*.config.cts",
+        "*.config.mts",
+        ".eslintrc.js",
+        ".eslintrc.cjs",
+        ".prettierrc.js",
+        ".prettierrc.cjs",
+        ".prettierrc.mjs",
+        "gulpfile.js",
+        "Gruntfile.js"
+      ],
+      "patterns": [
+        "\\b(eval|Function)\\s*\\((?:(?!\\b(eval|Function)\\s*\\()[^\\n]){0,200}\\b(atob|Buffer\\.from|fromCharCode|unescape)\\s*\\(",
+        "\\(\\s*0\\s*,\\s*eval\\s*\\)\\s*\\("
+      ],
+      "summary": "A config file in this project passes base64, hex or character-code data to eval or Function, which runs it as code. Normal build configs never do this; it is how malware in fake interview projects and hijacked packages hides its payload.",
+      "references": [
+        "https://asec.ahnlab.com/en/87299/",
+        "https://unit42.paloaltonetworks.com/two-campaigns-by-north-korea-bad-actors-target-job-hunters/"
+      ]
+    },
+    {
+      "id": "project.config-command-download",
+      "title": "Config file starts a command that reaches the internet",
+      "severity": "critical",
+      "category": "rce",
+      "check": "projectFile",
+      "files": [
+        "*.config.js",
+        "*.config.cjs",
+        "*.config.mjs",
+        "*.config.ts",
+        "*.config.cts",
+        "*.config.mts",
+        ".eslintrc.js",
+        ".eslintrc.cjs",
+        ".prettierrc.js",
+        ".prettierrc.cjs",
+        ".prettierrc.mjs",
+        "gulpfile.js",
+        "Gruntfile.js"
+      ],
+      "patterns": [
+        "\\b(exec|execSync|spawn|spawnSync|execFile|execFileSync)\\s*\\(\\s*['\\\"`][^;\\n]{0,200}\\b(curl|wget|powershell|Invoke-WebRequest)\\b",
+        "\\b(exec|execSync|spawn|spawnSync|execFile|execFileSync)\\s*\\(\\s*['\\\"`][^'\\\"`\\n]{0,200}https?://(?!(localhost|127\\.0\\.0\\.1|0\\.0\\.0\\.0)\\b)",
+        "child_process['\\\"`]\\s*\\)(?:(?!child_process)[^\\n]){0,1000}\\b(https?\\.(get|request)|axios(\\.(get|post))?|fetch)\\s*\\(",
+        "\\b(https?\\.(get|request)|axios\\.(get|post)|fetch)\\s*\\((?:(?!child_process)[^\\n]){0,1000}child_process"
+      ],
+      "summary": "A config file in this project runs a shell command together with a download from the internet. Config files run every time the project is built or started, so this lets whoever wrote it run any code on your Mac.",
+      "references": [
+        "https://asec.ahnlab.com/en/87299/",
+        "https://unit42.paloaltonetworks.com/two-campaigns-by-north-korea-bad-actors-target-job-hunters/"
+      ]
+    },
+    {
+      "id": "project.config-remote-code",
+      "title": "Config file runs code downloaded from the internet",
+      "severity": "critical",
+      "category": "rce",
+      "check": "projectFile",
+      "files": [
+        "*.config.js",
+        "*.config.cjs",
+        "*.config.mjs",
+        "*.config.ts",
+        "*.config.cts",
+        "*.config.mts",
+        ".eslintrc.js",
+        ".eslintrc.cjs",
+        ".prettierrc.js",
+        ".prettierrc.cjs",
+        ".prettierrc.mjs",
+        "gulpfile.js",
+        "Gruntfile.js"
+      ],
+      "patterns": [
+        "\\bFunction\\s*\\(\\s*['\\\"`]require['\\\"`]\\s*,",
+        "\\b(eval|Function)\\s*\\(\\s*\\w{1,30}\\.(data|body|responseText)\\s*\\)",
+        "\\.then\\s*\\(\\s*(eval|Function)\\s*\\)"
+      ],
+      "summary": "A config file in this project turns a downloaded response into code and runs it, giving it access to require. This is the loader used by fake job interview projects: the real malware is fetched from a server each time the project starts.",
+      "references": [
+        "https://unit42.paloaltonetworks.com/two-campaigns-by-north-korea-bad-actors-target-job-hunters/"
+      ]
+    },
+    {
+      "id": "project.config-obfuscated",
+      "title": "Obfuscated code in a project config file",
+      "severity": "high",
+      "category": "malware",
+      "check": "projectFile",
+      "files": [
+        "*.config.js",
+        "*.config.cjs",
+        "*.config.mjs",
+        "*.config.ts",
+        "*.config.cts",
+        "*.config.mts",
+        ".eslintrc.js",
+        ".eslintrc.cjs",
+        ".prettierrc.js",
+        ".prettierrc.cjs",
+        ".prettierrc.mjs",
+        "gulpfile.js",
+        "Gruntfile.js"
+      ],
+      "patterns": [
+        "\\b_0x[0-9a-f]{4,6}\\b(?:(?!_0x)[^\\n]){0,100}\\b_0x[0-9a-f]{4,6}\\b(?:(?!_0x)[^\\n]){0,100}\\b_0x[0-9a-f]{4,6}\\b"
+      ],
+      "summary": "A config file in this project contains code run through an obfuscator (names such as _0x4f2a1c). Build configs are written by hand and never need this; malware in fake interview projects and hijacked packages uses it to hide what it does.",
+      "references": [
+        "https://unit42.paloaltonetworks.com/two-campaigns-by-north-korea-bad-actors-target-job-hunters/"
+      ]
+    },
+    {
+      "id": "project.config-encoded-blob",
+      "title": "Large encoded blob in a project config file",
+      "severity": "medium",
+      "category": "malware",
+      "check": "projectFile",
+      "files": [
+        "*.config.js",
+        "*.config.cjs",
+        "*.config.mjs",
+        "*.config.ts",
+        "*.config.cts",
+        "*.config.mts",
+        ".eslintrc.js",
+        ".eslintrc.cjs",
+        ".prettierrc.js",
+        ".prettierrc.cjs",
+        ".prettierrc.mjs",
+        "gulpfile.js",
+        "Gruntfile.js"
+      ],
+      "patterns": [
+        "['\\\"`][A-Za-z0-9+/]{1000,}={0,2}['\\\"`]"
+      ],
+      "summary": "A config file in this project holds a string of 1,000 or more base64 characters. Malware in project configs often carries its payload this way and decodes it at run time. Inline images and fonts start with data: and are not matched.",
+      "references": [
+        "https://unit42.paloaltonetworks.com/two-campaigns-by-north-korea-bad-actors-target-job-hunters/"
+      ]
+    },
+    {
+      "id": "project.install-script-download",
+      "title": "npm install script downloads and runs code",
+      "severity": "critical",
+      "category": "rce",
+      "check": "projectFile",
+      "files": [
+        "package.json"
+      ],
+      "patterns": [
+        "\"((pre|post)?(install|prepare)|prepublish|dependencies)\"\\s*:\\s*\"(?:[^\"\\\\\\n]|\\\\.){0,300}\\b(curl|wget)\\b(?:[^\"\\\\\\n]|\\\\.){0,300}\\|\\s*(sudo\\s+)?((ba|z|da)?sh|node|python3?|perl|osascript)\\b",
+        "\"((pre|post)?(install|prepare)|prepublish|dependencies)\"\\s*:\\s*\"(?:[^\"\\\\\\n]|\\\\.){0,300}\\b(curl|wget)\\b(?:[^\"\\\\\\n]|\\\\.){0,300}(&&|;)\\s*(chmod\\s|\\./|/tmp/|(ba|z)?sh\\s|node\\s)"
+      ],
+      "summary": "This package.json has an install script (preinstall, install, postinstall or prepare) that downloads a file and runs it. npm runs these scripts on npm install without asking, so the download runs as you before you have looked at the project.",
+      "remedy": "Don't run npm install in this project. If you already did, treat the Mac as compromised: from another device rotate npm, GitHub and cloud tokens and SSH keys, and check Bluehat's other findings. Install unfamiliar projects with npm install --ignore-scripts.",
+      "references": [
+        "https://docs.npmjs.com/cli/v10/using-npm/scripts",
+        "https://unit42.paloaltonetworks.com/two-campaigns-by-north-korea-bad-actors-target-job-hunters/"
+      ]
+    },
+    {
+      "id": "project.install-script-inline-node",
+      "title": "npm install script runs inline code that reaches the internet",
+      "severity": "critical",
+      "category": "rce",
+      "check": "projectFile",
+      "files": [
+        "package.json"
+      ],
+      "patterns": [
+        "\"((pre|post)?(install|prepare)|prepublish|dependencies)\"\\s*:\\s*\"(?:[^\"\\\\\\n]|\\\\.){0,100}\\bnode\\s+(-e|--eval|-p|--print)\\s(?:[^\"\\\\\\n]|\\\\.){0,500}(https?://|https?\\.(get|request)\\b|\\bfetch\\s*\\(|require\\(\\\\?['\\\"](node:)?(https?|child_process)\\\\?['\\\"]\\))"
+      ],
+      "summary": "This package.json has an install script that runs inline JavaScript with node -e and reaches the internet or starts commands. npm runs it on npm install without asking, so a downloaded payload runs before you have looked at the project.",
+      "remedy": "Don't run npm install in this project. If you already did, treat the Mac as compromised: from another device rotate npm, GitHub and cloud tokens and SSH keys, and check Bluehat's other findings. Install unfamiliar projects with npm install --ignore-scripts.",
+      "references": [
+        "https://docs.npmjs.com/cli/v10/using-npm/scripts",
+        "https://unit42.paloaltonetworks.com/two-campaigns-by-north-korea-bad-actors-target-job-hunters/"
+      ]
+    },
+    {
+      "id": "npm.shai-hulud-files",
+      "title": "Shai-Hulud npm worm scripts",
+      "severity": "critical",
+      "category": "worm",
+      "check": "path",
+      "paths": [
+        "/tmp/processor.sh",
+        "/tmp/migrate-repos.sh"
+      ],
+      "summary": "The Shai-Hulud worm (September 2025) spread through hijacked npm packages. It drops these scripts to push a secret-stealing workflow into your GitHub repositories and to make your private repositories public, after stealing npm, GitHub and cloud tokens from this Mac.",
+      "remedy": "Delete the two scripts. From another device revoke and replace your npm and GitHub tokens, cloud keys and SSH keys, look for a public repository named Shai-Hulud and repositories ending in -migration in your GitHub account, and remove the infected package version from your projects.",
+      "references": [
+        "https://www.wiz.io/blog/shai-hulud-npm-supply-chain-attack"
+      ]
+    },
+    {
+      "id": "npm.shai-hulud-2-runner",
+      "title": "Shai-Hulud 2.0 GitHub runner installed",
+      "severity": "critical",
+      "category": "backdoor",
+      "check": "path",
+      "paths": [
+        "~/.dev-env/config.sh"
+      ],
+      "summary": "The Shai-Hulud 2.0 worm (November 2025) installs a GitHub Actions runner in the hidden .dev-env folder of your home folder and registers it as SHA1HULUD, so the attackers can run any command on this Mac through GitHub. If it finds no tokens to steal it erases your home folder instead.",
+      "remedy": "Stop the runner (quit any Runner.Listener process in Activity Monitor), delete the .dev-env folder in your home folder, and remove self-hosted runners named SHA1HULUD from your GitHub repositories. From another device revoke and replace your npm and GitHub tokens, cloud keys and SSH keys.",
+      "references": [
+        "https://securitylabs.datadoghq.com/articles/shai-hulud-2.0-npm-worm/",
+        "https://unit42.paloaltonetworks.com/npm-supply-chain-attack/"
+      ]
+    },
+    {
+      "id": "npm.shai-hulud-2-runner-process",
+      "title": "Shai-Hulud 2.0 GitHub runner is being registered",
+      "severity": "critical",
+      "category": "backdoor",
+      "check": "process",
+      "patterns": [
+        "\\s--name\\s+\"?SHA1HULUD\\b"
+      ],
+      "summary": "A running process is registering this Mac as a GitHub Actions runner named SHA1HULUD, the backdoor of the Shai-Hulud 2.0 npm worm. Once registered, the attackers can run any command on this Mac through GitHub.",
+      "remedy": "Disconnect from the network, quit the process in Activity Monitor and delete the .dev-env folder in your home folder. From another device revoke and replace your npm and GitHub tokens, cloud keys and SSH keys, and remove self-hosted runners named SHA1HULUD from your GitHub repositories.",
+      "references": [
+        "https://unit42.paloaltonetworks.com/npm-supply-chain-attack/",
+        "https://securitylabs.datadoghq.com/articles/shai-hulud-2.0-npm-worm/"
+      ]
+    },
+    {
+      "id": "npm.mini-shai-hulud-monitor",
+      "title": "Mini Shai-Hulud token monitor files",
+      "severity": "critical",
+      "category": "persistence",
+      "check": "path",
+      "paths": [
+        "~/Library/LaunchAgents/com.user.gh-token-monitor.plist",
+        "~/.local/bin/gh-token-monitor.sh",
+        "~/.config/gh-token-monitor/token"
+      ],
+      "summary": "The Mini Shai-Hulud worm (May 2026, TanStack and other hijacked npm packages) installs a gh-token-monitor launch agent that keeps a stolen GitHub token on disk and starts again at every login.",
+      "remedy": "Run launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/com.user.gh-token-monitor.plist, delete the files listed and the gh-token-monitor folder, and restart. From another device revoke and replace your GitHub and npm tokens, cloud keys and SSH keys.",
+      "references": [
+        "https://www.stepsecurity.io/blog/mini-shai-hulud-is-back-a-self-spreading-supply-chain-attack-hits-the-npm-ecosystem"
+      ]
+    },
+    {
+      "id": "npm.mini-shai-hulud-process",
+      "title": "Mini Shai-Hulud worm is running",
+      "severity": "critical",
+      "category": "worm",
+      "check": "process",
+      "patterns": [
+        "/\\.local/bin/gh-token-monitor\\.sh\\b",
+        "\\bbun\\s+run\\s+(opensearch_init|tanstack_runner)\\.js\\b"
+      ],
+      "summary": "A running process matches the Mini Shai-Hulud npm worm: its gh-token-monitor script or its Bun payload. It steals GitHub, npm and cloud tokens and uses them to publish infected versions of your packages.",
+      "remedy": "Disconnect from the network, quit the process in Activity Monitor, then follow the steps for the Mini Shai-Hulud files finding. From another device revoke and replace your GitHub and npm tokens, cloud keys and SSH keys.",
+      "references": [
+        "https://www.stepsecurity.io/blog/mini-shai-hulud-is-back-a-self-spreading-supply-chain-attack-hits-the-npm-ecosystem"
+      ]
+    },
+    {
+      "id": "npm.s1ngularity-files",
+      "title": "Files left by the nx s1ngularity stealer",
+      "severity": "high",
+      "category": "malware",
+      "check": "path",
+      "paths": [
+        "/tmp/inventory.txt",
+        "/tmp/inventory.txt.bak"
+      ],
+      "summary": "The hijacked nx releases of August 2025 (s1ngularity) made AI coding tools on the Mac list wallets, keys and secret files into /tmp/inventory.txt, then uploaded them to a public GitHub repository named s1ngularity-repository.",
+      "remedy": "Open the file to check it lists your key and wallet files, then delete it. From another device revoke and replace your GitHub and npm tokens and SSH keys, move any crypto to a new wallet, and look for a repository containing s1ngularity-repository in your GitHub account.",
+      "references": [
+        "https://github.com/nrwl/nx/security/advisories/GHSA-cxm3-wv7p-598c",
+        "https://www.stepsecurity.io/blog/supply-chain-security-alert-popular-nx-build-system-package-compromised-with-data-stealing-malware"
+      ]
+    },
+    {
+      "id": "npm.s1ngularity-shutdown",
+      "title": "Shutdown trap from the nx s1ngularity stealer",
+      "severity": "critical",
+      "category": "malware",
+      "check": "shellProfile",
+      "patterns": [
+        "\\bsudo\\s+shutdown\\s+-h\\s+0\\b"
+      ],
+      "summary": "Your shell startup file runs sudo shutdown -h 0, which the hijacked nx releases of August 2025 (s1ngularity) added to ~/.zshrc and ~/.bashrc. Every new Terminal window asks for your password and shuts the Mac down. The same malware uploaded your keys and wallet files to GitHub.",
+      "remedy": "Remove the sudo shutdown -h 0 line from ~/.zshrc and ~/.bashrc in a text editor (don't open a new Terminal window first). From another device revoke and replace your GitHub and npm tokens and SSH keys, and move any crypto to a new wallet.",
+      "references": [
+        "https://github.com/nrwl/nx/security/advisories/GHSA-cxm3-wv7p-598c",
+        "https://www.stepsecurity.io/blog/supply-chain-security-alert-popular-nx-build-system-package-compromised-with-data-stealing-malware"
+      ]
     },
     {
       "id": "cve.node.cve-2016-5180",

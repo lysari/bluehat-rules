@@ -2,7 +2,7 @@
 
 Detection rules for the Bluehat macOS menu bar scanner.
 
-The app downloads only `rules.signed.json` (hand-written rules) and `feed.signed.json` (malware fingerprints) from this repository and rejects each unless it is signed by a key the app trusts for that file. Both are data only: each rule picks one of the check types the app has built in, and the feed holds only file hashes, so nothing in this repository can make the app run code.
+The app downloads only `rules.signed.json` (hand-written rules) and `feed.signed.json` (malware fingerprints and malicious npm packages) from this repository and rejects each unless it is signed by a key the app trusts for that file. Both are data only: each rule picks one of the check types the app has built in, and the feed holds only file hashes and npm package names and versions, so nothing in this repository can make the app run code.
 
 ## Update the rules
 
@@ -31,14 +31,17 @@ python3 -I .github/scripts/update_cve_rules.py
 
 ## Malware fingerprint feed
 
-`feed.signed.json` lists SHA-256 hashes of recent macOS malware samples from [MalwareBazaar](https://bazaar.abuse.ch/) (abuse.ch), so the app's file hash check knows current attacks without a hand-written rule for each sample.
+`feed.signed.json` lists SHA-256 hashes of recent macOS malware samples from [MalwareBazaar](https://bazaar.abuse.ch/) (abuse.ch), so the app's file hash check knows current attacks without a hand-written rule for each sample, and known-malicious npm package versions from [OSV.dev](https://osv.dev/list?ecosystem=npm) for the app's npm package check.
 
 - `.github/workflows/update-feed.yml` runs `.github/scripts/update_feed.py` daily at 03:17 UTC (and on demand from the Actions tab). It queries MalwareBazaar for macOS file types (`macho`, `dmg`, `pkg`, `app`) and macOS tags (`macOS`, `osx`, `AMOS`, `AtomicStealer` and other stealer families), keeps samples with a macOS file type or tag **and** a malware family from MalwareBazaar (its `signature` field), merges them with the current feed, drops hashes first seen more than 365 days ago, keeps the 10000 newest, signs the result and commits it as `github-actions[bot]`. The log lists each query's status and sample count, and how many macOS samples were left out for having no family.
 - Why a family is required: anyone with a free MalwareBazaar account can upload a file and tag it `macOS`, and every feed hash is reported as critical, so an uploaded copy of a popular legitimate app would otherwise be signed into the feed. The uploader's tags alone no longer put a file in the feed; MalwareBazaar must also have classified it as a malware family. The trade-off is that samples with only tags (for example new or unclassified ones) are no longer in the feed.
 - One run may add at most 500 new hashes (`MAX_NEW_HASHES` in `update_feed.py`). Above that the job fails without writing anything and logs the new hashes by family. Review them on MalwareBazaar, and if they are genuine raise the limit in a reviewed commit.
 - Every run checks the published hashes again with the current rules: an entry that no longer passes the entry checks, or whose sample MalwareBazaar now lists without a family or macOS marker, is dropped.
 - MalwareBazaar requests refuse redirects (so the `Auth-Key` header is never sent to another host) and read at most 20,000,000 bytes of each response.
-- It only commits when the set of hashes changed or the published feed expires within 2 days. The feed expires 7 days after signing, so it stays valid while the job runs and goes stale within a week if the job stops.
+- npm packages: the same run downloads OSV's npm export (`https://osv-vulnerabilities.storage.googleapis.com/npm/all.zip`, one file, so the job makes one request instead of one per advisory) and uses its `MAL-` records (the [OpenSSF malicious-packages](https://github.com/ossf/malicious-packages) data). The export is kept in memory, refuses redirects and is read up to 1,000,000,000 bytes, and each record up to 5,000,000 bytes. Withdrawn records are skipped. A record whose `SEMVER` or `ECOSYSTEM` range is `introduced: "0"` with no `fixed`, `last_affected` or `limit` covers every version and becomes `"versions": "*"`; otherwise its listed exact semver `versions` are used, and a record with none of those, or with more than 100, is left out (versions are never guessed from ranges). Every entry is checked with the app's rules before it is written and dropped if it fails, because one invalid entry makes the app reject the whole feed. Several records for one package name are merged into one entry (`*` wins, otherwise the versions are combined).
+- `family` is set only when a record names the campaign: `Shai-Hulud`, `Shai-Hulud 2.0`, `Shai-Hulud Here We Go Again`, `Mini Shai-Hulud`, `s1ngularity` or `tea.xyz spam` (`CAMPAIGNS` in `update_feed.py`); otherwise it is empty. The app groups the packages into one finding rule per family.
+- OSV lists far more malicious npm packages than the app's 20,000. They are ranked and the top 20,000 kept: first packages with a list of bad versions (usually hijacked releases of real packages, the ones most likely to be in a lockfile), then packages that are malicious in every version, with `tea.xyz spam` last; newest `published` first within each group. If the signed file would reach 4,000,000 bytes together with the hashes, the lowest-ranked packages are left out until it fits. The job fails without writing anything when the export can't be downloaded or read, or gives no packages.
+- It only commits when the set of hashes or the npm packages changed or the published feed expires within 2 days. The feed expires 7 days after signing, so it stays valid while the job runs and goes stale within a week if the job stops.
 - It needs two repository secrets: `ABUSE_CH_AUTH_KEY` (MalwareBazaar API key, from [auth.abuse.ch](https://auth.abuse.ch/)) and `FEED_SIGNING_KEY` (the CI feed key, a PKCS#8 PEM Ed25519 private key).
 - The CI feed key can only sign the feed. The app and `verify.yml` accept it for `feed.signed.json` (`FEED_KEYS`) and never for `rules.signed.json` (`TRUSTED_KEYS`), so a leaked CI key can add hashes but can't change the rules. The hand-written rules are still signed only by the owner's keys.
 
@@ -50,13 +53,14 @@ The envelope is `{"rules": "<base64 payload>", "signature": "<base64 Ed25519 sig
 | `version` | UTC time of the run as `YYYYMMDDHHMM` |
 | `issued`, `expires` | ISO 8601 UTC times, `expires` is 7 days after `issued` |
 | `source` | `MalwareBazaar` |
-| `hashes` | up to 10000 entries, newest `firstSeen` first: `sha256` (64 lowercase hex), `family` (empty when unknown or invalid, otherwise 1-64 ASCII letters, digits, spaces, `.`, `_` or `-`, starting with a letter or digit: `^[A-Za-z0-9][A-Za-z0-9 ._-]{0,63}$`), `firstSeen` (`YYYY-MM-DD`) |
+| `hashes` | 1-10000 entries, newest `firstSeen` first: `sha256` (64 lowercase hex), `family` (empty when unknown or invalid, otherwise 1-64 ASCII letters, digits, spaces, `.`, `_` or `-`, starting with a letter or digit: `^[A-Za-z0-9][A-Za-z0-9 ._-]{0,63}$`), `firstSeen` (`YYYY-MM-DD`) |
+| `packages` | optional, up to 20000 entries, highest-ranked first: `name` (npm name, at most 214 bytes: `^(@[a-z0-9~-][a-z0-9._~-]*/)?[a-z0-9~-][a-z0-9._~-]*$`), `versions` (`"*"` for every version, or 1-100 exact semver versions such as `1.2.3`), `advisory` (the OSV id, such as `MAL-2025-46969`: `^[A-Z][A-Z0-9]{1,15}-[A-Za-z0-9._-]{1,48}$`), `family` (as for hashes) |
 
 The whole file stays under 4,000,000 bytes.
 
 ## Checks on every push
 
-`.github/workflows/verify.yml` runs `.github/scripts/verify_rules.py` (Python standard library and OpenSSL only). It fails when `rules.signed.json` isn't signed by a trusted key, doesn't match `rules.json`, has no `issued`/`expires`, has expired, has duplicate ids, or changed without a higher `version`, and when `feed.signed.json` isn't signed by a key in `FEED_KEYS`, has expired, is too large, or has an invalid or duplicate entry. Its `TRUSTED_KEYS` must list the same public keys as the app's `RuleFeed.trustedKeys`, and `FEED_KEYS` the keys the app accepts for the feed: the CI feed key plus the owner's keys. Pushes by the feed job don't trigger this workflow (GitHub doesn't start workflows from `GITHUB_TOKEN` pushes), so `update-feed.yml` runs the same script, with the same `TRUSTED_KEYS` and `FEED_KEYS`, after building the feed and before committing it: a feed that fails the checks is never pushed. Change the key lists in both workflows together. Because it checks the rules as well, the feed job also stops while `rules.signed.json` doesn't match `rules.json` or has expired. It is a consistency check, not the security boundary: the app verifies everything itself.
+`.github/workflows/verify.yml` runs `.github/scripts/verify_rules.py` (Python standard library and OpenSSL only). It fails when `rules.signed.json` isn't signed by a trusted key, doesn't match `rules.json`, has no `issued`/`expires`, has expired, has duplicate ids, or changed without a higher `version`, and when `feed.signed.json` isn't signed by a key in `FEED_KEYS`, has expired, is too large, has an invalid or duplicate hash entry, or has an npm package entry the app would reject. Its `TRUSTED_KEYS` must list the same public keys as the app's `RuleFeed.trustedKeys`, and `FEED_KEYS` the keys the app accepts for the feed: the CI feed key plus the owner's keys. Pushes by the feed job don't trigger this workflow (GitHub doesn't start workflows from `GITHUB_TOKEN` pushes), so `update-feed.yml` runs the same script, with the same `TRUSTED_KEYS` and `FEED_KEYS`, after building the feed and before committing it: a feed that fails the checks is never pushed. Change the key lists in both workflows together. Because it checks the rules as well, the feed job also stops while `rules.signed.json` doesn't match `rules.json` or has expired. It is a consistency check, not the security boundary: the app verifies everything itself.
 
 ## Signing keys
 
@@ -92,17 +96,34 @@ The whole file stays under 4,000,000 bytes.
 | `setting` | `setting`: `sip`, `gatekeeper`, `firewall` | macOS protections that are switched off |
 | `launchItemSignature` | nothing | programs started by LaunchAgents and LaunchDaemons that are unsigned, ad-hoc signed or tampered (every architecture checked) |
 | `appSignature` | nothing | apps in `/Applications`, `~/Applications` and `~/Downloads` (and one folder down) that are unsigned, ad-hoc signed or changed after signing |
-
 | `sshKey` | optional `patterns` | keys in `~/.ssh/authorized_keys` and `authorized_keys2`; without patterns every key is reported, with patterns only matching lines |
 | `profile` | optional `patterns` | configuration profiles from `profiles show` (user profiles; computer-wide profiles need root); without patterns every non-internal profile is reported, with patterns only profiles with a matching payload type |
-
 | `browserExtension` | `patterns` | one line per extension in Chrome, Brave, Edge, Arc, Chromium, Vivaldi (every profile, newest version) and Firefox (user add-ons): `browser=<name> id=<id> name=<name> update=<update URL, addons.mozilla.org for Mozilla-signed add-ons, or none> permissions=<comma-separated>` |
 | `softwareVersion` | `product`, `advisory`, `ranges` (see below) | installed Node.js, PHP, Python, OpenSSL, Git and Ruby versions: Homebrew Cellar folders, nvm, Volta, fnm, asdf, mise, pyenv and rbenv install folders, `/Library/Frameworks/Python.framework` and the Node.js installer in `/usr/local` |
+| `npmPackage` | `packages` (see below) | npm packages in `package-lock.json`, `npm-shrinkwrap.json`, `yarn.lock` and `pnpm-lock.yaml` of each project (a folder with a `package.json` in the user's project folders), and in the global `node_modules` of Homebrew, `/usr/local` and each Node.js install |
+| `projectFile` | `files`, `patterns` | lines of the named files in each project (a folder with a `package.json` in the user's project folders); the finding names the first matching line of each file |
 
 Patterns run against text an attacker can control (process command lines, launch item arguments, extension names), so write them to run in linear time:
 
 - Never use an unbounded `.*`, `.+`, `\S*` or negated class like `[^|;]*`. Give every repetition of those an upper bound, such as `.{0,512}`, `[^|;]{0,512}`, `\S{0,4096}` or `[^/]{1,255}`. `\s*` and `\s+` are fine directly before a token that can't start with whitespace.
 - When a gap sits between two parts, also stop it at the pattern's own start, written exactly as before the gap: `osascript\b(?:(?!osascript\b).){0,512}display dialog` instead of `osascript\b.*display dialog`, and `(curl|wget)(?:(?!curl|wget)[^|;]){0,512}\|` instead of `(curl|wget)[^|;]*\|`. A bound alone is still slow on a long line that repeats the start; with the stop, every pattern finishes in under 0.1 s on a 1 MB line.
+
+`npmPackage` fields:
+
+| Field | Values |
+|---|---|
+| `packages` | 1-200 entries, each `{"name": "<npm name>", "versions": "*" or ["<version>", …], "advisory": "<id>"}`. `name` is an npm package name of at most 214 bytes (`chalk`, `@scope/name`): `^(@[a-z0-9~-][a-z0-9._~-]*/)?[a-z0-9~-][a-z0-9._~-]*$`. `versions` is `"*"` for every version or 1-100 exact semver versions (`5.6.1`, `1.0.0-beta.1`), never ranges. `advisory` is the advisory id, such as `MAL-2025-46969`: `^[A-Z][A-Z0-9]{1,15}-[A-Za-z0-9._-]{1,48}$` |
+
+```json
+{"id": "npm.qix-compromise-2025-09", "title": "Hijacked chalk and debug releases (September 2025 npm compromise)", "severity": "critical", "category": "malware", "check": "npmPackage", "packages": [{"name": "chalk", "versions": ["5.6.1"], "advisory": "MAL-2025-46969"}, {"name": "debug", "versions": ["4.4.2"], "advisory": "MAL-2025-46974"}]}
+```
+
+`projectFile` fields:
+
+| Field | Values |
+|---|---|
+| `files` | 1-20 file names, matched without regard to case; `*` matches any run of characters (`*.config.js`, `package.json`): `^(?=.*[A-Za-z0-9])[A-Za-z0-9._*-]{1,64}$`, no `..` and no folders |
+| `patterns` | regexes, each run on every line of the file. Only the first 1,000,000 bytes of a file and the first 8,192 UTF-16 units of each line are read, so a pattern must still match when the end of a long line is cut off, for example by matching the long run of padding itself rather than the code after it |
 
 `softwareVersion` fields:
 

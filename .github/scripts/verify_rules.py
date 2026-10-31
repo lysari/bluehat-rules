@@ -12,11 +12,20 @@ STAMPED_FIELDS = ("issued", "expires")
 FEED_FILE = "feed.signed.json"
 FEED_SCHEMA = 1
 MAX_FEED_HASHES = 10000
+MAX_FEED_PACKAGES = 20000
+MAX_PACKAGE_VERSIONS = 100
+MAX_PACKAGE_NAME_BYTES = 214
+MAX_VERSION_LENGTH = 256
 MAX_FEED_BYTES = 4_000_000
 FEED_ENTRY_FIELDS = {"sha256", "family", "firstSeen"}
+FEED_PACKAGE_FIELDS = {"name", "versions", "advisory", "family"}
+EVERY_VERSION = "*"
 SHA256_PATTERN = re.compile(r"[0-9a-f]{64}")
 DATE_PATTERN = re.compile(r"[0-9]{4}-[0-9]{2}-[0-9]{2}")
 FAMILY_PATTERN = re.compile(r"[A-Za-z0-9][A-Za-z0-9 ._-]{0,63}")
+PACKAGE_NAME_PATTERN = re.compile(r"(@[a-z0-9~-][a-z0-9._~-]*/)?[a-z0-9~-][a-z0-9._~-]*")
+VERSION_PATTERN = re.compile(r"(0|[1-9][0-9]{0,15})\.(0|[1-9][0-9]{0,15})\.(0|[1-9][0-9]{0,15})(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?")
+ADVISORY_PATTERN = re.compile(r"[A-Z][A-Z0-9]{1,15}-[A-Za-z0-9._-]{1,48}")
 
 
 def fail(message):
@@ -86,6 +95,29 @@ def feed_entry_problem(entry):
     return None
 
 
+def is_version(version):
+    return isinstance(version, str) and version.isascii() and len(version) <= MAX_VERSION_LENGTH and VERSION_PATTERN.fullmatch(version) is not None
+
+
+def feed_package_problem(entry):
+    if not isinstance(entry, dict) or set(entry) != FEED_PACKAGE_FIELDS:
+        return f"fields must be {sorted(FEED_PACKAGE_FIELDS)}"
+    name = entry["name"]
+    if not isinstance(name, str) or not name.isascii() or len(name) > MAX_PACKAGE_NAME_BYTES or not PACKAGE_NAME_PATTERN.fullmatch(name):
+        return f"name is not a lowercase npm package name of at most {MAX_PACKAGE_NAME_BYTES} bytes"
+    versions = entry["versions"]
+    if versions != EVERY_VERSION and (not isinstance(versions, list) or not 0 < len(versions) <= MAX_PACKAGE_VERSIONS):
+        return f'versions is not "*" or a list of 1-{MAX_PACKAGE_VERSIONS} versions'
+    if versions != EVERY_VERSION and not all(is_version(version) for version in versions):
+        return "versions are not all semver versions such as 1.2.3"
+    if not isinstance(entry["advisory"], str) or not ADVISORY_PATTERN.fullmatch(entry["advisory"]):
+        return "advisory is not an id such as MAL-2025-46969"
+    family = entry["family"]
+    if not isinstance(family, str) or (family and not FAMILY_PATTERN.fullmatch(family)):
+        return "family is not empty or 1-64 letters, digits, spaces, '.', '_' or '-' starting with a letter or digit"
+    return None
+
+
 def verify_feed():
     if os.path.getsize(FEED_FILE) >= MAX_FEED_BYTES:
         fail(f"{FEED_FILE} is larger than {MAX_FEED_BYTES} bytes")
@@ -108,7 +140,14 @@ def verify_feed():
             fail(f"feed entry {index}: {problem}")
     if len({entry["sha256"] for entry in hashes}) != len(hashes):
         fail("feed hashes are not unique")
-    print(f"Verified feed v{feed['version']}: {len(hashes)} hashes, signed {feed['issued']}, expires {feed['expires']}")
+    packages = feed.get("packages", [])
+    if not isinstance(packages, list) or len(packages) > MAX_FEED_PACKAGES:
+        fail(f"feed must list at most {MAX_FEED_PACKAGES} npm packages")
+    for index, entry in enumerate(packages):
+        problem = feed_package_problem(entry)
+        if problem:
+            fail(f"feed npm package {index}: {problem}")
+    print(f"Verified feed v{feed['version']}: {len(hashes)} hashes, {len(packages)} npm packages, signed {feed['issued']}, expires {feed['expires']}")
 
 
 def main():
