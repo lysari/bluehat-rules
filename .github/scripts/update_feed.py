@@ -28,7 +28,9 @@ QUERY_LIMIT = 1000
 THREATFOX_DAYS = 3
 THREATFOX_FAMILIES = ("osx.amos", "osx.banshee", "osx.poseidon", "osx.odyssey")
 MACOS_MALWARE_PREFIX = "osx."
-C2_IOC_TYPE = "ip:port"
+IP_PORT_IOC_TYPE = "ip:port"
+URL_IOC_TYPE = "url"
+URL_DEFAULT_PORTS = {"http": 80, "https": 443}
 C2_THREAT_TYPE = "botnet_cc"
 MIN_CONFIDENCE = 75
 REQUEST_TIMEOUT_SECONDS = 60
@@ -228,11 +230,28 @@ def merge_entries(existing_entries, new_entries, excluded, now):
     return entries[:MAX_HASHES]
 
 
+def url_address(value):
+    try:
+        url = urllib.parse.urlsplit(value)
+        port = url.port
+    except ValueError:
+        return "", ""
+    default_port = URL_DEFAULT_PORTS.get(url.scheme)
+    if default_port is None or not url.hostname:
+        return "", ""
+    return url.hostname, str(default_port if port is None else port)
+
+
 def host_of(ioc):
     value = ioc.get("ioc")
-    if not isinstance(value, str) or ioc.get("ioc_type") != C2_IOC_TYPE:
+    if not isinstance(value, str):
         return None
-    address, _, port = value.rpartition(":")
+    if ioc.get("ioc_type") == IP_PORT_IOC_TYPE:
+        address, _, port = value.rpartition(":")
+    elif ioc.get("ioc_type") == URL_IOC_TYPE:
+        address, port = url_address(value)
+    else:
+        return None
     if not port.isascii() or not port.isdigit() or not 0 < int(port) <= 65535 or port.startswith("0"):
         return None
     try:
@@ -291,12 +310,22 @@ def host_problem(entry):
     return None
 
 
+def confidence_bucket(ioc):
+    confidence = ioc.get("confidence_level")
+    if not isinstance(confidence, int):
+        return f"confidence {type(confidence).__name__}"
+    return f"confidence >={MIN_CONFIDENCE}" if confidence >= MIN_CONFIDENCE else f"confidence <{MIN_CONFIDENCE}"
+
+
 def collect_hosts(iocs):
+    macos_iocs = [ioc for ioc in iocs if isinstance(ioc.get("malware"), str) and ioc["malware"].startswith(MACOS_MALWARE_PREFIX)]
+    kinds = Counter((str(ioc.get("ioc_type"))[:32], str(ioc.get("threat_type"))[:32], confidence_bucket(ioc)) for ioc in macos_iocs)
+    log(f"ThreatFox {MACOS_MALWARE_PREFIX}* IOCs by type, threat type and confidence: {kinds.most_common(20)}")
     candidates = [ioc for ioc in iocs if host_of(ioc)]
     entries = [host_entry_from(ioc) for ioc in candidates if is_macos_c2(ioc)]
     included = {entry["host"] for entry in entries}
     excluded = {host_of(ioc) for ioc in candidates} - included
-    log(f"ThreatFox: {len(iocs)} IOCs, {len(included)} macOS C2 ip:port with confidence {MIN_CONFIDENCE} or more")
+    log(f"ThreatFox: {len(iocs)} IOCs, {len(included)} macOS C2 addresses (ip:port, or url with an IP host) with confidence {MIN_CONFIDENCE} or more")
     return entries, excluded
 
 
