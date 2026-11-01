@@ -28,17 +28,20 @@ QUERY_LIMIT = 1000
 THREATFOX_DAYS = 3
 THREATFOX_FAMILIES = ("osx.amos", "osx.banshee", "osx.poseidon", "osx.odyssey")
 MACOS_MALWARE_PREFIX = "osx."
+C2_FRAMEWORKS = ("cobalt_strike", "sliver", "mythic", "havoc", "metasploit", "meterpreter", "brute_ratel_c4", "poseidon")
 IP_PORT_IOC_TYPE = "ip:port"
 URL_IOC_TYPE = "url"
+SHA256_IOC_TYPE = "sha256_hash"
 URL_DEFAULT_PORTS = {"http": 80, "https": 443}
 C2_THREAT_TYPE = "botnet_cc"
+PAYLOAD_THREAT_TYPES = ("payload", "payload_delivery")
 MIN_CONFIDENCE = 75
 REQUEST_TIMEOUT_SECONDS = 60
 MAX_RESPONSE_BYTES = 20_000_000
 MAX_EXPORT_BYTES = 1_000_000_000
 MAX_RECORD_BYTES = 5_000_000
 MAX_HASHES = 10000
-MAX_NEW_HASHES = 500
+MAX_NEW_HASHES = 2000
 MAX_PACKAGES = 20000
 MAX_PACKAGE_VERSIONS = 100
 MAX_PACKAGE_NAME_BYTES = 214
@@ -207,7 +210,7 @@ def collect_entries(samples):
     return entries, excluded
 
 
-def merge_entries(existing_entries, new_entries, excluded, now):
+def merge_entries(existing_entries, new_entries, excluded, protected, now):
     merged = {}
     dropped = 0
     for entry in existing_entries + new_entries:
@@ -220,14 +223,19 @@ def merge_entries(existing_entries, new_entries, excluded, now):
             dropped += 1
             continue
         current = merged.get(entry["sha256"])
-        if current is None or entry["firstSeen"] < current["firstSeen"]:
+        if current is None:
             merged[entry["sha256"]] = entry
+        else:
+            merged[entry["sha256"]] = {"sha256": entry["sha256"], "family": current["family"] or entry["family"], "firstSeen": min(current["firstSeen"], entry["firstSeen"])}
     cutoff = (now - timedelta(days=RETENTION_DAYS)).date().isoformat()
     entries = sorted((entry for entry in merged.values() if entry["firstSeen"] >= cutoff), key=lambda entry: entry["sha256"])
     entries.sort(key=lambda entry: entry["firstSeen"], reverse=True)
     if dropped:
-        log(f"dropped {dropped} published hashes that MalwareBazaar now lists without a family or macOS marker")
-    return entries[:MAX_HASHES]
+        log(f"dropped {dropped} published hashes that MalwareBazaar now lists without a family or macOS marker, or ThreatFox below the confidence threshold or for other malware")
+    if len(entries) > MAX_HASHES:
+        log(f"kept the {MAX_HASHES} newest of {len(entries)} hashes, this run's MalwareBazaar hashes first")
+    kept = {entry["sha256"] for entry in sorted(entries, key=lambda entry: entry["sha256"] not in protected)[:MAX_HASHES]}
+    return [entry for entry in entries if entry["sha256"] in kept]
 
 
 def url_address(value):
@@ -263,25 +271,46 @@ def host_of(ioc):
     return f"[{parsed.compressed}]:{port}" if parsed.version == 6 else f"{parsed}:{port}"
 
 
-def is_macos_c2(ioc):
+def hash_of(ioc):
+    value = ioc.get("ioc")
+    if ioc.get("ioc_type") != SHA256_IOC_TYPE or not isinstance(value, str):
+        return None
+    return value.lower() if SHA256_PATTERN.fullmatch(value.lower()) else None
+
+
+def malware_of(ioc):
     malware = ioc.get("malware")
+    return malware if isinstance(malware, str) else ""
+
+
+def is_macos_malware(ioc):
+    return malware_of(ioc).startswith(MACOS_MALWARE_PREFIX)
+
+
+def is_c2_framework(ioc):
+    return malware_of(ioc).partition(".")[2] in C2_FRAMEWORKS
+
+
+def is_confident(ioc):
     confidence = ioc.get("confidence_level")
-    return (
-        isinstance(malware, str)
-        and malware.startswith(MACOS_MALWARE_PREFIX)
-        and ioc.get("threat_type") == C2_THREAT_TYPE
-        and isinstance(confidence, int)
-        and confidence >= MIN_CONFIDENCE
-    )
+    return isinstance(confidence, int) and confidence >= MIN_CONFIDENCE
 
 
-def host_entry_from(ioc):
+def is_c2(ioc):
+    return (is_macos_malware(ioc) or is_c2_framework(ioc)) and ioc.get("threat_type") == C2_THREAT_TYPE and is_confident(ioc)
+
+
+def is_macos_payload(ioc):
+    return is_macos_malware(ioc) and ioc.get("threat_type") in PAYLOAD_THREAT_TYPES and is_confident(ioc)
+
+
+def ioc_entry_from(ioc, key, value):
     family = ioc.get("malware_printable")
     try:
         first_seen = datetime.strptime(ioc.get("first_seen"), "%Y-%m-%d %H:%M:%S UTC").date().isoformat()
     except (TypeError, ValueError):
         first_seen = None
-    return {"host": host_of(ioc), "family": family if isinstance(family, str) and FAMILY_PATTERN.fullmatch(family) else "", "firstSeen": first_seen}
+    return {key: value, "family": family if isinstance(family, str) and FAMILY_PATTERN.fullmatch(family) else "", "firstSeen": first_seen}
 
 
 def host_problem(entry):
@@ -317,19 +346,29 @@ def confidence_bucket(ioc):
     return f"confidence >={MIN_CONFIDENCE}" if confidence >= MIN_CONFIDENCE else f"confidence <{MIN_CONFIDENCE}"
 
 
-def collect_hosts(iocs):
-    macos_iocs = [ioc for ioc in iocs if isinstance(ioc.get("malware"), str) and ioc["malware"].startswith(MACOS_MALWARE_PREFIX)]
-    kinds = Counter((str(ioc.get("ioc_type"))[:32], str(ioc.get("threat_type"))[:32], confidence_bucket(ioc)) for ioc in macos_iocs)
-    log(f"ThreatFox {MACOS_MALWARE_PREFIX}* IOCs by type, threat type and confidence: {kinds.most_common(20)}")
-    candidates = [ioc for ioc in iocs if host_of(ioc)]
-    entries = [host_entry_from(ioc) for ioc in candidates if is_macos_c2(ioc)]
-    included = {entry["host"] for entry in entries}
-    excluded = {host_of(ioc) for ioc in candidates} - included
-    log(f"ThreatFox: {len(iocs)} IOCs, {len(included)} macOS C2 addresses (ip:port, or url with an IP host) with confidence {MIN_CONFIDENCE} or more")
+def collect_payload_hashes(iocs):
+    candidates = [ioc for ioc in iocs if hash_of(ioc)]
+    entries = [ioc_entry_from(ioc, "sha256", hash_of(ioc)) for ioc in candidates if is_macos_payload(ioc)]
+    included = {entry["sha256"] for entry in entries}
+    excluded = {hash_of(ioc) for ioc in candidates} - included
+    log(f"ThreatFox: {len(included)} macOS malware hashes ({SHA256_IOC_TYPE}, threat type {' or '.join(PAYLOAD_THREAT_TYPES)}) with confidence {MIN_CONFIDENCE} or more")
     return entries, excluded
 
 
-def merge_hosts(existing_hosts, new_hosts, excluded, now):
+def collect_hosts(iocs):
+    watched = [ioc for ioc in iocs if is_macos_malware(ioc) or is_c2_framework(ioc)]
+    kinds = Counter((malware_of(ioc)[:40], str(ioc.get("ioc_type"))[:32], str(ioc.get("threat_type"))[:32], confidence_bucket(ioc)) for ioc in watched)
+    log(f"ThreatFox {MACOS_MALWARE_PREFIX}* and C2 framework IOCs by malware, type, threat type and confidence: {kinds.most_common(40)}")
+    candidates = [ioc for ioc in iocs if host_of(ioc)]
+    entries = [ioc_entry_from(ioc, "host", host_of(ioc)) for ioc in candidates if is_c2(ioc)]
+    included = {entry["host"] for entry in entries}
+    macos = {host_of(ioc) for ioc in candidates if is_c2(ioc) and is_macos_malware(ioc)}
+    excluded = {host_of(ioc) for ioc in candidates} - included
+    log(f"ThreatFox: {len(iocs)} IOCs, {len(included)} C2 addresses (ip:port, or url with an IP host) with confidence {MIN_CONFIDENCE} or more, {len(macos)} of them for {MACOS_MALWARE_PREFIX}* malware")
+    return entries, excluded, macos
+
+
+def merge_hosts(existing_hosts, new_hosts, excluded, protected, now):
     merged = {}
     dropped = 0
     for entry in existing_hosts + new_hosts:
@@ -350,8 +389,9 @@ def merge_hosts(existing_hosts, new_hosts, excluded, now):
     if dropped:
         log(f"dropped {dropped} published C2 addresses that ThreatFox now lists below the confidence threshold or for another family or threat type")
     if len(hosts) > MAX_HOSTS:
-        log(f"kept the {MAX_HOSTS} newest of {len(hosts)} C2 addresses")
-    kept = hosts[:MAX_HOSTS]
+        log(f"kept the {MAX_HOSTS} newest of {len(hosts)} C2 addresses, this run's {MACOS_MALWARE_PREFIX}* addresses first")
+    newest = {entry["host"] for entry in sorted(hosts, key=lambda entry: entry["host"] not in protected)[:MAX_HOSTS]}
+    kept = [entry for entry in hosts if entry["host"] in newest]
     log(f"C2 addresses by family: {Counter(entry['family'] or 'unknown' for entry in kept).most_common()}")
     return kept
 
@@ -559,8 +599,12 @@ def main():
     now = datetime.now(timezone.utc)
     existing_feed = read_feed(FEED_FILE)
     existing_entries = existing_feed["hashes"] if existing_feed else []
-    new_entries, excluded = collect_entries(fetch_samples(auth_key))
-    entries = merge_entries(existing_entries, new_entries, excluded, now)
+    sample_entries, sample_excluded = collect_entries(fetch_samples(auth_key))
+    iocs = fetch_iocs(auth_key)
+    ioc_entries, ioc_excluded = collect_payload_hashes(iocs)
+    included = {entry["sha256"] for entry in sample_entries + ioc_entries}
+    sample_hashes = {entry["sha256"] for entry in sample_entries}
+    entries = merge_entries(existing_entries, sample_entries + ioc_entries, (sample_excluded | ioc_excluded) - included, sample_hashes, now)
     if not entries:
         fail("the merged feed has no hashes")
     existing_hashes = {entry["sha256"] for entry in existing_entries}
@@ -575,8 +619,8 @@ def main():
         fail(f"the OSV npm export could not be read ({type(error).__name__}: {error})")
     if not packages:
         fail("the OSV npm export gave no malicious packages")
-    new_hosts, excluded_hosts = collect_hosts(fetch_iocs(auth_key))
-    hosts = merge_hosts(existing_feed.get("hosts", []) if existing_feed else [], new_hosts, excluded_hosts, now)
+    new_hosts, excluded_hosts, macos_hosts = collect_hosts(iocs)
+    hosts = merge_hosts(existing_feed.get("hosts", []) if existing_feed else [], new_hosts, excluded_hosts, macos_hosts, now)
     feed = fitted_feed(entries, packages, hosts, now)
     if not needs_update(existing_feed, feed, now):
         log(f"Feed unchanged: {len(entries)} hashes, {len(feed['packages'])} npm packages, {len(hosts)} C2 addresses, expires {existing_feed['expires']}")
