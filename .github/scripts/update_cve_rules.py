@@ -14,13 +14,14 @@ RULES_FILE = "rules.json"
 CHECK = "softwareVersion"
 ID_PREFIX = "cve."
 PRODUCTS = {
-    "node": {"name": "Node.js", "repo": "https://github.com/nodejs/node", "cpes": ("nodejs:node.js",)},
-    "php": {"name": "PHP", "repo": "https://github.com/php/php-src", "cpes": ("php:php",)},
-    "python": {"name": "Python", "repo": "https://github.com/python/cpython", "cpes": ("python:python",)},
-    "openssl": {"name": "OpenSSL", "repo": "https://github.com/openssl/openssl", "cpes": ("openssl:openssl",)},
-    "git": {"name": "Git", "repo": "https://github.com/git/git", "cpes": ("git-scm:git", "git:git")},
-    "ruby": {"name": "Ruby", "repo": "https://github.com/ruby/ruby", "cpes": ("ruby-lang:ruby",)},
+    "node": {"name": "Node.js", "repo": "https://github.com/nodejs/node", "cpes": ("nodejs:node.js",), "sites": ("nodejs.org", "github.com/nodejs")},
+    "php": {"name": "PHP", "repo": "https://github.com/php/php-src", "cpes": ("php:php",), "sites": ("php.net", "github.com/php")},
+    "python": {"name": "Python", "repo": "https://github.com/python/cpython", "cpes": ("python:python",), "sites": ("python.org", "github.com/python")},
+    "openssl": {"name": "OpenSSL", "repo": "https://github.com/openssl/openssl", "cpes": ("openssl:openssl",), "sites": ("openssl.org", "openssl-library.org", "github.com/openssl")},
+    "git": {"name": "Git", "repo": "https://github.com/git/git", "cpes": ("git-scm:git", "git:git"), "sites": ("git-scm.com", "github.com/git", "git.kernel.org/pub/scm/git", "lore.kernel.org/git")},
+    "ruby": {"name": "Ruby", "repo": "https://github.com/ruby/ruby", "cpes": ("ruby-lang:ruby",), "sites": ("ruby-lang.org", "github.com/ruby")},
 }
+REFERENCE_SITES = ("nvd.nist.gov", "osv.dev", "cve.org", "cve.mitre.org", "github.com/CVEProject")
 LETTER_RELEASE_PRODUCTS = ("openssl",)
 CPE_SOURCES = ("CPE_RANGE", "CPE_STRING")
 SEVERITIES = ("info", "low", "medium", "high", "critical")
@@ -289,12 +290,34 @@ def remedy_of(name, ranges):
     return remedy if len(remedy) <= MAX_EXPLANATION_LENGTH else f"Upgrade {name} to a release after the affected versions listed in the advisory, in each listed install."
 
 
-def references_of(record, advisory):
+def matches_site(host, segments, site):
+    site_host, _, site_path = site.partition("/")
+    if site_path:
+        required = site_path.lower().split("/")
+        return host == site_host and segments[: len(required)] == required
+    return host == site_host or host.endswith("." + site_host)
+
+
+def is_allowed_reference(url, product):
+    if len(url) > MAX_REFERENCE_LENGTH or not REFERENCE_PATTERN.fullmatch(url):
+        return False
+    parts = urllib.parse.urlsplit(url)
+    host = parts.hostname
+    if parts.netloc.lower() != host or "" in host.split("."):
+        return False
+    segments = parts.path.lower().split("/")[1:]
+    decoded = [urllib.parse.unquote(segment) for segment in segments]
+    if any(segment in (".", "..") or "/" in segment or "\\" in segment for segment in decoded):
+        return False
+    return any(matches_site(host, segments, site) for site in (*REFERENCE_SITES, *PRODUCTS[product]["sites"]))
+
+
+def references_of(record, advisory, product):
     candidates = [f"https://nvd.nist.gov/vuln/detail/{advisory}", f"https://osv.dev/vulnerability/{advisory}"]
     candidates += [field(reference, "url", str) for reference in field(record, "references", list)]
     references = []
     for url in candidates:
-        if len(url) <= MAX_REFERENCE_LENGTH and REFERENCE_PATTERN.fullmatch(url) and url not in references:
+        if is_allowed_reference(url, product) and url not in references:
             references.append(url)
     return references[:MAX_REFERENCES]
 
@@ -317,8 +340,8 @@ def rule_problem(rule):
         return f"needs 1-{MAX_RANGES} ranges, has {len(rule['ranges'])}"
     if len(rule.get("summary", "")) > MAX_EXPLANATION_LENGTH or len(rule["remedy"]) > MAX_EXPLANATION_LENGTH:
         return "summary or remedy length"
-    if len(rule["references"]) > MAX_REFERENCES:
-        return "too many references"
+    if not 1 <= len(rule["references"]) <= MAX_REFERENCES:
+        return f"needs 1-{MAX_REFERENCES} references, has {len(rule['references'])}"
     for item in rule["ranges"]:
         if any(stable_version(version, rule["product"]) != (version, False) for version in item.values()):
             return "version is not a release such as 1.2.3"
@@ -358,7 +381,7 @@ def rule_from(record, product):
         "ranges": ranges,
         "summary": shortened(clean_text(field(record, "details", str)), MAX_EXPLANATION_LENGTH),
         "remedy": remedy_of(name, ranges),
-        "references": references_of(record, advisory),
+        "references": references_of(record, advisory, product),
     }
     if not rule["summary"]:
         del rule["summary"]

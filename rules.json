@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version": 2026110301,
+  "version": 2026110302,
   "rules": [
     {
       "id": "setting.sip",
@@ -1876,10 +1876,7 @@
       "remedy": "Upgrade Node.js to 0.10.48, 0.12.17, 4.6.1 or a later release on the same line, in each listed install.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-5180",
-        "https://osv.dev/vulnerability/CVE-2016-5180",
-        "https://c-ares.haxx.se/CVE-2016-5180.patch",
-        "https://c-ares.haxx.se/adv_20160929.html",
-        "https://source.android.com/security/bulletin/2017-01-01.html"
+        "https://osv.dev/vulnerability/CVE-2016-5180"
       ]
     },
     {
@@ -1913,9 +1910,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-6304",
         "https://osv.dev/vulnerability/CVE-2016-6304",
-        "https://cert-portal.siemens.com/productcert/pdf/ssa-412672.pdf",
-        "https://git.openssl.org/?p=openssl.git%3Ba=commit%3Bh=2c0d295e26306e15a92eb23a84a1802005c1c137",
-        "https://access.redhat.com/errata/RHSA-2017:1413"
+        "https://nodejs.org/en/blog/vulnerability/september-2016-security-releases/"
       ]
     },
     {
@@ -1944,10 +1939,7 @@
       "remedy": "Upgrade Node.js to 4.6.0, 6.7.0 or a later release on the same line, in each listed install. For affected versions with no listed fix, upgrade to a later supported Node.js release.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-7052",
-        "https://osv.dev/vulnerability/CVE-2016-7052",
-        "https://git.openssl.org/?p=openssl.git%3Ba=commit%3Bh=6e629b5be45face20b4ca71c4fcbfed78b864a2e",
-        "https://bto.bluecoat.com/security-advisory/sa132",
-        "https://kc.mcafee.com/corporate/index?page=content&id=SB10171"
+        "https://osv.dev/vulnerability/CVE-2016-7052"
       ]
     },
     {
@@ -1984,10 +1976,7 @@
       "remedy": "Upgrade Node.js to 4.8.2, 6.10.2, 7.6.0 or a later release on the same line, in each listed install. For affected versions with no listed fix, upgrade to a later supported Node.js release.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-9840",
-        "https://osv.dev/vulnerability/CVE-2016-9840",
-        "https://cert-portal.siemens.com/productcert/html/ssa-470355.html",
-        "https://wiki.mozilla.org/images/0/09/Zlib-report.pdf",
-        "https://access.redhat.com/errata/RHSA-2017:1220"
+        "https://osv.dev/vulnerability/CVE-2016-9840"
       ]
     },
     {
@@ -2024,10 +2013,7 @@
       "remedy": "Upgrade Node.js to 4.8.2, 6.10.2, 7.6.0 or a later release on the same line, in each listed install. For affected versions with no listed fix, upgrade to a later supported Node.js release.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-9841",
-        "https://osv.dev/vulnerability/CVE-2016-9841",
-        "https://cert-portal.siemens.com/productcert/html/ssa-470355.html",
-        "https://lists.debian.org/debian-lts-announce/2019/03/msg00027.html",
-        "https://lists.debian.org/debian-lts-announce/2020/01/msg00030.html"
+        "https://osv.dev/vulnerability/CVE-2016-9841"
       ]
     },
     {
@@ -2064,10 +2050,7 @@
       "remedy": "Upgrade Node.js to 4.8.2, 6.10.2, 7.6.0 or a later release on the same line, in each listed install. For affected versions with no listed fix, upgrade to a later supported Node.js release.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-9842",
-        "https://osv.dev/vulnerability/CVE-2016-9842",
-        "https://cert-portal.siemens.com/productcert/html/ssa-470355.html",
-        "https://access.redhat.com/errata/RHSA-2017:1220",
-        "https://access.redhat.com/errata/RHSA-2017:1221"
+        "https://osv.dev/vulnerability/CVE-2016-9842"
       ]
     },
     {
@@ -2104,10 +2087,7 @@
       "remedy": "Upgrade Node.js to 4.8.2, 6.10.2, 7.6.0 or a later release on the same line, in each listed install. For affected versions with no listed fix, upgrade to a later supported Node.js release.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-9843",
-        "https://osv.dev/vulnerability/CVE-2016-9843",
-        "https://lists.debian.org/debian-lts-announce/2019/03/msg00027.html",
-        "https://lists.debian.org/debian-lts-announce/2020/01/msg00030.html",
-        "https://support.apple.com/HT208112"
+        "https://osv.dev/vulnerability/CVE-2016-9843"
       ]
     },
     {
@@ -2148,10 +2128,7 @@
       "remedy": "Upgrade Node.js to 4.7.3, 6.9.5, 7.5.0 or a later release on the same line, in each listed install. For affected versions with no listed fix, upgrade to a later supported Node.js release.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-3731",
-        "https://osv.dev/vulnerability/CVE-2017-3731",
-        "https://access.redhat.com/errata/RHSA-2018:2185",
-        "https://access.redhat.com/errata/RHSA-2018:2186",
-        "https://access.redhat.com/errata/RHSA-2018:2187"
+        "https://osv.dev/vulnerability/CVE-2017-3731"
       ]
     },
     {
@@ -2569,8 +2546,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-11499",
         "https://osv.dev/vulnerability/CVE-2017-11499",
-        "https://access.redhat.com/errata/RHSA-2017:2908",
-        "https://access.redhat.com/errata/RHSA-2017:3002",
         "https://nodejs.org/en/blog/vulnerability/july-2017-security-releases/"
       ]
     },
@@ -2593,8 +2568,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-14849",
         "https://osv.dev/vulnerability/CVE-2017-14849",
-        "https://nodejs.org/en/blog/vulnerability/september-2017-path-validation/",
-        "https://twitter.com/nodejs/status/913131152868876288"
+        "https://nodejs.org/en/blog/vulnerability/september-2017-path-validation/"
       ]
     },
     {
@@ -2704,9 +2678,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-14919",
         "https://osv.dev/vulnerability/CVE-2017-14919",
-        "https://cert-portal.siemens.com/productcert/html/ssa-470355.html",
         "https://nodejs.org/en/blog/release/v4.8.5/",
-        "https://nodejs.org/en/blog/release/v6.11.5/"
+        "https://nodejs.org/en/blog/release/v6.11.5/",
+        "https://nodejs.org/en/blog/release/v8.8.0/"
       ]
     },
     {
@@ -2797,9 +2771,7 @@
       "remedy": "Upgrade Node.js to 4.8.4, 6.11.1, 7.10.1, 8.1.4 or a later release on the same line, in each listed install. For affected versions with no listed fix, upgrade to a later supported Node.js release.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-1000381",
-        "https://osv.dev/vulnerability/CVE-2017-1000381",
-        "https://c-ares.haxx.se/0616.patch",
-        "https://c-ares.haxx.se/adv_20170620.html"
+        "https://osv.dev/vulnerability/CVE-2017-1000381"
       ]
     },
     {
@@ -2837,9 +2809,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-0732",
         "https://osv.dev/vulnerability/CVE-2018-0732",
-        "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=3984ef0b72831da8b3ece4745cac4f8575b19098",
-        "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=ea7abeeabf92b7aca160bdd0208636d4da69f4f4",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/EWC42UXL5GHTU5G77VKBF6JYUUNGSHOM/"
+        "https://nodejs.org/en/blog/vulnerability/august-2018-security-releases/"
       ]
     },
     {
@@ -2903,9 +2873,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-7160",
         "https://osv.dev/vulnerability/CVE-2018-7160",
-        "https://support.f5.com/csp/article/K63025104?utm_source=f5support&amp%3Butm_medium=RSS",
-        "https://nodejs.org/en/blog/vulnerability/march-2018-security-releases/",
-        "https://www.oracle.com//security-alerts/cpujul2021.html"
+        "https://nodejs.org/en/blog/vulnerability/march-2018-security-releases/"
       ]
     },
     {
@@ -2939,7 +2907,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-7161",
         "https://osv.dev/vulnerability/CVE-2018-7161",
-        "https://security.gentoo.org/glsa/202003-48",
         "https://nodejs.org/en/blog/vulnerability/june-2018-security-releases/"
       ]
     },
@@ -2966,8 +2933,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-7162",
         "https://osv.dev/vulnerability/CVE-2018-7162",
-        "https://nodejs.org/en/blog/vulnerability/june-2018-security-releases/",
-        "https://security.gentoo.org/glsa/202003-48"
+        "https://nodejs.org/en/blog/vulnerability/june-2018-security-releases/"
       ]
     },
     {
@@ -2993,8 +2959,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-7164",
         "https://osv.dev/vulnerability/CVE-2018-7164",
-        "https://nodejs.org/en/blog/vulnerability/june-2018-security-releases/",
-        "https://security.gentoo.org/glsa/202003-48"
+        "https://nodejs.org/en/blog/vulnerability/june-2018-security-releases/"
       ]
     },
     {
@@ -3016,7 +2981,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-7166",
         "https://osv.dev/vulnerability/CVE-2018-7166",
-        "https://access.redhat.com/errata/RHSA-2018:2553",
         "https://nodejs.org/en/blog/vulnerability/august-2018-security-releases/"
       ]
     },
@@ -3047,8 +3011,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-7167",
         "https://osv.dev/vulnerability/CVE-2018-7167",
-        "https://nodejs.org/en/blog/vulnerability/june-2018-security-releases/",
-        "https://security.gentoo.org/glsa/202003-48"
+        "https://nodejs.org/en/blog/vulnerability/june-2018-security-releases/"
       ]
     },
     {
@@ -3078,9 +3041,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-12115",
         "https://osv.dev/vulnerability/CVE-2018-12115",
-        "https://access.redhat.com/errata/RHSA-2018:2552",
-        "https://access.redhat.com/errata/RHSA-2018:2553",
-        "https://access.redhat.com/errata/RHSA-2018:2944"
+        "https://nodejs.org/en/blog/vulnerability/august-2018-security-releases/"
       ]
     },
     {
@@ -3114,8 +3075,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-12116",
         "https://osv.dev/vulnerability/CVE-2018-12116",
-        "https://access.redhat.com/errata/RHSA-2019:1821",
-        "https://security.gentoo.org/glsa/202003-48",
         "https://nodejs.org/en/blog/vulnerability/november-2018-security-releases/"
       ]
     },
@@ -3172,9 +3131,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-12121",
         "https://osv.dev/vulnerability/CVE-2018-12121",
-        "https://access.redhat.com/errata/RHSA-2019:1821",
-        "https://access.redhat.com/errata/RHSA-2019:2258",
-        "https://access.redhat.com/errata/RHSA-2019:3497"
+        "https://nodejs.org/en/blog/vulnerability/november-2018-security-releases/"
       ]
     },
     {
@@ -3208,9 +3165,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-12122",
         "https://osv.dev/vulnerability/CVE-2018-12122",
-        "https://access.redhat.com/errata/RHSA-2019:1821",
-        "https://security.gentoo.org/glsa/202003-48",
-        "https://security.netapp.com/advisory/ntap-20241213-0009/"
+        "https://nodejs.org/en/blog/vulnerability/november-2018-security-releases/"
       ]
     },
     {
@@ -3244,9 +3199,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-1000168",
         "https://osv.dev/vulnerability/CVE-2018-1000168",
-        "https://access.redhat.com/errata/RHSA-2019:0366",
-        "https://access.redhat.com/errata/RHSA-2019:0367",
-        "https://lists.debian.org/debian-lts-announce/2021/10/msg00011.html"
+        "https://nodejs.org/en/blog/vulnerability/june-2018-security-releases/"
       ]
     },
     {
@@ -3280,9 +3233,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-5737",
         "https://osv.dev/vulnerability/CVE-2019-5737",
-        "https://access.redhat.com/errata/RHSA-2019:1821",
-        "https://nodejs.org/en/blog/vulnerability/february-2019-security-releases/",
-        "https://security.gentoo.org/glsa/202003-48"
+        "https://nodejs.org/en/blog/vulnerability/february-2019-security-releases/"
       ]
     },
     {
@@ -3304,9 +3255,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-5739",
         "https://osv.dev/vulnerability/CVE-2019-5739",
-        "https://nodejs.org/en/blog/vulnerability/february-2019-security-releases/",
-        "https://security.gentoo.org/glsa/202003-48",
-        "https://security.netapp.com/advisory/ntap-20190502-0008/"
+        "https://nodejs.org/en/blog/vulnerability/february-2019-security-releases/"
       ]
     },
     {
@@ -3343,10 +3292,7 @@
       "remedy": "Upgrade Node.js to 8.16.1, 10.16.3, 12.8.1 or a later release on the same line, in each listed install. For affected versions with no listed fix, upgrade to a later supported Node.js release.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-9511",
-        "https://osv.dev/vulnerability/CVE-2019-9511",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/BP556LEG3WENHZI5TAQ6ZEBFTJB4E2IS/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/JUBYAF6ED3O4XCHQ5C2HYENJLXYXZC4M/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/LZLUYPYY3RX4ZJDWZRJIKSULYRJ4PXW7/"
+        "https://osv.dev/vulnerability/CVE-2019-9511"
       ]
     },
     {
@@ -3383,10 +3329,7 @@
       "remedy": "Upgrade Node.js to 8.16.1, 10.16.3, 12.8.1 or a later release on the same line, in each listed install. For affected versions with no listed fix, upgrade to a later supported Node.js release.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-9512",
-        "https://osv.dev/vulnerability/CVE-2019-9512",
-        "https://lists.apache.org/thread.html/392108390cef48af647a2e47b7fd5380e050e35ae8d1aa2030254c04%40%3Cusers.trafficserver.apache.org%3E",
-        "https://lists.apache.org/thread.html/ad3d01e767199c1aed8033bb6b3f5bf98c011c7c536f07a5d34b3c19%40%3Cannounce.trafficserver.apache.org%3E",
-        "https://lists.apache.org/thread.html/bde52309316ae798186d783a5e29f4ad1527f61c9219a289d0eee0a7%40%3Cdev.trafficserver.apache.org%3E"
+        "https://osv.dev/vulnerability/CVE-2019-9512"
       ]
     },
     {
@@ -3423,10 +3366,7 @@
       "remedy": "Upgrade Node.js to 8.16.1, 10.16.3, 12.8.1 or a later release on the same line, in each listed install. For affected versions with no listed fix, upgrade to a later supported Node.js release.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-9513",
-        "https://osv.dev/vulnerability/CVE-2019-9513",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/4ZQGHE3WTYLYAYJEIDJVF2FIGQTAYPMC/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/CMNFX5MNYRWWIMO4BTKYQCGUDMHO3AXP/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/JUBYAF6ED3O4XCHQ5C2HYENJLXYXZC4M/"
+        "https://osv.dev/vulnerability/CVE-2019-9513"
       ]
     },
     {
@@ -3463,10 +3403,7 @@
       "remedy": "Upgrade Node.js to 8.16.1, 10.16.3, 12.8.1 or a later release on the same line, in each listed install. For affected versions with no listed fix, upgrade to a later supported Node.js release.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-9514",
-        "https://osv.dev/vulnerability/CVE-2019-9514",
-        "https://lists.apache.org/thread.html/392108390cef48af647a2e47b7fd5380e050e35ae8d1aa2030254c04%40%3Cusers.trafficserver.apache.org%3E",
-        "https://lists.apache.org/thread.html/ad3d01e767199c1aed8033bb6b3f5bf98c011c7c536f07a5d34b3c19%40%3Cannounce.trafficserver.apache.org%3E",
-        "https://lists.apache.org/thread.html/bde52309316ae798186d783a5e29f4ad1527f61c9219a289d0eee0a7%40%3Cdev.trafficserver.apache.org%3E"
+        "https://osv.dev/vulnerability/CVE-2019-9514"
       ]
     },
     {
@@ -3503,10 +3440,7 @@
       "remedy": "Upgrade Node.js to 8.16.1, 10.16.3, 12.8.1 or a later release on the same line, in each listed install. For affected versions with no listed fix, upgrade to a later supported Node.js release.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-9515",
-        "https://osv.dev/vulnerability/CVE-2019-9515",
-        "https://lists.apache.org/thread.html/392108390cef48af647a2e47b7fd5380e050e35ae8d1aa2030254c04%40%3Cusers.trafficserver.apache.org%3E",
-        "https://lists.apache.org/thread.html/ad3d01e767199c1aed8033bb6b3f5bf98c011c7c536f07a5d34b3c19%40%3Cannounce.trafficserver.apache.org%3E",
-        "https://lists.apache.org/thread.html/bde52309316ae798186d783a5e29f4ad1527f61c9219a289d0eee0a7%40%3Cdev.trafficserver.apache.org%3E"
+        "https://osv.dev/vulnerability/CVE-2019-9515"
       ]
     },
     {
@@ -3543,10 +3477,7 @@
       "remedy": "Upgrade Node.js to 8.16.1, 10.16.3, 12.8.1 or a later release on the same line, in each listed install. For affected versions with no listed fix, upgrade to a later supported Node.js release.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-9517",
-        "https://osv.dev/vulnerability/CVE-2019-9517",
-        "https://lists.apache.org/thread.html/4610762456644181b267c846423b3a990bd4aaea1886ecc7d51febdb%40%3Cannounce.httpd.apache.org%3E",
-        "https://lists.apache.org/thread.html/56c2e7cc9deb1c12a843d0dc251ea7fd3e7e80293cde02fcd65286ba%40%3Ccvs.httpd.apache.org%3E",
-        "https://lists.apache.org/thread.html/d89f999e26dfb1d50f247ead1fe8538014eb412b2dbe5be4b1a9ef50%40%3Cdev.httpd.apache.org%3E"
+        "https://osv.dev/vulnerability/CVE-2019-9517"
       ]
     },
     {
@@ -3583,10 +3514,7 @@
       "remedy": "Upgrade Node.js to 8.16.1, 10.16.3, 12.8.1 or a later release on the same line, in each listed install. For affected versions with no listed fix, upgrade to a later supported Node.js release.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-9518",
-        "https://osv.dev/vulnerability/CVE-2019-9518",
-        "https://lists.apache.org/thread.html/091b518265bce56a16af87b77c8cfacda902a02079e866f9fdf13b61%40%3Cusers.trafficserver.apache.org%3E",
-        "https://lists.apache.org/thread.html/2653c56545573b528f3f6352a29eccaf498bd6fb2a6a59568d81a61d%40%3Cannounce.trafficserver.apache.org%3E",
-        "https://lists.apache.org/thread.html/9317fd092b257a0815434b116a8af8daea6e920b6673f4fd5583d5fe%40%3Ccommits.druid.apache.org%3E"
+        "https://osv.dev/vulnerability/CVE-2019-9518"
       ]
     },
     {
@@ -3616,9 +3544,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-15604",
         "https://osv.dev/vulnerability/CVE-2019-15604",
-        "https://access.redhat.com/errata/RHSA-2020:0573",
-        "https://access.redhat.com/errata/RHSA-2020:0579",
-        "https://access.redhat.com/errata/RHSA-2020:0597"
+        "https://nodejs.org/en/blog/release/v10.19.0/",
+        "https://nodejs.org/en/blog/release/v12.15.0/",
+        "https://nodejs.org/en/blog/release/v13.8.0/"
       ]
     },
     {
@@ -3648,9 +3576,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-15605",
         "https://osv.dev/vulnerability/CVE-2019-15605",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/CT3WTR4P5VAJ3GJGKPYEDUPTNZ3IEDUR/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/ZLB676PDU4RJQLWQUA277YNGYYNEYGWO/",
-        "https://access.redhat.com/errata/RHSA-2020:0573"
+        "https://nodejs.org/en/blog/release/v10.19.0/",
+        "https://nodejs.org/en/blog/release/v12.15.0/",
+        "https://nodejs.org/en/blog/release/v13.8.0/"
       ]
     },
     {
@@ -3680,9 +3608,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-15606",
         "https://osv.dev/vulnerability/CVE-2019-15606",
-        "https://access.redhat.com/errata/RHSA-2020:0573",
-        "https://access.redhat.com/errata/RHSA-2020:0579",
-        "https://access.redhat.com/errata/RHSA-2020:0597"
+        "https://nodejs.org/en/blog/release/v10.19.0/",
+        "https://nodejs.org/en/blog/release/v12.15.0/",
+        "https://nodejs.org/en/blog/release/v13.8.0/"
       ]
     },
     {
@@ -3708,9 +3636,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2020-8172",
         "https://osv.dev/vulnerability/CVE-2020-8172",
-        "https://nodejs.org/en/blog/vulnerability/june-2020-security-releases/",
-        "https://security.gentoo.org/glsa/202101-07",
-        "https://security.netapp.com/advisory/ntap-20200625-0002/"
+        "https://nodejs.org/en/blog/vulnerability/june-2020-security-releases/"
       ]
     },
     {
@@ -3739,10 +3665,7 @@
       "remedy": "Upgrade Node.js to 10.21.0, 12.18.0, 14.4.0 or a later release on the same line, in each listed install.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2020-8174",
-        "https://osv.dev/vulnerability/CVE-2020-8174",
-        "https://security.gentoo.org/glsa/202101-07",
-        "https://security.netapp.com/advisory/ntap-20201023-0003/",
-        "https://www.oracle.com//security-alerts/cpujul2021.html"
+        "https://osv.dev/vulnerability/CVE-2020-8174"
       ]
     },
     {
@@ -3768,9 +3691,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2020-8201",
         "https://osv.dev/vulnerability/CVE-2020-8201",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/4OOYAMJVLLCLXDTHW3V5UXNULZBBK4O6/",
-        "https://nodejs.org/en/blog/vulnerability/september-2020-security-releases/",
-        "https://security.gentoo.org/glsa/202101-07"
+        "https://nodejs.org/en/blog/vulnerability/september-2020-security-releases/"
       ]
     },
     {
@@ -3792,9 +3713,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2020-8251",
         "https://osv.dev/vulnerability/CVE-2020-8251",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/4OOYAMJVLLCLXDTHW3V5UXNULZBBK4O6/",
-        "https://nodejs.org/en/blog/vulnerability/september-2020-security-releases/",
-        "https://security.gentoo.org/glsa/202101-07"
+        "https://nodejs.org/en/blog/vulnerability/september-2020-security-releases/"
       ]
     },
     {
@@ -3824,9 +3743,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2020-8252",
         "https://osv.dev/vulnerability/CVE-2020-8252",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/4OOYAMJVLLCLXDTHW3V5UXNULZBBK4O6/",
-        "https://nodejs.org/en/blog/vulnerability/september-2020-security-releases/",
-        "https://security.gentoo.org/glsa/202009-15"
+        "https://nodejs.org/en/blog/vulnerability/september-2020-security-releases/"
       ]
     },
     {
@@ -3860,9 +3777,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2020-8265",
         "https://osv.dev/vulnerability/CVE-2020-8265",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/H472D5HPXN6RRXCNFML3BK5OYC52CXF2/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/K4I6MZNC7C7VIDQR267OL4TVCI3ZKAC4/",
-        "https://security.gentoo.org/glsa/202101-07"
+        "https://nodejs.org/en/blog/vulnerability/january-2021-security-releases/"
       ]
     },
     {
@@ -3892,9 +3807,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2020-8277",
         "https://osv.dev/vulnerability/CVE-2020-8277",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/A7WH7W46OZSEUHWBHD7TCH3LRFY52V6Z/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/BEJBY3RJB3XWUOJFGZM5E3EMQ7MFM3UT/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/EEIV4CH6KNVZK63Y6EKVN2XDW7IHSJBJ/"
+        "https://nodejs.org/en/blog/vulnerability/november-2020-security-releases/"
       ]
     },
     {
@@ -3919,10 +3832,7 @@
       "remedy": "Upgrade Node.js to 10.21.0 or a later release on the same line, in each listed install. For affected versions with no listed fix, upgrade to a later supported Node.js release.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2020-10531",
-        "https://osv.dev/vulnerability/CVE-2020-10531",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/4OOYAMJVLLCLXDTHW3V5UXNULZBBK4O6/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/6IOHSO6BUKC6I66J5PZOMAGFVJ66ZS57/"
+        "https://osv.dev/vulnerability/CVE-2020-10531"
       ]
     },
     {
@@ -3959,10 +3869,7 @@
       "remedy": "Upgrade Node.js to 10.21.0, 12.18.0 or a later release on the same line, in each listed install. For affected versions with no listed fix, upgrade to a later supported Node.js release.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2020-11080",
-        "https://osv.dev/vulnerability/CVE-2020-11080",
-        "https://lists.debian.org/debian-lts-announce/2023/10/msg00023.html",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/4OOYAMJVLLCLXDTHW3V5UXNULZBBK4O6/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/AAC2AA36OTRHKSVM5OV7TTVB3CZIGEFL/"
+        "https://osv.dev/vulnerability/CVE-2020-11080"
       ]
     },
     {
@@ -3995,10 +3902,7 @@
       "remedy": "Upgrade Node.js to 10.24.1, 12.22.1, 14.16.1, 15.14.0 or a later release on the same line, in each listed install.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-3450",
-        "https://osv.dev/vulnerability/CVE-2021-3450",
-        "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=2a40b7bc7b94dd7de897a74571e7024f0cf0d63b",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/CCBFLLVQVILIVGZMBJL3IXZGKWQISYNP/",
-        "https://cert-portal.siemens.com/productcert/pdf/ssa-389290.pdf"
+        "https://osv.dev/vulnerability/CVE-2021-3450"
       ]
     },
     {
@@ -4019,10 +3923,7 @@
       "remedy": "Upgrade Node.js to 17.3.0 or a later release on the same line, in each listed install.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-4044",
-        "https://osv.dev/vulnerability/CVE-2021-4044",
-        "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=758754966791c537ea95241438454aa86f91f256",
-        "https://security.netapp.com/advisory/ntap-20211229-0003/",
-        "https://www.openssl.org/news/secadv/20211214.txt"
+        "https://osv.dev/vulnerability/CVE-2021-4044"
       ]
     },
     {
@@ -4056,9 +3957,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-22883",
         "https://osv.dev/vulnerability/CVE-2021-22883",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/E4FRS5ZVK4ZQ7XIJQNGIKUXG2DJFHLO7/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/F45Y7TXSU33MTKB6AGL2Q5V5ZOCNPKOG/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/HSYFUGKFUSZ27M5TEZ3FKILWTWFJTFAZ/"
+        "https://nodejs.org/en/blog/vulnerability/february-2021-security-releases/"
       ]
     },
     {
@@ -4092,9 +3991,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-22884",
         "https://osv.dev/vulnerability/CVE-2021-22884",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/E4FRS5ZVK4ZQ7XIJQNGIKUXG2DJFHLO7/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/F45Y7TXSU33MTKB6AGL2Q5V5ZOCNPKOG/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/HSYFUGKFUSZ27M5TEZ3FKILWTWFJTFAZ/"
+        "https://nodejs.org/en/blog/vulnerability/february-2021-security-releases/",
+        "https://nodejs.org/en/blog/vulnerability/march-2018-security-releases/#node-js-inspector-dns-rebinding-vulnerability-cve-2018-7160"
       ]
     },
     {
@@ -4124,8 +4022,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-22921",
         "https://osv.dev/vulnerability/CVE-2021-22921",
-        "https://security.netapp.com/advisory/ntap-20210805-0003/",
-        "https://cert-portal.siemens.com/productcert/pdf/ssa-389290.pdf",
         "https://nodejs.org/en/blog/vulnerability/july-2021-security-releases/"
       ]
     },
@@ -4156,9 +4052,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-22930",
         "https://osv.dev/vulnerability/CVE-2021-22930",
-        "https://lists.debian.org/debian-lts-announce/2022/10/msg00006.html",
-        "https://security.gentoo.org/glsa/202401-02",
-        "https://security.netapp.com/advisory/ntap-20211112-0002/"
+        "https://nodejs.org/en/blog/vulnerability/july-2021-security-releases-2/"
       ]
     },
     {
@@ -4196,9 +4090,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-22931",
         "https://osv.dev/vulnerability/CVE-2021-22931",
-        "https://security.gentoo.org/glsa/202401-02",
-        "https://security.netapp.com/advisory/ntap-20210923-0001/",
-        "https://security.netapp.com/advisory/ntap-20211022-0003/"
+        "https://nodejs.org/en/blog/vulnerability/aug-2021-security-releases/"
       ]
     },
     {
@@ -4228,9 +4120,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-22940",
         "https://osv.dev/vulnerability/CVE-2021-22940",
-        "https://lists.debian.org/debian-lts-announce/2022/10/msg00006.html",
-        "https://security.gentoo.org/glsa/202401-02",
-        "https://security.netapp.com/advisory/ntap-20210923-0001/"
+        "https://nodejs.org/en/blog/vulnerability/aug-2021-security-releases/"
       ]
     },
     {
@@ -4275,10 +4165,7 @@
       "remedy": "Upgrade Node.js to 10.24.0, 12.21.0, 15.10.0 or a later release on the same line, in each listed install. For affected versions with no listed fix, upgrade to a later supported Node.js release.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-23840",
-        "https://osv.dev/vulnerability/CVE-2021-23840",
-        "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=6a51b9e1d0cf0bf8515f7201b68fb0a3482b3dc1",
-        "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=9b1129239f3ebb1d1c98ce9ed41d5c9476c47cb2",
-        "https://lists.apache.org/thread.html/r58af02e294bd07f487e2c64ffc0a29b837db5600e33b6e698b9d696b%40%3Cissues.bookkeeper.apache.org%3E"
+        "https://osv.dev/vulnerability/CVE-2021-23840"
       ]
     },
     {
@@ -4312,9 +4199,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-44531",
         "https://osv.dev/vulnerability/CVE-2021-44531",
-        "https://nodejs.org/en/blog/vulnerability/jan-2022-security-releases/",
-        "https://security.netapp.com/advisory/ntap-20220325-0007/",
-        "https://www.debian.org/security/2022/dsa-5170"
+        "https://nodejs.org/en/blog/vulnerability/jan-2022-security-releases/"
       ]
     },
     {
@@ -4336,9 +4221,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2022-0778",
         "https://osv.dev/vulnerability/CVE-2022-0778",
-        "https://cert-portal.siemens.com/productcert/html/ssa-019200.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-028723.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-108696.html"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/0xxx/CVE-2022-0778.json"
       ]
     },
     {
@@ -4368,9 +4251,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2022-3602",
         "https://osv.dev/vulnerability/CVE-2022-3602",
-        "https://cert-portal.siemens.com/productcert/html/ssa-408105.html",
-        "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=fe3b639dc19b325846f4f6801f2f4604f56e3de3",
-        "https://psirt.global.sonicwall.com/vuln-detail/SNWLID-2022-0023"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/3xxx/CVE-2022-3602.json"
       ]
     },
     {
@@ -4400,8 +4281,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2022-3786",
         "https://osv.dev/vulnerability/CVE-2022-3786",
-        "https://cert-portal.siemens.com/productcert/html/ssa-408105.html",
-        "https://www.kb.cert.org/vuls/id/794340",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/3xxx/CVE-2022-3786.json"
       ]
     },
@@ -4436,9 +4315,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2022-21824",
         "https://osv.dev/vulnerability/CVE-2022-21824",
-        "https://hackerone.com/reports/1431042",
-        "https://www.oracle.com/security-alerts/cpuapr2022.html",
-        "https://www.oracle.com/security-alerts/cpujul2022.html"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/21xxx/CVE-2022-21824.json",
+        "https://nodejs.org/en/blog/vulnerability/jan-2022-security-releases/"
       ]
     },
     {
@@ -4476,7 +4354,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2022-32212",
         "https://osv.dev/vulnerability/CVE-2022-32212",
-        "https://hackerone.com/reports/1632921",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/32xxx/CVE-2022-32212.json"
       ]
     },
@@ -4507,9 +4384,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2022-32223",
         "https://osv.dev/vulnerability/CVE-2022-32223",
-        "https://hackerone.com/reports/1447455",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/32xxx/CVE-2022-32223.json",
-        "https://security.netapp.com/advisory/ntap-20220915-0001/"
+        "https://nodejs.org/en/blog/vulnerability/july-2022-security-releases/"
       ]
     },
     {
@@ -4543,8 +4419,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2022-35255",
         "https://osv.dev/vulnerability/CVE-2022-35255",
-        "https://cert-portal.siemens.com/productcert/pdf/ssa-332410.pdf",
-        "https://hackerone.com/reports/1690000",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/35xxx/CVE-2022-35255.json"
       ]
     },
@@ -4592,8 +4466,7 @@
         "https://nvd.nist.gov/vuln/detail/CVE-2022-43548",
         "https://osv.dev/vulnerability/CVE-2022-43548",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/43xxx/CVE-2022-43548.json",
-        "https://security.netapp.com/advisory/ntap-20230120-0004/",
-        "https://security.netapp.com/advisory/ntap-20230427-0007/"
+        "https://nodejs.org/en/blog/vulnerability/november-2022-security-releases/"
       ]
     },
     {
@@ -4628,7 +4501,6 @@
         "https://nvd.nist.gov/vuln/detail/CVE-2023-23918",
         "https://osv.dev/vulnerability/CVE-2023-23918",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/23xxx/CVE-2023-23918.json",
-        "https://security.netapp.com/advisory/ntap-20230316-0008/",
         "https://nodejs.org/en/blog/vulnerability/february-2023-security-releases/"
       ]
     },
@@ -4663,9 +4535,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2023-23919",
         "https://osv.dev/vulnerability/CVE-2023-23919",
-        "https://hackerone.com/reports/1808596",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/23xxx/CVE-2023-23919.json",
-        "https://security.netapp.com/advisory/ntap-20230316-0008/"
+        "https://nodejs.org/en/blog/vulnerability/february-2023-security-releases/"
       ]
     },
     {
@@ -4696,7 +4567,6 @@
         "https://nvd.nist.gov/vuln/detail/CVE-2023-30581",
         "https://osv.dev/vulnerability/CVE-2023-30581",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/30xxx/CVE-2023-30581.json",
-        "https://security.netapp.com/advisory/ntap-20241101-0011/",
         "https://nodejs.org/en/blog/vulnerability/june-2023-security-releases"
       ]
     },
@@ -4728,7 +4598,6 @@
         "https://nvd.nist.gov/vuln/detail/CVE-2023-30585",
         "https://osv.dev/vulnerability/CVE-2023-30585",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/30xxx/CVE-2023-30585.json",
-        "https://security.netapp.com/advisory/ntap-20241101-0011/",
         "https://nodejs.org/en/blog/vulnerability/june-2023-security-releases"
       ]
     },
@@ -4751,9 +4620,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2023-30586",
         "https://osv.dev/vulnerability/CVE-2023-30586",
-        "https://hackerone.com/reports/1954535",
-        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/30xxx/CVE-2023-30586.json",
-        "https://security.netapp.com/advisory/ntap-20230803-0008/"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/30xxx/CVE-2023-30586.json"
       ]
     },
     {
@@ -4783,9 +4650,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2023-30589",
         "https://osv.dev/vulnerability/CVE-2023-30589",
-        "https://hackerone.com/reports/2001873",
-        "https://lists.debian.org/debian-lts-announce/2024/09/msg00029.html",
-        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/HMEELCREWMRT6NS7HWXLA6XFLLMO36HE/"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/30xxx/CVE-2023-30589.json"
       ]
     },
     {
@@ -4815,9 +4680,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2023-30590",
         "https://osv.dev/vulnerability/CVE-2023-30590",
-        "https://lists.debian.org/debian-lts-announce/2024/03/msg00029.html",
-        "https://lists.debian.org/debian-lts-announce/2024/09/msg00029.html",
-        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/30xxx/CVE-2023-30590.json"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/30xxx/CVE-2023-30590.json",
+        "https://nodejs.org/en/blog/vulnerability/june-2023-security-releases"
       ]
     },
     {
@@ -4847,9 +4711,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2023-32002",
         "https://osv.dev/vulnerability/CVE-2023-32002",
-        "https://hackerone.com/reports/1960870",
-        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/32xxx/CVE-2023-32002.json",
-        "https://security.netapp.com/advisory/ntap-20230915-0009/"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/32xxx/CVE-2023-32002.json"
       ]
     },
     {
@@ -4871,9 +4733,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2023-32004",
         "https://osv.dev/vulnerability/CVE-2023-32004",
-        "https://hackerone.com/reports/2038134",
-        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/JQPELKG2LVTADSB7ME73AV4DXQK47PWK/",
-        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/PBOZE2QZIBLFFTYWYN23FGKN6HULZ6HX/"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/32xxx/CVE-2023-32004.json"
       ]
     },
     {
@@ -4903,9 +4763,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2023-32006",
         "https://osv.dev/vulnerability/CVE-2023-32006",
-        "https://hackerone.com/reports/2043807",
-        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/JQPELKG2LVTADSB7ME73AV4DXQK47PWK/",
-        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/PBOZE2QZIBLFFTYWYN23FGKN6HULZ6HX/"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/32xxx/CVE-2023-32006.json"
       ]
     },
     {
@@ -4927,9 +4785,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2023-32558",
         "https://osv.dev/vulnerability/CVE-2023-32558",
-        "https://hackerone.com/reports/2051257",
-        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/32xxx/CVE-2023-32558.json",
-        "https://security.netapp.com/advisory/ntap-20241025-0003/"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/32xxx/CVE-2023-32558.json"
       ]
     },
     {
@@ -4959,8 +4815,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2023-32559",
         "https://osv.dev/vulnerability/CVE-2023-32559",
-        "https://hackerone.com/reports/1946470",
-        "https://lists.debian.org/debian-lts-announce/2024/09/msg00029.html",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/32xxx/CVE-2023-32559.json"
       ]
     },
@@ -4987,9 +4841,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2023-38552",
         "https://osv.dev/vulnerability/CVE-2023-38552",
-        "https://hackerone.com/reports/2094235",
-        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/3N4NJ7FR4X4FPZUGNTQAPSTVB2HB2Y4A/",
-        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/E72T67UPDRXHIDLO3OROR25YAMN4GGW5/"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/38xxx/CVE-2023-38552.json"
       ]
     },
     {
@@ -5011,9 +4863,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2023-39331",
         "https://osv.dev/vulnerability/CVE-2023-39331",
-        "https://hackerone.com/reports/2092852",
-        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/39xxx/CVE-2023-39331.json",
-        "https://security.netapp.com/advisory/ntap-20231116-0009/"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/39xxx/CVE-2023-39331.json"
       ]
     },
     {
@@ -5035,8 +4885,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2023-39332",
         "https://osv.dev/vulnerability/CVE-2023-39332",
-        "https://hackerone.com/reports/2199818",
-        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/3N4NJ7FR4X4FPZUGNTQAPSTVB2HB2Y4A/",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/39xxx/CVE-2023-39332.json"
       ]
     },
@@ -5067,9 +4915,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2024-3566",
         "https://osv.dev/vulnerability/CVE-2024-3566",
-        "https://flatt.tech/research/posts/batbadbut-you-cant-securely-execute-commands-on-windows/",
-        "https://github.com/nu11secur1ty/Windows11Exploits/tree/main/2024/CVE-2024-3566",
-        "https://kb.cert.org/vuls/id/123335"
+        "https://www.cve.org/CVERecord?id=CVE-2024-1874",
+        "https://www.cve.org/CVERecord?id=CVE-2024-22423",
+        "https://www.cve.org/CVERecord?id=CVE-2024-24576"
       ]
     },
     {
@@ -5095,9 +4943,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2024-21891",
         "https://osv.dev/vulnerability/CVE-2024-21891",
-        "https://hackerone.com/reports/2259914",
-        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/21xxx/CVE-2024-21891.json",
-        "https://security.netapp.com/advisory/ntap-20240315-0005/"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/21xxx/CVE-2024-21891.json"
       ]
     },
     {
@@ -5126,9 +4972,7 @@
       "remedy": "Upgrade Node.js to 18.19.1, 20.11.1, 21.6.2 or a later release on the same line, in each listed install.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2024-21892",
-        "https://osv.dev/vulnerability/CVE-2024-21892",
-        "https://security.netapp.com/advisory/ntap-20240322-0003/",
-        "https://hackerone.com/reports/2237545"
+        "https://osv.dev/vulnerability/CVE-2024-21892"
       ]
     },
     {
@@ -5154,9 +4998,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2024-21896",
         "https://osv.dev/vulnerability/CVE-2024-21896",
-        "https://hackerone.com/reports/2218653",
-        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/21xxx/CVE-2024-21896.json",
-        "https://security.netapp.com/advisory/ntap-20240329-0002/"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/21xxx/CVE-2024-21896.json"
       ]
     },
     {
@@ -5186,8 +5028,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2024-22019",
         "https://osv.dev/vulnerability/CVE-2024-22019",
-        "https://hackerone.com/reports/2233486",
-        "https://lists.debian.org/debian-lts-announce/2024/09/msg00029.html",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/22xxx/CVE-2024-22019.json"
       ]
     },
@@ -5222,9 +5062,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2025-55130",
         "https://osv.dev/vulnerability/CVE-2025-55130",
-        "https://security.access.redhat.com/data/csaf/v2/vex/2025/cve-2025-55130.json",
-        "https://access.redhat.com/errata/RHSA-2026:1842",
-        "https://access.redhat.com/errata/RHSA-2026:1843"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/55xxx/CVE-2025-55130.json",
+        "https://nodejs.org/en/blog/vulnerability/december-2025-security-releases"
       ]
     },
     {
@@ -5258,9 +5097,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2025-59465",
         "https://osv.dev/vulnerability/CVE-2025-59465",
-        "https://security.access.redhat.com/data/csaf/v2/vex/2025/cve-2025-59465.json",
-        "https://access.redhat.com/errata/RHSA-2026:1842",
-        "https://access.redhat.com/errata/RHSA-2026:1843"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/59xxx/CVE-2025-59465.json",
+        "https://nodejs.org/en/blog/vulnerability/december-2025-security-releases"
       ]
     },
     {
@@ -5294,9 +5132,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2026-21710",
         "https://osv.dev/vulnerability/CVE-2026-21710",
-        "https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-21710.json",
-        "https://access.redhat.com/errata/RHSA-2026:7080",
-        "https://access.redhat.com/errata/RHSA-2026:7123"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/21xxx/CVE-2026-21710.json",
+        "https://nodejs.org/en/blog/vulnerability/march-2026-security-releases"
       ]
     },
     {
@@ -5326,9 +5163,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2026-48618",
         "https://osv.dev/vulnerability/CVE-2026-48618",
-        "https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-48618.json",
-        "https://access.redhat.com/errata/RHSA-2026:28727",
-        "https://access.redhat.com/errata/RHSA-2026:29012"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/48xxx/CVE-2026-48618.json",
+        "https://nodejs.org/en/blog/vulnerability/june-2026-security-releases"
       ]
     },
     {
@@ -5358,9 +5194,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2026-48933",
         "https://osv.dev/vulnerability/CVE-2026-48933",
-        "https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-48933.json",
-        "https://access.redhat.com/errata/RHSA-2026:28727",
-        "https://access.redhat.com/errata/RHSA-2026:29012"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/48xxx/CVE-2026-48933.json",
+        "https://nodejs.org/en/blog/vulnerability/june-2026-security-releases"
       ]
     },
     {
@@ -5500,8 +5335,7 @@
       "remedy": "No fixed PHP release is listed for this advisory. Upgrade each listed install to the newest supported PHP release and check the advisory.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-4473",
-        "https://osv.dev/vulnerability/CVE-2016-4473",
-        "https://bugzilla.redhat.com/show_bug.cgi?id=1347772"
+        "https://osv.dev/vulnerability/CVE-2016-4473"
       ]
     },
     {
@@ -5531,9 +5365,141 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-5399",
         "https://osv.dev/vulnerability/CVE-2016-5399",
-        "https://security.netapp.com/advisory/ntap-20180112-0001/",
-        "https://bugzilla.redhat.com/show_bug.cgi?id=1358395",
         "https://bugs.php.net/bug.php?id=72613"
+      ]
+    },
+    {
+      "id": "cve.php.cve-2016-7417",
+      "title": "PHP: ext/spl/spl_array.c in PHP before 5.6.26 and 7.x before 7.0.11 proceeds with SplArray… (CVE-2016-7417)",
+      "severity": "critical",
+      "category": "hardening",
+      "check": "softwareVersion",
+      "product": "php",
+      "advisory": "CVE-2016-7417",
+      "ranges": [
+        {
+          "introduced": "0",
+          "lastAffected": "5.6.25"
+        },
+        {
+          "introduced": "7.0.0",
+          "lastAffected": "7.0.0"
+        },
+        {
+          "introduced": "7.0.1",
+          "lastAffected": "7.0.1"
+        },
+        {
+          "introduced": "7.0.2",
+          "lastAffected": "7.0.2"
+        },
+        {
+          "introduced": "7.0.3",
+          "lastAffected": "7.0.3"
+        },
+        {
+          "introduced": "7.0.4",
+          "lastAffected": "7.0.4"
+        },
+        {
+          "introduced": "7.0.5",
+          "lastAffected": "7.0.5"
+        },
+        {
+          "introduced": "7.0.6",
+          "lastAffected": "7.0.6"
+        },
+        {
+          "introduced": "7.0.7",
+          "lastAffected": "7.0.7"
+        },
+        {
+          "introduced": "7.0.8",
+          "lastAffected": "7.0.8"
+        },
+        {
+          "introduced": "7.0.9",
+          "lastAffected": "7.0.9"
+        },
+        {
+          "introduced": "7.0.10",
+          "lastAffected": "7.0.10"
+        }
+      ],
+      "summary": "ext/spl/spl_array.c in PHP before 5.6.26 and 7.x before 7.0.11 proceeds with SplArray unserialization without validating a return value and data type, which allows remote attackers to cause a denial of service or possibly have unspecified other impact via crafted serialized data.",
+      "remedy": "No fixed PHP release is listed for this advisory. Upgrade each listed install to the newest supported PHP release and check the advisory.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2016-7417",
+        "https://osv.dev/vulnerability/CVE-2016-7417",
+        "https://bugs.php.net/bug.php?id=73029",
+        "https://github.com/php/php-src/commit/ecb7f58a069be0dec4a6131b6351a761f808f22e?w=1"
+      ]
+    },
+    {
+      "id": "cve.php.cve-2016-7418",
+      "title": "PHP: The php_wddx_push_element function in ext/wddx/wddx.c in PHP before 5.6.26 and 7.x before 7.0.11… (CVE-2016-7418)",
+      "severity": "high",
+      "category": "hardening",
+      "check": "softwareVersion",
+      "product": "php",
+      "advisory": "CVE-2016-7418",
+      "ranges": [
+        {
+          "introduced": "0",
+          "lastAffected": "5.6.25"
+        },
+        {
+          "introduced": "7.0.0",
+          "lastAffected": "7.0.0"
+        },
+        {
+          "introduced": "7.0.1",
+          "lastAffected": "7.0.1"
+        },
+        {
+          "introduced": "7.0.2",
+          "lastAffected": "7.0.2"
+        },
+        {
+          "introduced": "7.0.3",
+          "lastAffected": "7.0.3"
+        },
+        {
+          "introduced": "7.0.4",
+          "lastAffected": "7.0.4"
+        },
+        {
+          "introduced": "7.0.5",
+          "lastAffected": "7.0.5"
+        },
+        {
+          "introduced": "7.0.6",
+          "lastAffected": "7.0.6"
+        },
+        {
+          "introduced": "7.0.7",
+          "lastAffected": "7.0.7"
+        },
+        {
+          "introduced": "7.0.8",
+          "lastAffected": "7.0.8"
+        },
+        {
+          "introduced": "7.0.9",
+          "lastAffected": "7.0.9"
+        },
+        {
+          "introduced": "7.0.10",
+          "lastAffected": "7.0.10"
+        }
+      ],
+      "summary": "The php_wddx_push_element function in ext/wddx/wddx.c in PHP before 5.6.26 and 7.x before 7.0.11 allows remote attackers to cause a denial of service (invalid pointer access and out-of-bounds read) or possibly have unspecified other impact via an incorrect boolean element in a wddxPacket XML document, leading to mishandling in a wddx_deserialize call.",
+      "remedy": "No fixed PHP release is listed for this advisory. Upgrade each listed install to the newest supported PHP release and check the advisory.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2016-7418",
+        "https://osv.dev/vulnerability/CVE-2016-7418",
+        "https://bugs.php.net/bug.php?id=73065",
+        "https://github.com/php/php-src/commit/c4cca4c20e75359c9a13a1f9a36cb7b4e9601d29?w=1"
       ]
     },
     {
@@ -6223,8 +6189,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-7478",
         "https://osv.dev/vulnerability/CVE-2016-7478",
-        "https://www.youtube.com/watch?v=LDcaPstAuPk",
-        "https://security.netapp.com/advisory/ntap-20180112-0001/",
         "https://bugs.php.net/bug.php?id=73093"
       ]
     },
@@ -6303,8 +6267,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-7479",
         "https://osv.dev/vulnerability/CVE-2016-7479",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
-        "https://security.netapp.com/advisory/ntap-20180112-0001/",
         "https://bugs.php.net/bug.php?id=73092"
       ]
     },
@@ -6327,9 +6289,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-7480",
         "https://osv.dev/vulnerability/CVE-2016-7480",
-        "https://security.netapp.com/advisory/ntap-20180112-0001/",
-        "https://www.youtube.com/watch?v=LDcaPstAuPk",
-        "https://bugs.php.net/bug.php?id=73257"
+        "https://bugs.php.net/bug.php?id=73257",
+        "https://github.com/php/php-src/commit/61cdd1255d5b9c8453be71aacbbf682796ac77d4"
       ]
     },
     {
@@ -6355,9 +6316,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-7568",
         "https://osv.dev/vulnerability/CVE-2016-7568",
-        "https://security.gentoo.org/glsa/201612-09",
         "https://bugs.php.net/bug.php?id=73003",
-        "https://github.com/libgd/libgd/commit/40bec0f38f50e8510f5bb71a82f516d46facde03"
+        "https://github.com/php/php-src/commit/c18263e0e0769faee96a5d0ee04b750c442783c6"
       ]
     },
     {
@@ -6427,7 +6387,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-9137",
         "https://osv.dev/vulnerability/CVE-2016-9137",
-        "https://www.tenable.com/security/tns-2016-19",
         "https://bugs.php.net/bug.php?id=73147"
       ]
     },
@@ -6576,7 +6535,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-9934",
         "https://osv.dev/vulnerability/CVE-2016-9934",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
         "https://bugs.php.net/bug.php?id=73331",
         "https://github.com/php/php-src/commit/6045de69c7dedcba3eadf7c4bba424b19c81d00d"
       ]
@@ -6656,9 +6614,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-9935",
         "https://osv.dev/vulnerability/CVE-2016-9935",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
         "https://bugs.php.net/bug.php?id=73631",
-        "https://security.gentoo.org/glsa/201702-29"
+        "https://github.com/php/php-src/commit/66fd44209d5ffcb9b3d1bc1b9fd8e35b485040c0"
       ]
     },
     {
@@ -6732,7 +6689,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-9936",
         "https://osv.dev/vulnerability/CVE-2016-9936",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
         "https://bugs.php.net/bug.php?id=72978",
         "https://github.com/php/php-src/commit/b2af4e8868726a040234de113436c6e4f6372d17"
       ]
@@ -6820,9 +6776,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-10158",
         "https://osv.dev/vulnerability/CVE-2016-10158",
-        "https://www.tenable.com/security/tns-2017-04",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
-        "https://security.gentoo.org/glsa/201702-29"
+        "https://bugs.php.net/bug.php?id=73737",
+        "https://github.com/php/php-src/commit/1cda0d7c2ffb62d8331c64e703131d9cabdc03ea"
       ]
     },
     {
@@ -6848,9 +6803,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-10159",
         "https://osv.dev/vulnerability/CVE-2016-10159",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
-        "https://security.gentoo.org/glsa/201702-29",
-        "https://security.netapp.com/advisory/ntap-20180112-0001/"
+        "https://bugs.php.net/bug.php?id=73764",
+        "https://github.com/php/php-src/commit/ca46d0acbce55019b970fcd4c1e8a10edfdded93"
       ]
     },
     {
@@ -6880,9 +6834,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-10160",
         "https://osv.dev/vulnerability/CVE-2016-10160",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
-        "https://security.gentoo.org/glsa/201702-29",
-        "https://security.netapp.com/advisory/ntap-20180112-0001/"
+        "https://bugs.php.net/bug.php?id=73768",
+        "https://github.com/php/php-src/commit/b28b8b2fee6dfa6fcd13305c581bb835689ac3be"
       ]
     },
     {
@@ -6968,9 +6921,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-10161",
         "https://osv.dev/vulnerability/CVE-2016-10161",
-        "https://www.tenable.com/security/tns-2017-04",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
-        "https://security.gentoo.org/glsa/201702-29"
+        "https://bugs.php.net/bug.php?id=73825",
+        "https://github.com/php/php-src/commit/16b3003ffc6393e250f069aa28a78dc5a2c064b2"
       ]
     },
     {
@@ -7052,7 +7004,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-10162",
         "https://osv.dev/vulnerability/CVE-2016-10162",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
         "https://bugs.php.net/bug.php?id=73831",
         "https://github.com/php/php-src/commit/8d2539fa0faf3f63e1d1e7635347c5b9e777d47b"
       ]
@@ -7128,7 +7079,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-10397",
         "https://osv.dev/vulnerability/CVE-2016-10397",
-        "https://security.netapp.com/advisory/ntap-20180112-0001/",
         "https://bugs.php.net/bug.php?id=73192"
       ]
     },
@@ -7160,8 +7110,7 @@
         "https://nvd.nist.gov/vuln/detail/CVE-2016-10712",
         "https://osv.dev/vulnerability/CVE-2016-10712",
         "https://git.php.net/?p=php-src.git%3Ba=commit%3Bh=6297a117d77fa3a0df2e21ca926a92c231819cd5",
-        "https://usn.ubuntu.com/3566-2/",
-        "https://usn.ubuntu.com/3600-1/"
+        "https://bugs.php.net/bug.php?id=71323"
       ]
     },
     {
@@ -7187,9 +7136,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-5340",
         "https://osv.dev/vulnerability/CVE-2017-5340",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
-        "https://security.netapp.com/advisory/ntap-20180112-0001/",
-        "https://bugs.php.net/bug.php?id=73832"
+        "https://bugs.php.net/bug.php?id=73832",
+        "https://github.com/php/php-src/commit/4cc0286f2f3780abc6084bcdae5dce595daa3c12"
       ]
     },
     {
@@ -7258,8 +7206,8 @@
         "https://nvd.nist.gov/vuln/detail/CVE-2017-7272",
         "https://osv.dev/vulnerability/CVE-2017-7272",
         "https://bugs.php.net/bug.php?id=75505",
-        "https://security.netapp.com/advisory/ntap-20180112-0001/",
-        "https://www.sec-consult.com/fxdata/seccons/prod/temedia/advisories_txt/20170403-0_PHP_Misbehavior_of_fsockopen_function_v10.txt"
+        "https://bugs.php.net/bug.php?id=74216",
+        "https://github.com/php/php-src/commit/bab0b99f376dac9170ac81382a5ed526938d595a"
       ]
     },
     {
@@ -7307,7 +7255,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-8923",
         "https://osv.dev/vulnerability/CVE-2017-8923",
-        "https://security.netapp.com/advisory/ntap-20241227-0007/",
         "https://bugs.php.net/bug.php?id=74577"
       ]
     },
@@ -7329,10 +7276,7 @@
       "remedy": "No fixed PHP release is listed for this advisory. Upgrade each listed install to the newest supported PHP release and check the advisory.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-9067",
-        "https://osv.dev/vulnerability/CVE-2017-9067",
-        "https://github.com/modxcms/revolution/pull/13422",
-        "https://github.com/modxcms/revolution/pull/13428",
-        "https://citadelo.com/en/2017/04/modx-revolution-cms/"
+        "https://osv.dev/vulnerability/CVE-2017-9067"
       ]
     },
     {
@@ -7366,8 +7310,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-9118",
         "https://osv.dev/vulnerability/CVE-2017-9118",
-        "https://access.redhat.com/errata/RHSA-2019:2519",
-        "https://security.netapp.com/advisory/ntap-20181107-0003/",
         "https://bugs.php.net/bug.php?id=74604"
       ]
     },
@@ -7390,7 +7332,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-9119",
         "https://osv.dev/vulnerability/CVE-2017-9119",
-        "https://security.netapp.com/advisory/ntap-20180112-0001/",
         "https://bugs.php.net/bug.php?id=74593"
       ]
     },
@@ -7421,8 +7362,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-9120",
         "https://osv.dev/vulnerability/CVE-2017-9120",
-        "https://access.redhat.com/errata/RHSA-2019:2519",
-        "https://security.netapp.com/advisory/ntap-20181107-0003/",
         "https://bugs.php.net/bug.php?id=74544"
       ]
     },
@@ -7452,10 +7391,7 @@
       "remedy": "Upgrade PHP to 5.6.31, 7.0.21, 7.1.7 or a later release on the same line, in each listed install.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-9224",
-        "https://osv.dev/vulnerability/CVE-2017-9224",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
-        "https://github.com/kkos/oniguruma/issues/57",
-        "https://github.com/kkos/oniguruma/commit/690313a061f7a4fa614ec5cc8368b4f2284e059b"
+        "https://osv.dev/vulnerability/CVE-2017-9224"
       ]
     },
     {
@@ -7476,9 +7412,7 @@
       "remedy": "No fixed PHP release is listed for this advisory. Upgrade each listed install to the newest supported PHP release and check the advisory.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-9225",
-        "https://osv.dev/vulnerability/CVE-2017-9225",
-        "https://github.com/kkos/oniguruma/commit/166a6c3999bf06b4de0ab4ce6b088a468cc4029f",
-        "https://github.com/kkos/oniguruma/issues/56"
+        "https://osv.dev/vulnerability/CVE-2017-9225"
       ]
     },
     {
@@ -7507,10 +7441,7 @@
       "remedy": "Upgrade PHP to 5.6.31, 7.0.21, 7.1.7 or a later release on the same line, in each listed install.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-9226",
-        "https://osv.dev/vulnerability/CVE-2017-9226",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
-        "https://github.com/kkos/oniguruma/issues/55",
-        "https://github.com/kkos/oniguruma/commit/b4bf968ad52afe14e60a2dc8a95d3555c543353a"
+        "https://osv.dev/vulnerability/CVE-2017-9226"
       ]
     },
     {
@@ -7539,10 +7470,7 @@
       "remedy": "Upgrade PHP to 5.6.31, 7.0.21, 7.1.7 or a later release on the same line, in each listed install.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-9227",
-        "https://osv.dev/vulnerability/CVE-2017-9227",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
-        "https://github.com/kkos/oniguruma/commit/9690d3ab1f9bcd2db8cbe1fe3ee4a5da606b8814",
-        "https://github.com/kkos/oniguruma/issues/58"
+        "https://osv.dev/vulnerability/CVE-2017-9227"
       ]
     },
     {
@@ -7571,10 +7499,7 @@
       "remedy": "Upgrade PHP to 5.6.31, 7.0.21, 7.1.7 or a later release on the same line, in each listed install.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-9228",
-        "https://osv.dev/vulnerability/CVE-2017-9228",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
-        "https://github.com/kkos/oniguruma/issues/60",
-        "https://github.com/kkos/oniguruma/commit/3b63d12038c8d8fc278e81c942fa9bec7c704c8b"
+        "https://osv.dev/vulnerability/CVE-2017-9228"
       ]
     },
     {
@@ -7595,10 +7520,7 @@
       "remedy": "Upgrade PHP to 7.1.7 or a later release on the same line, in each listed install.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-9229",
-        "https://osv.dev/vulnerability/CVE-2017-9229",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
-        "https://github.com/kkos/oniguruma/commit/b690371bbf97794b4a1d3f295d4fb9a8b05d402d",
-        "https://github.com/kkos/oniguruma/issues/59"
+        "https://osv.dev/vulnerability/CVE-2017-9229"
       ]
     },
     {
@@ -7700,9 +7622,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-11142",
         "https://osv.dev/vulnerability/CVE-2017-11142",
-        "https://www.tenable.com/security/tns-2017-12",
         "https://bugs.php.net/bug.php?id=73807",
-        "https://security.netapp.com/advisory/ntap-20180112-0001/"
+        "https://github.com/php/php-src/commit/0f8cf3b8497dc45c010c44ed9e96518e11e19fc3",
+        "https://github.com/php/php-src/commit/a15bffd105ac28fd0dd9b596632dbf035238fda3"
       ]
     },
     {
@@ -7725,8 +7647,7 @@
         "https://nvd.nist.gov/vuln/detail/CVE-2017-11143",
         "https://osv.dev/vulnerability/CVE-2017-11143",
         "https://git.php.net/?p=php-src.git%3Ba=commit%3Bh=2aae60461c2ff7b7fbcdd194c789ac841d0747d7",
-        "https://www.tenable.com/security/tns-2017-12",
-        "https://access.redhat.com/errata/RHSA-2018:1296"
+        "https://bugs.php.net/bug.php?id=74145"
       ]
     },
     {
@@ -7860,8 +7781,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-11144",
         "https://osv.dev/vulnerability/CVE-2017-11144",
-        "https://www.tenable.com/security/tns-2017-12",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
         "https://bugs.php.net/bug.php?id=74651"
       ]
     },
@@ -7996,8 +7915,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-11145",
         "https://osv.dev/vulnerability/CVE-2017-11145",
-        "https://www.tenable.com/security/tns-2017-12",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
         "https://bugs.php.net/bug.php?id=74819"
       ]
     },
@@ -8028,9 +7945,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-11147",
         "https://osv.dev/vulnerability/CVE-2017-11147",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
-        "https://security.netapp.com/advisory/ntap-20180112-0001/",
-        "https://www.tenable.com/security/tns-2017-12"
+        "https://bugs.php.net/bug.php?id=73773"
       ]
     },
     {
@@ -8160,9 +8075,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-11362",
         "https://osv.dev/vulnerability/CVE-2017-11362",
-        "https://usn.ubuntu.com/3566-2/",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
-        "https://security.gentoo.org/glsa/201709-21"
+        "https://bugs.php.net/bug.php?id=73473"
       ]
     },
     {
@@ -8296,9 +8209,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-11628",
         "https://osv.dev/vulnerability/CVE-2017-11628",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
-        "https://security.gentoo.org/glsa/201709-21",
-        "https://security.netapp.com/advisory/ntap-20180112-0001/"
+        "https://bugs.php.net/bug.php?id=74603"
       ]
     },
     {
@@ -8444,9 +8355,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-12932",
         "https://osv.dev/vulnerability/CVE-2017-12932",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
-        "https://access.redhat.com/errata/RHSA-2019:2519",
-        "https://security.gentoo.org/glsa/201709-21"
+        "https://bugs.php.net/bug.php?id=74103",
+        "https://github.com/php/php-src/commit/1a23ebc1fff59bf480ca92963b36eba5c1b904c4"
       ]
     },
     {
@@ -8580,9 +8490,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-12933",
         "https://osv.dev/vulnerability/CVE-2017-12933",
-        "https://usn.ubuntu.com/3566-1/",
-        "https://usn.ubuntu.com/3566-2/",
-        "https://access.redhat.com/errata/RHSA-2018:1296"
+        "https://bugs.php.net/bug.php?id=74111"
       ]
     },
     {
@@ -8712,8 +8620,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-12934",
         "https://osv.dev/vulnerability/CVE-2017-12934",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
-        "https://www.debian.org/security/2018/dsa-4080",
         "https://bugs.php.net/bug.php?id=74101"
       ]
     },
@@ -8744,9 +8650,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-16642",
         "https://osv.dev/vulnerability/CVE-2017-16642",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
-        "https://access.redhat.com/errata/RHSA-2019:2519",
-        "https://security.netapp.com/advisory/ntap-20181123-0001/"
+        "https://bugs.php.net/bug.php?id=75055",
+        "https://github.com/php/php-src/commit/5c0455bf2c8cd3c25401407f158e820aa3b239e1"
       ]
     },
     {
@@ -8780,9 +8685,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-7584",
         "https://osv.dev/vulnerability/CVE-2018-7584",
-        "https://access.redhat.com/errata/RHSA-2019:2519",
-        "https://lists.debian.org/debian-lts-announce/2018/03/msg00030.html",
-        "https://lists.debian.org/debian-lts-announce/2018/06/msg00005.html"
+        "https://bugs.php.net/bug.php?id=75981",
+        "https://github.com/php/php-src/commit/523f230c831d7b33353203fa34aee4e92ac12bba"
       ]
     },
     {
@@ -8816,9 +8720,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-10546",
         "https://osv.dev/vulnerability/CVE-2018-10546",
-        "https://access.redhat.com/errata/RHSA-2019:2519",
-        "https://lists.debian.org/debian-lts-announce/2018/06/msg00005.html",
-        "https://security.gentoo.org/glsa/201812-01"
+        "https://bugs.php.net/bug.php?id=76249"
       ]
     },
     {
@@ -8852,9 +8754,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-10548",
         "https://osv.dev/vulnerability/CVE-2018-10548",
-        "https://www.tenable.com/security/tns-2019-07",
-        "https://access.redhat.com/errata/RHSA-2019:2519",
-        "https://lists.debian.org/debian-lts-announce/2018/05/msg00004.html"
+        "https://bugs.php.net/bug.php?id=76248"
       ]
     },
     {
@@ -8888,9 +8788,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-10549",
         "https://osv.dev/vulnerability/CVE-2018-10549",
-        "https://access.redhat.com/errata/RHSA-2019:2519",
-        "https://lists.debian.org/debian-lts-announce/2018/06/msg00005.html",
-        "https://security.gentoo.org/glsa/201812-01"
+        "https://bugs.php.net/bug.php?id=76130"
       ]
     },
     {
@@ -8912,9 +8810,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-12882",
         "https://osv.dev/vulnerability/CVE-2018-12882",
-        "https://security.netapp.com/advisory/ntap-20181109-0001/",
-        "https://usn.ubuntu.com/3702-1/",
-        "https://usn.ubuntu.com/3702-2/"
+        "https://bugs.php.net/bug.php?id=76409"
       ]
     },
     {
@@ -8948,9 +8844,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-14883",
         "https://osv.dev/vulnerability/CVE-2018-14883",
-        "https://lists.debian.org/debian-lts-announce/2018/09/msg00000.html",
-        "https://security.netapp.com/advisory/ntap-20181107-0003/",
-        "https://usn.ubuntu.com/3766-1/"
+        "https://bugs.php.net/bug.php?id=76423"
       ]
     },
     {
@@ -8980,8 +8874,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-14884",
         "https://osv.dev/vulnerability/CVE-2018-14884",
-        "https://access.redhat.com/errata/RHSA-2019:2519",
-        "https://security.netapp.com/advisory/ntap-20181107-0003/",
         "https://bugs.php.net/bug.php?id=75535"
       ]
     },
@@ -9016,9 +8908,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-15132",
         "https://osv.dev/vulnerability/CVE-2018-15132",
-        "https://security.netapp.com/advisory/ntap-20181107-0003/",
-        "https://www.tenable.com/security/tns-2018-12",
-        "https://github.com/php/php-src/commit/f151e048ed27f6f4eef729f3310d053ab5da71d4"
+        "https://github.com/php/php-src/commit/f151e048ed27f6f4eef729f3310d053ab5da71d4",
+        "https://bugs.php.net/bug.php?id=76459"
       ]
     },
     {
@@ -9040,7 +8931,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-19395",
         "https://osv.dev/vulnerability/CVE-2018-19395",
-        "https://security.netapp.com/advisory/ntap-20181221-0005/",
         "https://bugs.php.net/bug.php?id=77177"
       ]
     },
@@ -9063,7 +8953,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-19396",
         "https://osv.dev/vulnerability/CVE-2018-19396",
-        "https://security.netapp.com/advisory/ntap-20181221-0005/",
         "https://bugs.php.net/bug.php?id=77177"
       ]
     },
@@ -9099,8 +8988,8 @@
         "https://nvd.nist.gov/vuln/detail/CVE-2018-19518",
         "https://osv.dev/vulnerability/CVE-2018-19518",
         "https://git.php.net/?p=php-src.git%3Ba=commit%3Bh=e5bfea64c81ae34816479bb05d17cdffe45adddb",
-        "https://bugs.debian.org/913775",
-        "https://bugs.debian.org/913835"
+        "https://bugs.php.net/bug.php?id=77160",
+        "https://bugs.php.net/bug.php?id=76428"
       ]
     },
     {
@@ -9121,9 +9010,7 @@
       "remedy": "No fixed PHP release is listed for this advisory. Upgrade each listed install to the newest supported PHP release and check the advisory.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-19520",
-        "https://osv.dev/vulnerability/CVE-2018-19520",
-        "https://blog.whiterabbitxyj.com/cve/SDCMS_1.6_code_execution.doc",
-        "https://github.com/WhiteRabbitc/WhiteRabbitc.github.io/blob/master/cve/SDCMS_1.6_code_execution.doc"
+        "https://osv.dev/vulnerability/CVE-2018-19520"
       ]
     },
     {
@@ -9157,9 +9044,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-19935",
         "https://osv.dev/vulnerability/CVE-2018-19935",
-        "https://lists.debian.org/debian-lts-announce/2018/12/msg00006.html",
-        "https://security.netapp.com/advisory/ntap-20181221-0003/",
-        "https://www.debian.org/security/2018/dsa-4353"
+        "https://bugs.php.net/bug.php?id=77020"
       ]
     },
     {
@@ -9193,9 +9078,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-20783",
         "https://osv.dev/vulnerability/CVE-2018-20783",
-        "https://usn.ubuntu.com/3566-2/",
-        "https://access.redhat.com/errata/RHSA-2019:2519",
-        "https://access.redhat.com/errata/RHSA-2019:3299"
+        "https://bugs.php.net/bug.php?id=77143"
       ]
     },
     {
@@ -9229,9 +9112,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-6977",
         "https://osv.dev/vulnerability/CVE-2019-6977",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/3CZ2QADQTKRHTGB2AHD7J4QQNDLBEMM6/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/3WRUPZVT2MWFUEMVGTRAGDOBHLNMGK5R/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/TEYUUOW75YD3DENIPYMO263E6NL2NFHI/"
+        "https://bugs.php.net/bug.php?id=77270"
       ]
     },
     {
@@ -9265,9 +9146,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-9020",
         "https://osv.dev/vulnerability/CVE-2019-9020",
-        "https://access.redhat.com/errata/RHSA-2019:2519",
-        "https://access.redhat.com/errata/RHSA-2019:3299",
-        "https://security.netapp.com/advisory/ntap-20190321-0001/"
+        "https://bugs.php.net/bug.php?id=77249",
+        "https://bugs.php.net/bug.php?id=77242"
       ]
     },
     {
@@ -9301,9 +9181,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-9021",
         "https://osv.dev/vulnerability/CVE-2019-9021",
-        "https://access.redhat.com/errata/RHSA-2019:2519",
-        "https://access.redhat.com/errata/RHSA-2019:3299",
-        "https://security.netapp.com/advisory/ntap-20190321-0001/"
+        "https://bugs.php.net/bug.php?id=77247"
       ]
     },
     {
@@ -9333,9 +9211,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-9022",
         "https://osv.dev/vulnerability/CVE-2019-9022",
-        "https://www.tenable.com/security/tns-2019-07",
-        "https://access.redhat.com/errata/RHSA-2019:2519",
-        "https://access.redhat.com/errata/RHSA-2019:3299"
+        "https://bugs.php.net/bug.php?id=77369"
       ]
     },
     {
@@ -9369,9 +9245,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-9023",
         "https://osv.dev/vulnerability/CVE-2019-9023",
-        "https://access.redhat.com/errata/RHSA-2019:2519",
-        "https://access.redhat.com/errata/RHSA-2019:3299",
-        "https://support.f5.com/csp/article/K06372014"
+        "https://bugs.php.net/bug.php?id=77370",
+        "https://bugs.php.net/bug.php?id=77371",
+        "https://bugs.php.net/bug.php?id=77381"
       ]
     },
     {
@@ -9405,9 +9281,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-9024",
         "https://osv.dev/vulnerability/CVE-2019-9024",
-        "https://access.redhat.com/errata/RHSA-2019:2519",
-        "https://access.redhat.com/errata/RHSA-2019:3299",
-        "https://security.netapp.com/advisory/ntap-20190321-0001/"
+        "https://bugs.php.net/bug.php?id=77380"
       ]
     },
     {
@@ -9429,7 +9303,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-9025",
         "https://osv.dev/vulnerability/CVE-2019-9025",
-        "https://security.netapp.com/advisory/ntap-20190321-0001/",
         "https://bugs.php.net/bug.php?id=77367"
       ]
     },
@@ -9460,9 +9333,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-9637",
         "https://osv.dev/vulnerability/CVE-2019-9637",
-        "https://www.tenable.com/security/tns-2019-07",
-        "https://access.redhat.com/errata/RHSA-2019:2519",
-        "https://access.redhat.com/errata/RHSA-2019:3299"
+        "https://bugs.php.net/bug.php?id=77630"
       ]
     },
     {
@@ -9492,9 +9363,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-9638",
         "https://osv.dev/vulnerability/CVE-2019-9638",
-        "https://access.redhat.com/errata/RHSA-2019:2519",
-        "https://access.redhat.com/errata/RHSA-2019:3299",
-        "https://lists.debian.org/debian-lts-announce/2019/03/msg00043.html"
+        "https://bugs.php.net/bug.php?id=77563"
       ]
     },
     {
@@ -9524,9 +9393,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-9639",
         "https://osv.dev/vulnerability/CVE-2019-9639",
-        "https://access.redhat.com/errata/RHSA-2019:2519",
-        "https://access.redhat.com/errata/RHSA-2019:3299",
-        "https://lists.debian.org/debian-lts-announce/2019/03/msg00043.html"
+        "https://bugs.php.net/bug.php?id=77659"
       ]
     },
     {
@@ -9556,9 +9423,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-9640",
         "https://osv.dev/vulnerability/CVE-2019-9640",
-        "https://access.redhat.com/errata/RHSA-2019:2519",
-        "https://access.redhat.com/errata/RHSA-2019:3299",
-        "https://lists.debian.org/debian-lts-announce/2019/03/msg00043.html"
+        "https://bugs.php.net/bug.php?id=77540"
       ]
     },
     {
@@ -9588,9 +9453,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-9641",
         "https://osv.dev/vulnerability/CVE-2019-9641",
-        "https://lists.debian.org/debian-lts-announce/2019/03/msg00043.html",
-        "https://usn.ubuntu.com/3922-1/",
-        "https://usn.ubuntu.com/3922-2/"
+        "https://bugs.php.net/bug.php?id=77509"
       ]
     },
     {
@@ -9616,8 +9479,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-9675",
         "https://osv.dev/vulnerability/CVE-2019-9675",
-        "https://usn.ubuntu.com/3922-2/",
-        "https://usn.ubuntu.com/3922-3/",
         "https://bugs.php.net/bug.php?id=77586"
       ]
     },
@@ -9648,9 +9509,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-11034",
         "https://osv.dev/vulnerability/CVE-2019-11034",
-        "https://access.redhat.com/errata/RHSA-2019:2519",
-        "https://access.redhat.com/errata/RHSA-2019:3299",
-        "https://lists.debian.org/debian-lts-announce/2019/05/msg00035.html"
+        "https://bugs.php.net/bug.php?id=77753"
       ]
     },
     {
@@ -9680,9 +9539,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-11035",
         "https://osv.dev/vulnerability/CVE-2019-11035",
-        "https://access.redhat.com/errata/RHSA-2019:2519",
-        "https://access.redhat.com/errata/RHSA-2019:3299",
-        "https://lists.debian.org/debian-lts-announce/2019/05/msg00035.html"
+        "https://bugs.php.net/bug.php?id=77831"
       ]
     },
     {
@@ -9712,9 +9569,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-11036",
         "https://osv.dev/vulnerability/CVE-2019-11036",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/2NFXYNCXZCPYT7ZN4ZLI5EPQQW44FRRO/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/3BY2XUUAN277LS7HKAOGL4DVGAELOJV3/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/WN2HLPGEZEF4MFM5YC5FILZB5QEQFP3A/"
+        "https://bugs.php.net/bug.php?id=77950"
       ]
     },
     {
@@ -9744,9 +9599,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-11039",
         "https://osv.dev/vulnerability/CVE-2019-11039",
-        "https://access.redhat.com/errata/RHSA-2019:2519",
-        "https://access.redhat.com/errata/RHSA-2019:3299",
-        "https://seclists.org/bugtraq/2019/Sep/35"
+        "https://bugs.php.net/bug.php?id=78069"
       ]
     },
     {
@@ -9776,9 +9629,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-11040",
         "https://osv.dev/vulnerability/CVE-2019-11040",
-        "https://access.redhat.com/errata/RHSA-2019:2519",
-        "https://access.redhat.com/errata/RHSA-2019:3299",
-        "https://seclists.org/bugtraq/2019/Sep/35"
+        "https://bugs.php.net/bug.php?id=77988"
       ]
     },
     {
@@ -9808,9 +9659,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-11041",
         "https://osv.dev/vulnerability/CVE-2019-11041",
-        "https://access.redhat.com/errata/RHSA-2019:3299",
-        "https://lists.debian.org/debian-lts-announce/2019/08/msg00010.html",
-        "https://seclists.org/bugtraq/2019/Oct/9"
+        "https://bugs.php.net/bug.php?id=78222"
       ]
     },
     {
@@ -9840,9 +9689,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-11042",
         "https://osv.dev/vulnerability/CVE-2019-11042",
-        "https://access.redhat.com/errata/RHSA-2019:3299",
-        "https://lists.debian.org/debian-lts-announce/2019/08/msg00010.html",
-        "https://seclists.org/bugtraq/2019/Oct/9"
+        "https://bugs.php.net/bug.php?id=78256"
       ]
     },
     {
@@ -9872,9 +9719,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-11043",
         "https://osv.dev/vulnerability/CVE-2019-11043",
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2019-11043",
-        "https://access.redhat.com/errata/RHSA-2019:3286",
-        "https://access.redhat.com/errata/RHSA-2019:3287"
+        "https://bugs.php.net/bug.php?id=78599"
       ]
     },
     {
@@ -9904,9 +9749,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-11044",
         "https://osv.dev/vulnerability/CVE-2019-11044",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/N7GCOAE6KVHYJ3UQ4KLPLTGSLX6IRVRN/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/XWRQPYXVG43Q7DXMXH6UVWMKWGUW552F/",
-        "https://security.netapp.com/advisory/ntap-20200103-0002/"
+        "https://bugs.php.net/bug.php?id=78862"
       ]
     },
     {
@@ -9932,9 +9775,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-11049",
         "https://osv.dev/vulnerability/CVE-2019-11049",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/N7GCOAE6KVHYJ3UQ4KLPLTGSLX6IRVRN/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/XWRQPYXVG43Q7DXMXH6UVWMKWGUW552F/",
-        "https://seclists.org/bugtraq/2020/Feb/27"
+        "https://bugs.php.net/bug.php?id=78943"
       ]
     },
     {
@@ -9963,10 +9804,7 @@
       "remedy": "Upgrade PHP to 7.1.32, 7.2.23, 7.3.9 or a later release on the same line, in each listed install.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-13224",
-        "https://osv.dev/vulnerability/CVE-2019-13224",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/JWCPDTZOIUKGMFAD5NAKUB7FPJFAIQN5/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/SNL26OZSQRVLEO6JRNUVIMZTICXBNEQW/",
-        "https://support.f5.com/csp/article/K00103182?utm_source=f5support&amp%3Butm_medium=RSS"
+        "https://osv.dev/vulnerability/CVE-2019-13224"
       ]
     },
     {
@@ -9988,9 +9826,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-19246",
         "https://osv.dev/vulnerability/CVE-2019-19246",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/NO267PLHGYZSWX3XTRPKYBKD4J3YOU5V/",
-        "https://bugs.php.net/bug.php?id=78559",
-        "https://lists.debian.org/debian-lts-announce/2019/12/msg00002.html"
+        "https://bugs.php.net/bug.php?id=78559"
       ]
     },
     {
@@ -10020,9 +9856,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2020-7059",
         "https://osv.dev/vulnerability/CVE-2020-7059",
-        "https://lists.debian.org/debian-lts-announce/2020/02/msg00030.html",
-        "https://seclists.org/bugtraq/2020/Feb/27",
-        "https://seclists.org/bugtraq/2020/Feb/31"
+        "https://bugs.php.net/bug.php?id=79099"
       ]
     },
     {
@@ -10052,9 +9886,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2020-7060",
         "https://osv.dev/vulnerability/CVE-2020-7060",
-        "https://lists.debian.org/debian-lts-announce/2020/02/msg00030.html",
-        "https://seclists.org/bugtraq/2020/Feb/27",
-        "https://seclists.org/bugtraq/2020/Feb/31"
+        "https://bugs.php.net/bug.php?id=79037"
       ]
     },
     {
@@ -10084,8 +9916,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2020-7061",
         "https://osv.dev/vulnerability/CVE-2020-7061",
-        "https://security.gentoo.org/glsa/202003-57",
-        "https://www.tenable.com/security/tns-2021-14",
         "https://bugs.php.net/bug.php?id=79171"
       ]
     },
@@ -10116,9 +9946,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2020-7062",
         "https://osv.dev/vulnerability/CVE-2020-7062",
-        "https://lists.debian.org/debian-lts-announce/2020/03/msg00034.html",
-        "https://security.gentoo.org/glsa/202003-57",
-        "https://usn.ubuntu.com/4330-1/"
+        "https://bugs.php.net/bug.php?id=79221"
       ]
     },
     {
@@ -10144,9 +9972,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2020-7065",
         "https://osv.dev/vulnerability/CVE-2020-7065",
-        "https://security.netapp.com/advisory/ntap-20200403-0001/",
-        "https://usn.ubuntu.com/4330-1/",
-        "https://usn.ubuntu.com/4330-2/"
+        "https://www.php.net/ChangeLog-7.php#7.4.4",
+        "https://bugs.php.net/bug.php?id=79371"
       ]
     },
     {
@@ -10176,9 +10003,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2020-7067",
         "https://osv.dev/vulnerability/CVE-2020-7067",
-        "https://security.netapp.com/advisory/ntap-20200504-0001/",
-        "https://www.debian.org/security/2020/dsa-4717",
-        "https://www.debian.org/security/2020/dsa-4719"
+        "https://bugs.php.net/bug.php?id=79465"
       ]
     },
     {
@@ -10208,9 +10033,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-21702",
         "https://osv.dev/vulnerability/CVE-2021-21702",
-        "https://lists.debian.org/debian-lts-announce/2021/07/msg00008.html",
-        "https://security.gentoo.org/glsa/202105-23",
-        "https://security.netapp.com/advisory/ntap-20210312-0005/"
+        "https://bugs.php.net/bug.php?id=80672"
       ]
     },
     {
@@ -10240,9 +10063,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-21703",
         "https://osv.dev/vulnerability/CVE-2021-21703",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/6PZVLICZUJMXOGWOUWSBAEGIVTF6Y6V3/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/JO5RA6YOBGGGKLIA6F6BQRZDDECF5L3R/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/PBM3KKB3RY2YPOKNMC4HIH7IH3T3WC74/"
+        "https://bugs.php.net/bug.php?id=81026"
       ]
     },
     {
@@ -10272,8 +10093,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-21708",
         "https://osv.dev/vulnerability/CVE-2021-21708",
-        "https://security.gentoo.org/glsa/202209-20",
-        "https://security.netapp.com/advisory/ntap-20220325-0004/",
         "https://bugs.php.net/bug.php?id=81708"
       ]
     },
@@ -10305,8 +10124,7 @@
         "https://nvd.nist.gov/vuln/detail/CVE-2022-31625",
         "https://osv.dev/vulnerability/CVE-2022-31625",
         "https://bugs.php.net/bug.php?id=81720",
-        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/31xxx/CVE-2022-31625.json",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/3T4MMEEZYYAEHPQMZDFN44PHORJWJFZQ/"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/31xxx/CVE-2022-31625.json"
       ]
     },
     {
@@ -10337,8 +10155,7 @@
         "https://nvd.nist.gov/vuln/detail/CVE-2022-31626",
         "https://osv.dev/vulnerability/CVE-2022-31626",
         "https://bugs.php.net/bug.php?id=81719",
-        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/31xxx/CVE-2022-31626.json",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/3T4MMEEZYYAEHPQMZDFN44PHORJWJFZQ/"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/31xxx/CVE-2022-31626.json"
       ]
     },
     {
@@ -10361,8 +10178,7 @@
         "https://nvd.nist.gov/vuln/detail/CVE-2022-31627",
         "https://osv.dev/vulnerability/CVE-2022-31627",
         "https://bugs.php.net/bug.php?id=81723",
-        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/31xxx/CVE-2022-31627.json",
-        "https://security.gentoo.org/glsa/202209-20"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/31xxx/CVE-2022-31627.json"
       ]
     },
     {
@@ -10393,8 +10209,7 @@
         "https://nvd.nist.gov/vuln/detail/CVE-2022-31631",
         "https://osv.dev/vulnerability/CVE-2022-31631",
         "https://bugs.php.net/bug.php?id=81740",
-        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/31xxx/CVE-2022-31631.json",
-        "https://security.netapp.com/advisory/ntap-20230223-0007/"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/31xxx/CVE-2022-31631.json"
       ]
     },
     {
@@ -10424,9 +10239,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2022-37454",
         "https://osv.dev/vulnerability/CVE-2022-37454",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-455250.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-806742.html"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/37xxx/CVE-2022-37454.json"
       ]
     },
     {
@@ -10490,7 +10303,7 @@
         "https://osv.dev/vulnerability/CVE-2023-0568",
         "https://bugs.php.net/bug.php?id=81746",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/0xxx/CVE-2023-0568.json",
-        "https://security.netapp.com/advisory/ntap-20230517-0001/"
+        "https://github.com/php/php-src"
       ]
     },
     {
@@ -10522,7 +10335,7 @@
         "https://osv.dev/vulnerability/CVE-2023-0662",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/0xxx/CVE-2023-0662.json",
         "https://github.com/php/php-src/security/advisories/GHSA-54hq-v5wp-fqgv",
-        "https://security.netapp.com/advisory/ntap-20230517-0001/"
+        "https://github.com/php/php-src"
       ]
     },
     {
@@ -10552,9 +10365,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2023-3823",
         "https://osv.dev/vulnerability/CVE-2023-3823",
-        "https://lists.debian.org/debian-lts-announce/2023/09/msg00002.html",
-        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/7NBF77WN6DTVTY2RE73IGPYD6M4PIAWA/",
-        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/3xxx/CVE-2023-3823.json"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/3xxx/CVE-2023-3823.json",
+        "https://github.com/php/php-src/security/advisories/GHSA-3qrf-m4j2-pcrr"
       ]
     },
     {
@@ -10584,9 +10396,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2023-3824",
         "https://osv.dev/vulnerability/CVE-2023-3824",
-        "https://lists.debian.org/debian-lts-announce/2023/09/msg00002.html",
-        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/7NBF77WN6DTVTY2RE73IGPYD6M4PIAWA/",
-        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/3xxx/CVE-2023-3824.json"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/3xxx/CVE-2023-3824.json",
+        "https://github.com/php/php-src/security/advisories/GHSA-jqcx-ccgc-xwhv"
       ]
     },
     {
@@ -10616,9 +10427,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2024-1874",
         "https://osv.dev/vulnerability/CVE-2024-1874",
-        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/KJZK3X6B7FBE32FETDSMRLJXTFTHKWSY/",
-        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/PKGTQUOA2NTZ3RXN22CSAUJPIRUYRB4B/",
-        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/W45DBOH56NQDRTOM2DN2LNA2FZIMC3PK/"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/1xxx/CVE-2024-1874.json",
+        "https://github.com/php/php-src/security/advisories/GHSA-pc52-254m-w9w7"
       ]
     },
     {
@@ -10640,7 +10450,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2024-2757",
         "https://osv.dev/vulnerability/CVE-2024-2757",
-        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/KJZK3X6B7FBE32FETDSMRLJXTFTHKWSY/",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/2xxx/CVE-2024-2757.json",
         "https://github.com/php/php-src/security/advisories/GHSA-fjp9-9hwx-59fq"
       ]
@@ -10672,9 +10481,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2024-3566",
         "https://osv.dev/vulnerability/CVE-2024-3566",
-        "https://flatt.tech/research/posts/batbadbut-you-cant-securely-execute-commands-on-windows/",
-        "https://github.com/nu11secur1ty/Windows11Exploits/tree/main/2024/CVE-2024-3566",
-        "https://kb.cert.org/vuls/id/123335"
+        "https://www.cve.org/CVERecord?id=CVE-2024-1874",
+        "https://www.cve.org/CVERecord?id=CVE-2024-22423",
+        "https://www.cve.org/CVERecord?id=CVE-2024-24576"
       ]
     },
     {
@@ -10704,9 +10513,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2024-4577",
         "https://osv.dev/vulnerability/CVE-2024-4577",
-        "https://arstechnica.com/security/2024/06/php-vulnerability-allows-attackers-to-run-malicious-code-on-windows-servers/",
-        "https://isc.sans.edu/diary/30994",
-        "https://labs.watchtowr.com/no-way-php-strikes-again-cve-2024-4577/"
+        "https://www.php.net/ChangeLog-8.php#8.1.29",
+        "https://www.php.net/ChangeLog-8.php#8.2.20",
+        "https://www.php.net/ChangeLog-8.php#8.3.8"
       ]
     },
     {
@@ -10736,9 +10545,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2024-5585",
         "https://osv.dev/vulnerability/CVE-2024-5585",
-        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/PKGTQUOA2NTZ3RXN22CSAUJPIRUYRB4B/",
-        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/W45DBOH56NQDRTOM2DN2LNA2FZIMC3PK/",
-        "https://www.vicarius.io/vsociety/posts/command-injection-vulnerability-in-php-on-windows-systems-cve-2024-1874-and-cve-2024-5585"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/5xxx/CVE-2024-5585.json",
+        "https://github.com/php/php-src/security/advisories/GHSA-9fcc-425m-g385",
+        "https://github.com/php/php-src"
       ]
     },
     {
@@ -10769,8 +10578,7 @@
         "https://nvd.nist.gov/vuln/detail/CVE-2024-8926",
         "https://osv.dev/vulnerability/CVE-2024-8926",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/8xxx/CVE-2024-8926.json",
-        "https://github.com/php/php-src/security/advisories/GHSA-p99j-rfp4-xqvq",
-        "https://security.netapp.com/advisory/ntap-20241101-0003/"
+        "https://github.com/php/php-src/security/advisories/GHSA-p99j-rfp4-xqvq"
       ]
     },
     {
@@ -10800,7 +10608,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2024-8927",
         "https://osv.dev/vulnerability/CVE-2024-8927",
-        "https://lists.debian.org/debian-lts-announce/2024/10/msg00011.html",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/8xxx/CVE-2024-8927.json",
         "https://github.com/php/php-src/security/advisories/GHSA-94p6-54jq-9mwp"
       ]
@@ -10832,7 +10639,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2024-8932",
         "https://osv.dev/vulnerability/CVE-2024-8932",
-        "https://lists.debian.org/debian-lts-announce/2024/12/msg00007.html",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/8xxx/CVE-2024-8932.json",
         "https://github.com/php/php-src/security/advisories/GHSA-g665-fm4p-vhff"
       ]
@@ -10891,7 +10697,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2024-11236",
         "https://osv.dev/vulnerability/CVE-2024-11236",
-        "https://lists.debian.org/debian-lts-announce/2024/12/msg00007.html",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/11xxx/CVE-2024-11236.json",
         "https://github.com/php/php-src/security/advisories/GHSA-5hqh-c84r-qjcv"
       ]
@@ -10927,7 +10732,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2025-1736",
         "https://osv.dev/vulnerability/CVE-2025-1736",
-        "https://lists.debian.org/debian-lts-announce/2025/03/msg00014.html",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/1xxx/CVE-2025-1736.json",
         "https://github.com/php/php-src/security/advisories/GHSA-hgf5-96fm-v528"
       ]
@@ -10963,7 +10767,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2025-1861",
         "https://osv.dev/vulnerability/CVE-2025-1861",
-        "https://lists.debian.org/debian-lts-announce/2025/03/msg00014.html",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/1xxx/CVE-2025-1861.json",
         "https://github.com/php/php-src/security/advisories/GHSA-52jp-hrpf-2jff"
       ]
@@ -11103,50 +10906,7 @@
       "remedy": "Upgrade Python to 2.7.15, 3.3.7, 3.4.7, 3.5.4, 3.6.2 or a later release on the same line, in each listed install.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-9063",
-        "https://osv.dev/vulnerability/CVE-2016-9063",
-        "https://www.debian.org/security/2017/dsa-3898",
-        "https://www.mozilla.org/security/advisories/mfsa2016-89/",
-        "https://bugzilla.mozilla.org/show_bug.cgi?id=1274777"
-      ]
-    },
-    {
-      "id": "cve.python.cve-2017-9233",
-      "title": "Python: XML External Entity vulnerability in libexpat 2.2.0 and earlier (Expat XML Parser Library)… (CVE-2017-9233)",
-      "severity": "high",
-      "category": "hardening",
-      "check": "softwareVersion",
-      "product": "python",
-      "advisory": "CVE-2017-9233",
-      "ranges": [
-        {
-          "introduced": "2.7.0",
-          "fixed": "2.7.15"
-        },
-        {
-          "introduced": "3.3.0",
-          "fixed": "3.3.7"
-        },
-        {
-          "introduced": "3.4.0",
-          "fixed": "3.4.7"
-        },
-        {
-          "introduced": "3.5.0",
-          "fixed": "3.5.4"
-        },
-        {
-          "introduced": "3.6.0",
-          "fixed": "3.6.2"
-        }
-      ],
-      "summary": "XML External Entity vulnerability in libexpat 2.2.0 and earlier (Expat XML Parser Library) allows attackers to put the parser in an infinite loop using a malformed external entity definition from an external DTD.",
-      "remedy": "Upgrade Python to 2.7.15, 3.3.7, 3.4.7, 3.5.4, 3.6.2 or a later release on the same line, in each listed install.",
-      "references": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2017-9233",
-        "https://osv.dev/vulnerability/CVE-2017-9233",
-        "https://lists.apache.org/thread.html/r58af02e294bd07f487e2c64ffc0a29b837db5600e33b6e698b9d696b%40%3Cissues.bookkeeper.apache.org%3E",
-        "https://lists.apache.org/thread.html/rf4c02775860db415b4955778a131c2795223f61cb8c6a450893651e4%40%3Cissues.bookkeeper.apache.org%3E",
-        "https://github.com/libexpat/libexpat/blob/master/expat/Changes"
+        "https://osv.dev/vulnerability/CVE-2016-9063"
       ]
     },
     {
@@ -11168,8 +10928,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-17522",
         "https://osv.dev/vulnerability/CVE-2017-17522",
-        "https://bugs.python.org/issue32367",
-        "https://security-tracker.debian.org/tracker/CVE-2017-17522"
+        "https://bugs.python.org/issue32367"
       ]
     },
     {
@@ -11190,9 +10949,7 @@
       "remedy": "No fixed Python release is listed for this advisory. Upgrade each listed install to the newest supported Python release and check the advisory.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-20052",
-        "https://osv.dev/vulnerability/CVE-2017-20052",
-        "https://security.netapp.com/advisory/ntap-20220804-0005/",
-        "https://vuldb.com/?id.97822"
+        "https://osv.dev/vulnerability/CVE-2017-20052"
       ]
     },
     {
@@ -11222,9 +10979,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-1000158",
         "https://osv.dev/vulnerability/CVE-2017-1000158",
-        "https://lists.debian.org/debian-lts-announce/2017/11/msg00035.html",
-        "https://lists.debian.org/debian-lts-announce/2017/11/msg00036.html",
-        "https://lists.debian.org/debian-lts-announce/2018/09/msg00030.html"
+        "https://bugs.python.org/issue30657"
       ]
     },
     {
@@ -11246,9 +11001,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-1060",
         "https://osv.dev/vulnerability/CVE-2018-1060",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/46PVWY5LFP4BRPG3BVQ5QEEFYBVEXHCK/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/AEZ5IQT7OF7Q2NCGIVABOWYGKO7YU3NJ/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/JSKPGPZQNTAULHW4UH63KGOOUIDE4RRB/"
+        "https://docs.python.org/3.5/whatsnew/changelog.html#python-3-5-6-release-candidate-1",
+        "https://docs.python.org/3.6/whatsnew/changelog.html#python-3-6-5-release-candidate-1",
+        "https://bugs.python.org/issue32981"
       ]
     },
     {
@@ -11282,9 +11037,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-1061",
         "https://osv.dev/vulnerability/CVE-2018-1061",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/46PVWY5LFP4BRPG3BVQ5QEEFYBVEXHCK/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/AEZ5IQT7OF7Q2NCGIVABOWYGKO7YU3NJ/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/JSKPGPZQNTAULHW4UH63KGOOUIDE4RRB/"
+        "https://bugs.python.org/issue32981",
+        "https://docs.python.org/3.5/whatsnew/changelog.html#python-3-5-6-release-candidate-1",
+        "https://docs.python.org/3.6/whatsnew/changelog.html#python-3-6-5-release-candidate-1"
       ]
     },
     {
@@ -11322,9 +11077,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-14647",
         "https://osv.dev/vulnerability/CVE-2018-14647",
-        "https://lists.apache.org/thread.html/r1b103833cb5bc8466e24ff0ecc5e75b45a705334ab6a444e64e840a0%40%3Cissues.bookkeeper.apache.org%3E",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/RBJCB2HWOJLP3L7CUQHJHNBHLSVOXJE5/",
-        "https://access.redhat.com/errata/RHSA-2019:1260"
+        "https://bugs.python.org/issue34623"
       ]
     },
     {
@@ -11346,45 +11099,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-20406",
         "https://osv.dev/vulnerability/CVE-2018-20406",
-        "https://lists.debian.org/debian-lts-announce/2020/07/msg00011.html",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/46PVWY5LFP4BRPG3BVQ5QEEFYBVEXHCK/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/AEZ5IQT7OF7Q2NCGIVABOWYGKO7YU3NJ/"
-      ]
-    },
-    {
-      "id": "cve.python.cve-2018-25032",
-      "title": "Python: zlib before 1.2.12 allows memory corruption when deflating (i.e., when compressing) if the… (CVE-2018-25032)",
-      "severity": "high",
-      "category": "hardening",
-      "check": "softwareVersion",
-      "product": "python",
-      "advisory": "CVE-2018-25032",
-      "ranges": [
-        {
-          "introduced": "3.7.0",
-          "fixed": "3.7.14"
-        },
-        {
-          "introduced": "3.8.0",
-          "fixed": "3.8.14"
-        },
-        {
-          "introduced": "3.9.0",
-          "fixed": "3.9.13"
-        },
-        {
-          "introduced": "3.10.0",
-          "fixed": "3.10.5"
-        }
-      ],
-      "summary": "zlib before 1.2.12 allows memory corruption when deflating (i.e., when compressing) if the input has many distant matches.",
-      "remedy": "Upgrade Python to 3.7.14, 3.8.14, 3.9.13, 3.10.5 or a later release on the same line, in each listed install.",
-      "references": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2018-25032",
-        "https://osv.dev/vulnerability/CVE-2018-25032",
-        "https://cert-portal.siemens.com/productcert/html/ssa-333517.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-419740.html"
+        "https://bugs.python.org/issue34656",
+        "https://github.com/python/cpython/commit/a4ae828ee416a66d8c7bf5ee71d653c2cc6a26dd"
       ]
     },
     {
@@ -11406,9 +11122,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-1000802",
         "https://osv.dev/vulnerability/CVE-2018-1000802",
-        "https://mega.nz/#%21JUFiCC4R%21mq-jQ8ySFwIhX6WMDujaZuNBfttDVt7DETlfOIQE1ig",
-        "https://lists.debian.org/debian-lts-announce/2018/09/msg00030.html",
-        "https://lists.debian.org/debian-lts-announce/2018/09/msg00031.html"
+        "https://bugs.python.org/issue34540",
+        "https://github.com/python/cpython/pull/8985",
+        "https://github.com/python/cpython/pull/8985/commits/add531a1e55b0a739b0f42582f1c9747e5649ace"
       ]
     },
     {
@@ -11445,10 +11161,7 @@
       "remedy": "Upgrade Python to 2.7.16, 3.4.10, 3.5.7, 3.6.9, 3.7.3 or a later release on the same line, in each listed install.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-5010",
-        "https://osv.dev/vulnerability/CVE-2019-5010",
-        "https://lists.apache.org/thread.html/r1b103833cb5bc8466e24ff0ecc5e75b45a705334ab6a444e64e840a0%40%3Cissues.bookkeeper.apache.org%3E",
-        "https://access.redhat.com/errata/RHSA-2019:3520",
-        "https://access.redhat.com/errata/RHSA-2019:3725"
+        "https://osv.dev/vulnerability/CVE-2019-5010"
       ]
     },
     {
@@ -11486,9 +11199,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-9636",
         "https://osv.dev/vulnerability/CVE-2019-9636",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/2ORNTF62QPLMJXIQ7KTZQ2776LMIXEKL/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/44TS66GJMO5H3RLMVZEBGEFTB6O2LJJU/"
+        "https://bugs.python.org/issue36216",
+        "https://github.com/python/cpython/pull/12201"
       ]
     },
     {
@@ -11510,9 +11222,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-9674",
         "https://osv.dev/vulnerability/CVE-2019-9674",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
         "https://github.com/python/cpython/blob/master/Lib/zipfile.py",
-        "https://python-security.readthedocs.io/security.html#archives-and-zip-bomb"
+        "https://www.python.org/news/security/",
+        "https://bugs.python.org/issue36260"
       ]
     },
     {
@@ -11546,9 +11258,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-9948",
         "https://osv.dev/vulnerability/CVE-2019-9948",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
-        "https://lists.apache.org/thread.html/r1b103833cb5bc8466e24ff0ecc5e75b45a705334ab6a444e64e840a0%40%3Cissues.bookkeeper.apache.org%3E",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/HQEQLXLOCR3SNM3AA5RRYJFQ5AZBYJ4L/"
+        "https://bugs.python.org/issue35907",
+        "https://github.com/python/cpython/pull/11842"
       ]
     },
     {
@@ -11582,9 +11293,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-10160",
         "https://osv.dev/vulnerability/CVE-2019-10160",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
-        "https://lists.apache.org/thread.html/r1b103833cb5bc8466e24ff0ecc5e75b45a705334ab6a444e64e840a0%40%3Cissues.bookkeeper.apache.org%3E",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/2ORNTF62QPLMJXIQ7KTZQ2776LMIXEKL/"
+        "https://github.com/python/cpython/commit/250b62acc59921d399f0db47db3b462cd6037e09",
+        "https://github.com/python/cpython/commit/8d0ef0b5edeae52960c7ed05ae8a12388324f87e",
+        "https://github.com/python/cpython/commit/f61599b050c621386a3fc6bc480359e2d3bb93de"
       ]
     },
     {
@@ -11617,10 +11328,7 @@
       "remedy": "Upgrade Python to 3.7.13, 3.8.13, 3.9.11, 3.10.3 or a later release on the same line, in each listed install.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-12900",
-        "https://osv.dev/vulnerability/CVE-2019-12900",
-        "https://cert-portal.siemens.com/productcert/html/ssa-202008.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
-        "https://lists.apache.org/thread.html/ra0adb9653c7de9539b93cc8434143b655f753b9f60580ff260becb2b%40%3Cusers.kafka.apache.org%3E"
+        "https://osv.dev/vulnerability/CVE-2019-12900"
       ]
     },
     {
@@ -11679,10 +11387,7 @@
       "remedy": "Upgrade Python to 2.7.17, 3.5.8, 3.6.10, 3.7.5 or a later release on the same line, in each listed install.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-15903",
-        "https://osv.dev/vulnerability/CVE-2019-15903",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/A4TZKPJFTURRLXIGLB34WVKQ5HGY6JJA/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/BDUTI5TVQWIGGQXPEVI4T2ENHFSBMIBP/"
+        "https://osv.dev/vulnerability/CVE-2019-15903"
       ]
     },
     {
@@ -11736,9 +11441,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-16056",
         "https://osv.dev/vulnerability/CVE-2019-16056",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
-        "https://lists.apache.org/thread.html/r1b103833cb5bc8466e24ff0ecc5e75b45a705334ab6a444e64e840a0%40%3Cissues.bookkeeper.apache.org%3E",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/4X3HW5JRZ7GCPSR7UHJOLD7AWLTQCDVR/"
+        "https://bugs.python.org/issue34155",
+        "https://github.com/python/cpython/commit/8cb65d1381b027f0b09ee36bfed7f35bb4dec9a9"
       ]
     },
     {
@@ -11772,9 +11476,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-20907",
         "https://osv.dev/vulnerability/CVE-2019-20907",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
-        "https://lists.debian.org/debian-lts-announce/2023/05/msg00024.html",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/36XI3EEQNMHGOZEI63Y7UV6XZRELYEAU/"
+        "https://bugs.python.org/issue39017",
+        "https://github.com/python/cpython/pull/21454"
       ]
     },
     {
@@ -11808,9 +11511,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2020-10735",
         "https://osv.dev/vulnerability/CVE-2020-10735",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-806742.html",
-        "https://lists.debian.org/debian-lts-announce/2023/06/msg00039.html"
+        "https://github.com/python/cpython/issues/95778"
       ]
     },
     {
@@ -11844,7 +11545,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2020-15523",
         "https://osv.dev/vulnerability/CVE-2020-15523",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
         "https://bugs.python.org/issue29778",
         "https://github.com/python/cpython/pull/21297"
       ]
@@ -11872,9 +11572,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2020-15801",
         "https://osv.dev/vulnerability/CVE-2020-15801",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
-        "https://security.netapp.com/advisory/ntap-20200731-0003/",
-        "https://bugs.python.org/issue41304"
+        "https://bugs.python.org/issue41304",
+        "https://github.com/python/cpython/pull/21495"
       ]
     },
     {
@@ -11908,9 +11607,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2020-26116",
         "https://osv.dev/vulnerability/CVE-2020-26116",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
-        "https://lists.debian.org/debian-lts-announce/2023/05/msg00024.html",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/BW4GCLQISJCOEGQNIMVUZDQMIY6RR6CC/"
+        "https://bugs.python.org/issue39603"
       ]
     },
     {
@@ -11944,9 +11641,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2020-27619",
         "https://osv.dev/vulnerability/CVE-2020-27619",
-        "https://lists.apache.org/thread.html/r58af02e294bd07f487e2c64ffc0a29b837db5600e33b6e698b9d696b%40%3Cissues.bookkeeper.apache.org%3E",
-        "https://lists.apache.org/thread.html/rf4c02775860db415b4955778a131c2795223f61cb8c6a450893651e4%40%3Cissues.bookkeeper.apache.org%3E",
-        "https://lists.apache.org/thread.html/rf9fa47ab66495c78bb4120b0754dd9531ca2ff0430f6685ac9b07772%40%3Cdev.mina.apache.org%3E"
+        "https://bugs.python.org/issue41944",
+        "https://github.com/python/cpython/commit/2ef5caa58febc8968e670e39e3d37cf8eef3cab8",
+        "https://github.com/python/cpython/commit/43e523103886af66d6c27cd72431b5d9d14cd2a9"
       ]
     },
     {
@@ -11980,9 +11677,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-3177",
         "https://osv.dev/vulnerability/CVE-2021-3177",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
-        "https://lists.apache.org/thread.html/rf9fa47ab66495c78bb4120b0754dd9531ca2ff0430f6685ac9b07772%40%3Cdev.mina.apache.org%3E",
-        "https://lists.debian.org/debian-lts-announce/2023/05/msg00024.html"
+        "https://bugs.python.org/issue42938",
+        "https://github.com/python/cpython/pull/24239"
       ]
     },
     {
@@ -12016,9 +11712,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-3737",
         "https://osv.dev/vulnerability/CVE-2021-3737",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
-        "https://lists.debian.org/debian-lts-announce/2023/05/msg00024.html",
-        "https://lists.debian.org/debian-lts-announce/2023/06/msg00039.html"
+        "https://bugs.python.org/issue44022",
+        "https://github.com/python/cpython/pull/25916",
+        "https://github.com/python/cpython/pull/26503"
       ]
     },
     {
@@ -12052,9 +11748,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-28861",
         "https://osv.dev/vulnerability/CVE-2021-28861",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
-        "https://lists.debian.org/debian-lts-announce/2024/11/msg00024.html",
-        "https://lists.debian.org/debian-lts-announce/2024/12/msg00000.html"
+        "https://bugs.python.org/issue43223",
+        "https://github.com/python/cpython/pull/24848",
+        "https://github.com/python/cpython/pull/93879"
       ]
     },
     {
@@ -12080,9 +11776,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-29921",
         "https://osv.dev/vulnerability/CVE-2021-29921",
-        "https://lists.debian.org/debian-lts-announce/2024/12/msg00000.html",
-        "https://www.oracle.com/security-alerts/cpujul2022.html",
-        "https://docs.python.org/3/library/ipaddress.html"
+        "https://docs.python.org/3/library/ipaddress.html",
+        "https://github.com/python/cpython/blob/63298930fb531ba2bb4f23bc3b915dbf1e17e9e1/Misc/NEWS.d/3.8.0a4.rst",
+        "https://bugs.python.org/issue36384"
       ]
     },
     {
@@ -12117,8 +11813,7 @@
         "https://nvd.nist.gov/vuln/detail/CVE-2022-0391",
         "https://osv.dev/vulnerability/CVE-2022-0391",
         "https://bugs.python.org/issue43882",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
-        "https://lists.debian.org/debian-lts-announce/2024/11/msg00024.html"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/0xxx/CVE-2022-0391.json"
       ]
     },
     {
@@ -12152,7 +11847,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2022-26488",
         "https://osv.dev/vulnerability/CVE-2022-26488",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
         "https://mail.python.org/archives/list/security-announce%40python.org/thread/657Z4XULWZNIY5FRP3OWXHYKUSIH6DMN/",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/26xxx/CVE-2022-26488.json"
       ]
@@ -12188,9 +11882,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2022-37454",
         "https://osv.dev/vulnerability/CVE-2022-37454",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-455250.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-806742.html"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/37xxx/CVE-2022-37454.json"
       ]
     },
     {
@@ -12226,7 +11918,7 @@
         "https://osv.dev/vulnerability/CVE-2022-42919",
         "https://github.com/python/cpython/compare/v3.10.8...v3.10.9",
         "https://github.com/python/cpython/compare/v3.9.15...v3.9.16",
-        "https://lists.debian.org/debian-lts-announce/2024/12/msg00000.html"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/42xxx/CVE-2022-42919.json"
       ]
     },
     {
@@ -12257,8 +11949,7 @@
         "https://nvd.nist.gov/vuln/detail/CVE-2022-48560",
         "https://osv.dev/vulnerability/CVE-2022-48560",
         "https://bugs.python.org/issue39421",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
-        "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/JZ5OOBWNYWXFTZDMCGHJVGDLDTHLWITJ/"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/48xxx/CVE-2022-48560.json"
       ]
     },
     {
@@ -12293,8 +11984,7 @@
         "https://nvd.nist.gov/vuln/detail/CVE-2022-48565",
         "https://osv.dev/vulnerability/CVE-2022-48565",
         "https://bugs.python.org/issue42051",
-        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/48xxx/CVE-2022-48565.json",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/AFHYAGWBFBNUGWU6XWKBHTCV5NH77MB7/"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/48xxx/CVE-2022-48565.json"
       ]
     },
     {
@@ -12332,9 +12022,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2023-6597",
         "https://osv.dev/vulnerability/CVE-2023-6597",
-        "https://lists.debian.org/debian-lts-announce/2024/03/msg00025.html",
-        "https://lists.debian.org/debian-lts-announce/2024/11/msg00005.html",
-        "https://lists.debian.org/debian-lts-announce/2024/12/msg00000.html"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/6xxx/CVE-2023-6597.json",
+        "https://mail.python.org/archives/list/security-announce@python.org/thread/Q5C6ATFC67K53XFV4KE45325S7NS62LD/",
+        "https://github.com/python/cpython/issues/91133"
       ]
     },
     {
@@ -12372,9 +12062,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2023-24329",
         "https://osv.dev/vulnerability/CVE-2023-24329",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
-        "https://lists.debian.org/debian-lts-announce/2024/11/msg00005.html",
-        "https://lists.debian.org/debian-lts-announce/2024/12/msg00000.html"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/24xxx/CVE-2023-24329.json",
+        "https://github.com/python/cpython/issues/102153",
+        "https://github.com/python/cpython/pull/99421"
       ]
     },
     {
@@ -12398,7 +12088,7 @@
         "https://osv.dev/vulnerability/CVE-2023-41105",
         "https://mail.python.org/archives/list/security-announce%40python.org/thread/D6CDW3ZZC5D444YGL3VQUY6D4ECMCQLD/",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/41xxx/CVE-2023-41105.json",
-        "https://security.netapp.com/advisory/ntap-20231006-0015/"
+        "https://github.com/python/cpython/issues/106242"
       ]
     },
     {
@@ -12436,9 +12126,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2024-0397",
         "https://osv.dev/vulnerability/CVE-2024-0397",
-        "https://lists.debian.org/debian-lts-announce/2024/12/msg00000.html",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/0xxx/CVE-2024-0397.json",
-        "https://mail.python.org/archives/list/security-announce@python.org/thread/BMAK5BCGKYWNJOACVUSLUF6SFGBIM4VP/"
+        "https://mail.python.org/archives/list/security-announce@python.org/thread/BMAK5BCGKYWNJOACVUSLUF6SFGBIM4VP/",
+        "https://github.com/python/cpython/issues/114572"
       ]
     },
     {
@@ -12478,7 +12168,7 @@
         "https://osv.dev/vulnerability/CVE-2024-4030",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/4xxx/CVE-2024-4030.json",
         "https://mail.python.org/archives/list/security-announce@python.org/thread/PRGS5OR3N3PNPT4BMV2VAGN5GMUI5636/",
-        "https://security.netapp.com/advisory/ntap-20240705-0005/"
+        "https://github.com/python/cpython/issues/118486"
       ]
     },
     {
@@ -12516,9 +12206,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2024-4032",
         "https://osv.dev/vulnerability/CVE-2024-4032",
-        "https://lists.debian.org/debian-lts-announce/2024/12/msg00000.html",
-        "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml",
-        "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry.xhtml"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/4xxx/CVE-2024-4032.json",
+        "https://mail.python.org/archives/list/security-announce@python.org/thread/NRUHDUS2IV2USIZM2CVMSFL6SCKU3RZA/",
+        "https://github.com/python/cpython/issues/113171"
       ]
     },
     {
@@ -12556,9 +12246,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2024-6232",
         "https://osv.dev/vulnerability/CVE-2024-6232",
-        "https://lists.debian.org/debian-lts-announce/2024/12/msg00000.html",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/6xxx/CVE-2024-6232.json",
-        "https://mail.python.org/archives/list/security-announce@python.org/thread/JRYFTPRHZRTLMZLWQEUHZSJXNHM4ACTY/"
+        "https://mail.python.org/archives/list/security-announce@python.org/thread/JRYFTPRHZRTLMZLWQEUHZSJXNHM4ACTY/",
+        "https://github.com/python/cpython/issues/121285"
       ]
     },
     {
@@ -12596,9 +12286,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2024-7592",
         "https://osv.dev/vulnerability/CVE-2024-7592",
-        "https://lists.debian.org/debian-lts-announce/2024/12/msg00000.html",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/7xxx/CVE-2024-7592.json",
-        "https://mail.python.org/archives/list/security-announce@python.org/thread/HXJAAAALNUNGCQUS2W7WR6GFIZIHFOOK/"
+        "https://mail.python.org/archives/list/security-announce@python.org/thread/HXJAAAALNUNGCQUS2W7WR6GFIZIHFOOK/",
+        "https://github.com/python/cpython/issues/123067"
       ]
     },
     {
@@ -12636,9 +12326,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2024-8088",
         "https://osv.dev/vulnerability/CVE-2024-8088",
-        "https://lists.debian.org/debian-lts-announce/2024/12/msg00000.html",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/8xxx/CVE-2024-8088.json",
-        "https://mail.python.org/archives/list/security-announce@python.org/thread/GNFCKVI4TCATKQLALJ5SN4L4CSPSMILU/"
+        "https://mail.python.org/archives/list/security-announce@python.org/thread/GNFCKVI4TCATKQLALJ5SN4L4CSPSMILU/",
+        "https://github.com/python/cpython/issues/122905"
       ]
     },
     {
@@ -12676,9 +12366,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2024-9287",
         "https://osv.dev/vulnerability/CVE-2024-9287",
-        "https://lists.debian.org/debian-lts-announce/2024/11/msg00024.html",
-        "https://lists.debian.org/debian-lts-announce/2024/12/msg00000.html",
-        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/9xxx/CVE-2024-9287.json"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/9xxx/CVE-2024-9287.json",
+        "https://mail.python.org/archives/list/security-announce@python.org/thread/RSPJ2B5JL22FG3TKUJ7D7DQ4N5JRRBZL/",
+        "https://github.com/python/cpython/issues/124651"
       ]
     },
     {
@@ -12706,7 +12396,7 @@
         "https://osv.dev/vulnerability/CVE-2024-12254",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/12xxx/CVE-2024-12254.json",
         "https://mail.python.org/archives/list/security-announce@python.org/thread/H4O3UBAOAQQXGT4RE3E4XQYR5XLROORB/",
-        "https://security.netapp.com/advisory/ntap-20250404-0010/"
+        "https://github.com/python/cpython/issues/127655"
       ]
     },
     {
@@ -12744,9 +12434,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2025-4138",
         "https://osv.dev/vulnerability/CVE-2025-4138",
-        "https://gist.github.com/sethmlarson/52398e33eff261329a0180ac1d54f42f",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/4xxx/CVE-2025-4138.json",
-        "https://mail.python.org/archives/list/security-announce@python.org/thread/MAXIJJCUUMCL7ATZNDVEGGHUMQMUUKLG/"
+        "https://mail.python.org/archives/list/security-announce@python.org/thread/MAXIJJCUUMCL7ATZNDVEGGHUMQMUUKLG/",
+        "https://github.com/python/cpython/issues/135034"
       ]
     },
     {
@@ -12784,9 +12474,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2025-4330",
         "https://osv.dev/vulnerability/CVE-2025-4330",
-        "https://gist.github.com/sethmlarson/52398e33eff261329a0180ac1d54f42f",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/4xxx/CVE-2025-4330.json",
-        "https://mail.python.org/archives/list/security-announce@python.org/thread/MAXIJJCUUMCL7ATZNDVEGGHUMQMUUKLG/"
+        "https://mail.python.org/archives/list/security-announce@python.org/thread/MAXIJJCUUMCL7ATZNDVEGGHUMQMUUKLG/",
+        "https://github.com/python/cpython/issues/135034"
       ]
     },
     {
@@ -12864,9 +12554,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2025-4517",
         "https://osv.dev/vulnerability/CVE-2025-4517",
-        "https://gist.github.com/sethmlarson/52398e33eff261329a0180ac1d54f42f",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/4xxx/CVE-2025-4517.json",
-        "https://mail.python.org/archives/list/security-announce@python.org/thread/MAXIJJCUUMCL7ATZNDVEGGHUMQMUUKLG/"
+        "https://mail.python.org/archives/list/security-announce@python.org/thread/MAXIJJCUUMCL7ATZNDVEGGHUMQMUUKLG/",
+        "https://github.com/python/cpython/issues/135034"
       ]
     },
     {
@@ -12904,9 +12594,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2025-8194",
         "https://osv.dev/vulnerability/CVE-2025-8194",
-        "https://gist.github.com/sethmlarson/1716ac5b82b73dbcbf23ad2eff8b33e1",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/8xxx/CVE-2025-8194.json",
-        "https://mail.python.org/archives/list/security-announce@python.org/thread/ZULLF3IZ726XP5EY7XJ7YIN3K5MDYR2D/"
+        "https://mail.python.org/archives/list/security-announce@python.org/thread/ZULLF3IZ726XP5EY7XJ7YIN3K5MDYR2D/",
+        "https://github.com/python/cpython/issues/130577"
       ]
     },
     {
@@ -13072,9 +12762,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2026-4786",
         "https://osv.dev/vulnerability/CVE-2026-4786",
-        "https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-4786.json",
-        "https://access.redhat.com/errata/RHSA-2026:10117",
-        "https://access.redhat.com/errata/RHSA-2026:10140"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/4xxx/CVE-2026-4786.json",
+        "https://mail.python.org/archives/list/security-announce@python.org/thread/JQDUNJVB4AQNTJECSUKOBDU3XCJIPSE5/",
+        "https://github.com/python/cpython/issues/148169"
       ]
     },
     {
@@ -13112,9 +12802,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2026-6100",
         "https://osv.dev/vulnerability/CVE-2026-6100",
-        "https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-6100.json",
-        "https://access.redhat.com/errata/RHSA-2026:10117",
-        "https://access.redhat.com/errata/RHSA-2026:10140"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/6xxx/CVE-2026-6100.json",
+        "https://mail.python.org/archives/list/security-announce@python.org/thread/HTWB2Z6KT5QQX4RYEZAFININDHNOSIF3/",
+        "https://github.com/python/cpython/issues/148395"
       ]
     },
     {
@@ -13456,9 +13146,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2026-115557",
         "https://osv.dev/vulnerability/CVE-2026-115557",
-        "https://emudhra.we-have-a-problem.com/",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/115xxx/CVE-2026-115557.json",
-        "https://mail.python.org/archives/list/security-announce@python.org/thread/FNAJMZV6XQYLVPABNINDMF3VF66AYLW4/"
+        "https://mail.python.org/archives/list/security-announce@python.org/thread/FNAJMZV6XQYLVPABNINDMF3VF66AYLW4/",
+        "https://github.com/python/cpython/issues/160040"
       ]
     },
     {
@@ -13596,9 +13286,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-6304",
         "https://osv.dev/vulnerability/CVE-2016-6304",
-        "https://cert-portal.siemens.com/productcert/pdf/ssa-412672.pdf",
         "https://git.openssl.org/?p=openssl.git%3Ba=commit%3Bh=2c0d295e26306e15a92eb23a84a1802005c1c137",
-        "https://access.redhat.com/errata/RHSA-2017:1413"
+        "https://www.openssl.org/news/secadv/20160922.txt"
       ]
     },
     {
@@ -13620,9 +13309,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-6305",
         "https://osv.dev/vulnerability/CVE-2016-6305",
-        "https://cert-portal.siemens.com/productcert/pdf/ssa-412672.pdf",
         "https://git.openssl.org/?p=openssl.git%3Ba=commit%3Bh=63658103d4441924f8dbfc517b99bb54758a98b9",
-        "https://www.tenable.com/security/tns-2016-16"
+        "https://www.openssl.org/news/secadv/20160922.txt",
+        "https://github.com/openssl/openssl/issues/1563"
       ]
     },
     {
@@ -13645,8 +13334,7 @@
         "https://nvd.nist.gov/vuln/detail/CVE-2016-6309",
         "https://osv.dev/vulnerability/CVE-2016-6309",
         "https://git.openssl.org/?p=openssl.git%3Ba=commit%3Bh=acacbfa7565c78d2273c0b2a2e5e803f44afefeb",
-        "https://support.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbhf03856en_us",
-        "https://www.tenable.com/security/tns-2016-16"
+        "https://www.openssl.org/news/secadv/20160926.txt"
       ]
     },
     {
@@ -13669,8 +13357,7 @@
         "https://nvd.nist.gov/vuln/detail/CVE-2016-7052",
         "https://osv.dev/vulnerability/CVE-2016-7052",
         "https://git.openssl.org/?p=openssl.git%3Ba=commit%3Bh=6e629b5be45face20b4ca71c4fcbfed78b864a2e",
-        "https://bto.bluecoat.com/security-advisory/sa132",
-        "https://kc.mcafee.com/corporate/index?page=content&id=SB10171"
+        "https://www.openssl.org/news/secadv/20160926.txt"
       ]
     },
     {
@@ -13700,7 +13387,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-7053",
         "https://osv.dev/vulnerability/CVE-2016-7053",
-        "https://h20566.www2.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbhf03744en_us",
         "https://www.openssl.org/news/secadv/20161110.txt"
       ]
     },
@@ -13731,8 +13417,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-7054",
         "https://osv.dev/vulnerability/CVE-2016-7054",
-        "https://h20566.www2.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbhf03744en_us",
-        "https://www.exploit-db.com/exploits/40899/",
         "https://www.openssl.org/news/secadv/20161110.txt"
       ]
     },
@@ -13767,9 +13451,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-8610",
         "https://osv.dev/vulnerability/CVE-2016-8610",
-        "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commit%3Bh=af58be768ebb690f78530f796e92b8ae5c9a4401",
-        "https://access.redhat.com/errata/RHSA-2017:1413",
-        "https://access.redhat.com/errata/RHSA-2017:1414"
+        "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commit%3Bh=af58be768ebb690f78530f796e92b8ae5c9a4401"
       ]
     },
     {
@@ -13803,9 +13485,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-3730",
         "https://osv.dev/vulnerability/CVE-2017-3730",
-        "https://security.gentoo.org/glsa/201702-07",
-        "https://support.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbhf03838en_us",
-        "https://github.com/openssl/openssl/commit/efbe126e3ebb9123ac9d058aa2bb044261342aaa"
+        "https://github.com/openssl/openssl/commit/efbe126e3ebb9123ac9d058aa2bb044261342aaa",
+        "https://www.openssl.org/news/secadv/20170126.txt"
       ]
     },
     {
@@ -13875,9 +13556,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-3731",
         "https://osv.dev/vulnerability/CVE-2017-3731",
-        "https://access.redhat.com/errata/RHSA-2018:2185",
-        "https://access.redhat.com/errata/RHSA-2018:2186",
-        "https://access.redhat.com/errata/RHSA-2018:2187"
+        "https://github.com/openssl/openssl/commit/00d965474b22b54e4275232bc71ee0c699c5cd21",
+        "https://www.openssl.org/news/secadv/20170126.txt"
       ]
     },
     {
@@ -13915,9 +13595,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-3733",
         "https://osv.dev/vulnerability/CVE-2017-3733",
-        "https://h20566.www2.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbgn03728en_us",
         "https://www.openssl.org/news/secadv/20170216.txt",
-        "https://www.oracle.com/technetwork/security-advisory/cpuapr2019-5072813.html"
+        "https://github.com/openssl/openssl/commit/4ad93618d26a3ea23d36ad5498ff4f59eff3a4d2"
       ]
     },
     {
@@ -13945,7 +13624,7 @@
         "https://osv.dev/vulnerability/CVE-2018-0732",
         "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=3984ef0b72831da8b3ece4745cac4f8575b19098",
         "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=ea7abeeabf92b7aca160bdd0208636d4da69f4f4",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/EWC42UXL5GHTU5G77VKBF6JYUUNGSHOM/"
+        "https://www.openssl.org/news/secadv/20180612.txt"
       ]
     },
     {
@@ -13973,7 +13652,7 @@
         "https://osv.dev/vulnerability/CVE-2019-1543",
         "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=ee22257b1418438ebaf54df98af4e24f494d1809",
         "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=f426625b6ae9a7831010750490a5f0ad689c5ba3",
-        "https://kc.mcafee.com/corporate/index?page=content&id=SB10365"
+        "https://www.openssl.org/news/secadv/20190306.txt"
       ]
     },
     {
@@ -13996,8 +13675,7 @@
         "https://nvd.nist.gov/vuln/detail/CVE-2020-1967",
         "https://osv.dev/vulnerability/CVE-2020-1967",
         "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=eb563247aef3e83dda7679c43f9649270462e5b1",
-        "https://lists.apache.org/thread.html/r66ea9c436da150683432db5fbc8beb8ae01886c6459ac30c2cea7345%40%3Cdev.tomcat.apache.org%3E",
-        "https://lists.apache.org/thread.html/r94d6ac3f010a38fccf4f432b12180a13fa1cf303559bd805648c9064%40%3Cdev.tomcat.apache.org%3E"
+        "https://www.openssl.org/news/secadv/20200421.txt"
       ]
     },
     {
@@ -14020,8 +13698,8 @@
         "https://nvd.nist.gov/vuln/detail/CVE-2021-3450",
         "https://osv.dev/vulnerability/CVE-2021-3450",
         "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=2a40b7bc7b94dd7de897a74571e7024f0cf0d63b",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/CCBFLLVQVILIVGZMBJL3IXZGKWQISYNP/",
-        "https://cert-portal.siemens.com/productcert/pdf/ssa-389290.pdf"
+        "https://mta.openssl.org/pipermail/openssl-announce/2021-March/000198.html",
+        "https://www.openssl.org/news/secadv/20210325.txt"
       ]
     },
     {
@@ -14044,8 +13722,7 @@
         "https://nvd.nist.gov/vuln/detail/CVE-2021-3711",
         "https://osv.dev/vulnerability/CVE-2021-3711",
         "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=59f5e75f3bced8fc0e130d72a3f582cf7b480b46",
-        "https://lists.apache.org/thread.html/r18995de860f0e63635f3008fd2a6aca82394249476d21691e7c59c9e%40%3Cdev.tomcat.apache.org%3E",
-        "https://lists.apache.org/thread.html/rad5d9f83f0d11fb3f8bb148d179b8a9ad7c6a17f18d70e5805a713d1%40%3Cdev.tomcat.apache.org%3E"
+        "https://www.openssl.org/news/secadv/20210824.txt"
       ]
     },
     {
@@ -14071,9 +13748,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-3712",
         "https://osv.dev/vulnerability/CVE-2021-3712",
-        "https://cert-portal.siemens.com/productcert/html/ssa-019200.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-028723.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-244969.html"
+        "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=94d23fcff9b2a7a8368dfe52214d5c2569882c11",
+        "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=ccb0a11145ee72b042d10593a64eaf9e8a55ec12",
+        "https://www.openssl.org/news/secadv/20210824.txt"
       ]
     },
     {
@@ -14104,7 +13781,6 @@
         "https://nvd.nist.gov/vuln/detail/CVE-2021-4044",
         "https://osv.dev/vulnerability/CVE-2021-4044",
         "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=758754966791c537ea95241438454aa86f91f256",
-        "https://security.netapp.com/advisory/ntap-20211229-0003/",
         "https://www.openssl.org/news/secadv/20211214.txt"
       ]
     },
@@ -14133,7 +13809,7 @@
         "https://osv.dev/vulnerability/CVE-2021-23840",
         "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=6a51b9e1d0cf0bf8515f7201b68fb0a3482b3dc1",
         "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=9b1129239f3ebb1d1c98ce9ed41d5c9476c47cb2",
-        "https://lists.apache.org/thread.html/r58af02e294bd07f487e2c64ffc0a29b837db5600e33b6e698b9d696b%40%3Cissues.bookkeeper.apache.org%3E"
+        "https://www.openssl.org/news/secadv/20210216.txt"
       ]
     },
     {
@@ -14163,9 +13839,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2022-0778",
         "https://osv.dev/vulnerability/CVE-2022-0778",
-        "https://cert-portal.siemens.com/productcert/html/ssa-019200.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-028723.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-108696.html"
+        "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=3118eb64934499d93db3230748a452351d1d9a65",
+        "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=380085481c64de749a6dd25cdf0bcf4360b30f83",
+        "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=a466912611aa6cbdf550cd10601390e587451246"
       ]
     },
     {
@@ -14195,9 +13871,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2022-1292",
         "https://osv.dev/vulnerability/CVE-2022-1292",
-        "https://cert-portal.siemens.com/productcert/html/ssa-146325.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-419740.html"
+        "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=1ad73b4d27bd8c1b369a3cd453681d3a4f1bb9b2",
+        "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=548d3f280a6e737673f5b61fce24bb100108dfeb",
+        "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=e5fd1728ef4c7a5bf7c7a7163ca60370460a6e23"
       ]
     },
     {
@@ -14219,9 +13895,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2022-1473",
         "https://osv.dev/vulnerability/CVE-2022-1473",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-419740.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-794697.html"
+        "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=64c85430f95200b6b51fe9475bd5203f7c19daf1",
+        "https://www.openssl.org/news/secadv/20220503.txt",
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/1xxx/CVE-2022-1473.json"
       ]
     },
     {
@@ -14251,9 +13927,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2022-2068",
         "https://osv.dev/vulnerability/CVE-2022-2068",
-        "https://cert-portal.siemens.com/productcert/html/ssa-146325.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-332410.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html"
+        "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=2c9c35870601b4a44d86ddbf512b38df38285cfa",
+        "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=7a9c027159fe9e1bbc2cd38a8a2914bff0d5abd9",
+        "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=9639817dac8bbbaa64d09efad7464ccc405527c7"
       ]
     },
     {
@@ -14275,9 +13951,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2022-3602",
         "https://osv.dev/vulnerability/CVE-2022-3602",
-        "https://cert-portal.siemens.com/productcert/html/ssa-408105.html",
         "https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=fe3b639dc19b325846f4f6801f2f4604f56e3de3",
-        "https://psirt.global.sonicwall.com/vuln-detail/SNWLID-2022-0023"
+        "https://www.openssl.org/news/secadv/20221101.txt",
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/3xxx/CVE-2022-3602.json"
       ]
     },
     {
@@ -14299,9 +13975,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2022-3786",
         "https://osv.dev/vulnerability/CVE-2022-3786",
-        "https://cert-portal.siemens.com/productcert/html/ssa-408105.html",
-        "https://www.kb.cert.org/vuls/id/794340",
-        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/3xxx/CVE-2022-3786.json"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/3xxx/CVE-2022-3786.json",
+        "https://www.openssl.org/news/secadv/20221101.txt",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=c42165b5706e42f67ef8ef4c351a9a4c5d21639a"
       ]
     },
     {
@@ -14324,8 +14000,8 @@
         "https://nvd.nist.gov/vuln/detail/CVE-2022-3996",
         "https://osv.dev/vulnerability/CVE-2022-3996",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/3xxx/CVE-2022-3996.json",
-        "https://security.netapp.com/advisory/ntap-20230203-0003/",
-        "https://www.openssl.org/news/secadv/20221213.txt"
+        "https://www.openssl.org/news/secadv/20221213.txt",
+        "https://github.com/openssl/openssl/commit/7725e7bfe6f2ce8146b6552b44e0d226be7638e7"
       ]
     },
     {
@@ -14351,9 +14027,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2022-4450",
         "https://osv.dev/vulnerability/CVE-2022-4450",
-        "https://cert-portal.siemens.com/productcert/html/ssa-203374.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-337522.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/4xxx/CVE-2022-4450.json",
+        "https://www.openssl.org/news/secadv/20230207.txt",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=63bcf189be73a9cc1264059bed6f57974be74a83"
       ]
     },
     {
@@ -14383,9 +14059,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2023-0215",
         "https://osv.dev/vulnerability/CVE-2023-0215",
-        "https://cert-portal.siemens.com/productcert/html/ssa-203374.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-337522.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/0xxx/CVE-2023-0215.json",
+        "https://www.openssl.org/news/secadv/20230207.txt",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=8818064ce3c3c0f1b740a5aaba2a987e75bfbafd"
       ]
     },
     {
@@ -14407,9 +14083,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2023-0216",
         "https://osv.dev/vulnerability/CVE-2023-0216",
-        "https://psirt.global.sonicwall.com/vuln-detail/SNWLID-2023-0003",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/0xxx/CVE-2023-0216.json",
-        "https://security.gentoo.org/glsa/202402-08"
+        "https://www.openssl.org/news/secadv/20230207.txt",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=934a04f0e775309cadbef0aa6b9692e1b12a76c6"
       ]
     },
     {
@@ -14431,9 +14107,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2023-0217",
         "https://osv.dev/vulnerability/CVE-2023-0217",
-        "https://psirt.global.sonicwall.com/vuln-detail/SNWLID-2023-0003",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/0xxx/CVE-2023-0217.json",
-        "https://security.gentoo.org/glsa/202402-08"
+        "https://www.openssl.org/news/secadv/20230207.txt",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=23985bac83fd50c8e29431009302b5442f985096"
       ]
     },
     {
@@ -14463,9 +14139,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2023-0286",
         "https://osv.dev/vulnerability/CVE-2023-0286",
-        "https://cert-portal.siemens.com/productcert/html/ssa-028723.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-203374.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-264815.html"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/0xxx/CVE-2023-0286.json",
+        "https://www.openssl.org/news/secadv/20230207.txt",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=2c6c9d439b484e1ba9830d8454a34fa4f80fdfe9"
       ]
     },
     {
@@ -14487,9 +14163,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2023-0401",
         "https://osv.dev/vulnerability/CVE-2023-0401",
-        "https://psirt.global.sonicwall.com/vuln-detail/SNWLID-2023-0003",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/0xxx/CVE-2023-0401.json",
-        "https://security.gentoo.org/glsa/202402-08"
+        "https://www.openssl.org/news/secadv/20230207.txt",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=d3b6dfd70db844c4499bec6ad6601623a565e674"
       ]
     },
     {
@@ -14523,9 +14199,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2023-0464",
         "https://osv.dev/vulnerability/CVE-2023-0464",
-        "https://cert-portal.siemens.com/productcert/html/ssa-028723.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-077170.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-337522.html"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/0xxx/CVE-2023-0464.json",
+        "https://www.openssl.org/news/secadv/20230322.txt",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=2017771e2db3e2b96f89bbe8766c3209f6a99545"
       ]
     },
     {
@@ -14555,9 +14231,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2023-4807",
         "https://osv.dev/vulnerability/CVE-2023-4807",
-        "https://cert-portal.siemens.com/productcert/html/ssa-093430.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-277137.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-331112.html"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/4xxx/CVE-2023-4807.json",
+        "https://www.openssl.org/news/secadv/20230908.txt",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=4bfac4471f53c4f74c8d81020beb938f92d84ca5"
       ]
     },
     {
@@ -14583,9 +14259,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2023-5363",
         "https://osv.dev/vulnerability/CVE-2023-5363",
-        "https://cert-portal.siemens.com/productcert/html/ssa-082556.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-093430.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-277137.html"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/5xxx/CVE-2023-5363.json",
+        "https://www.openssl.org/news/secadv/20231024.txt",
+        "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=0df40630850fb2740e6be6890bb905d3fc623b2d"
       ]
     },
     {
@@ -14623,9 +14299,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2024-4741",
         "https://osv.dev/vulnerability/CVE-2024-4741",
-        "https://lists.debian.org/debian-lts-announce/2024/10/msg00033.html",
-        "https://lists.debian.org/debian-lts-announce/2024/11/msg00000.html",
-        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/4xxx/CVE-2024-4741.json"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/4xxx/CVE-2024-4741.json",
+        "https://www.openssl.org/news/secadv/20240528.txt",
+        "https://github.com/openssl/openssl/commit/704f725b96aa373ee45ecfb23f6abfe8be8d9177"
       ]
     },
     {
@@ -14667,9 +14343,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2024-5535",
         "https://osv.dev/vulnerability/CVE-2024-5535",
-        "https://cert-portal.siemens.com/productcert/html/ssa-265688.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-277137.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-398330.html"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/5xxx/CVE-2024-5535.json",
+        "https://www.openssl.org/news/secadv/20240627.txt",
+        "https://github.com/openssl/openssl/commit/4ada436a1946cbb24db5ab4ca082b69c1bc10f37"
       ]
     },
     {
@@ -14703,9 +14379,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2024-6119",
         "https://osv.dev/vulnerability/CVE-2024-6119",
-        "https://cert-portal.siemens.com/productcert/html/ssa-082556.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-613116.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-769027.html"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/6xxx/CVE-2024-6119.json",
+        "https://openssl-library.org/news/secadv/20240903.txt",
+        "https://github.com/openssl/openssl/commit/05f360d9e849a1b277db628f1f13083a7f8dd04f"
       ]
     },
     {
@@ -14743,9 +14419,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2025-15467",
         "https://osv.dev/vulnerability/CVE-2025-15467",
-        "https://cert-portal.siemens.com/productcert/html/ssa-434797.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-734552.html",
-        "https://security.access.redhat.com/data/csaf/v2/vex/2025/cve-2025-15467.json"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/15xxx/CVE-2025-15467.json",
+        "https://openssl-library.org/news/secadv/20260127.txt",
+        "https://github.com/openssl/openssl/commit/2c8f0e5fa9b6ee5508a0349e4572ddb74db5a703"
       ]
     },
     {
@@ -14787,9 +14463,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2025-69419",
         "https://osv.dev/vulnerability/CVE-2025-69419",
-        "https://cert-portal.siemens.com/productcert/html/ssa-265688.html",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/69xxx/CVE-2025-69419.json",
-        "https://openssl-library.org/news/secadv/20260127.txt"
+        "https://openssl-library.org/news/secadv/20260127.txt",
+        "https://github.com/openssl/openssl/commit/41be0f216404f14457bbf3b9cc488dba60b49296"
       ]
     },
     {
@@ -14831,9 +14507,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2025-69420",
         "https://osv.dev/vulnerability/CVE-2025-69420",
-        "https://cert-portal.siemens.com/productcert/html/ssa-265688.html",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/69xxx/CVE-2025-69420.json",
-        "https://openssl-library.org/news/secadv/20260127.txt"
+        "https://openssl-library.org/news/secadv/20260127.txt",
+        "https://github.com/openssl/openssl/commit/27c7012c91cc986a598d7540f3079dfde2416eb9"
       ]
     },
     {
@@ -14879,9 +14555,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2025-69421",
         "https://osv.dev/vulnerability/CVE-2025-69421",
-        "https://cert-portal.siemens.com/productcert/html/ssa-265688.html",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/69xxx/CVE-2025-69421.json",
-        "https://openssl-library.org/news/secadv/20260127.txt"
+        "https://openssl-library.org/news/secadv/20260127.txt",
+        "https://github.com/openssl/openssl/commit/3524a29271f8191b8fd8a5257eb05173982a097b"
       ]
     },
     {
@@ -15135,9 +14811,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2026-28387",
         "https://osv.dev/vulnerability/CVE-2026-28387",
-        "https://cert-portal.siemens.com/productcert/html/ssa-032379.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-265688.html",
-        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/28xxx/CVE-2026-28387.json"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/28xxx/CVE-2026-28387.json",
+        "https://openssl-library.org/news/secadv/20260407.txt",
+        "https://github.com/openssl/openssl/commit/07e727d304746edb49a98ee8f6ab00256e1f012b"
       ]
     },
     {
@@ -15183,9 +14859,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2026-28388",
         "https://osv.dev/vulnerability/CVE-2026-28388",
-        "https://cert-portal.siemens.com/productcert/html/ssa-032379.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-265688.html",
-        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/28xxx/CVE-2026-28388.json"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/28xxx/CVE-2026-28388.json",
+        "https://openssl-library.org/news/secadv/20260407.txt",
+        "https://github.com/openssl/openssl/commit/59c3b3158553ab53275bbbccca5cb305d591cf2e"
       ]
     },
     {
@@ -15231,9 +14907,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2026-28389",
         "https://osv.dev/vulnerability/CVE-2026-28389",
-        "https://cert-portal.siemens.com/productcert/html/ssa-032379.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-265688.html",
-        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/28xxx/CVE-2026-28389.json"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/28xxx/CVE-2026-28389.json",
+        "https://openssl-library.org/news/secadv/20260407.txt",
+        "https://github.com/openssl/openssl/commit/16cea4188e0ea567deb4f93f85902247e67384f5"
       ]
     },
     {
@@ -15279,9 +14955,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2026-28390",
         "https://osv.dev/vulnerability/CVE-2026-28390",
-        "https://cert-portal.siemens.com/productcert/html/ssa-032379.html",
-        "https://cert-portal.siemens.com/productcert/html/ssa-265688.html",
-        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/28xxx/CVE-2026-28390.json"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/28xxx/CVE-2026-28390.json",
+        "https://openssl-library.org/news/secadv/20260407.txt",
+        "https://github.com/openssl/openssl/commit/01194a8f1941115cd0383bfa91c736dd3993c8bc"
       ]
     },
     {
@@ -15319,9 +14995,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2026-31790",
         "https://osv.dev/vulnerability/CVE-2026-31790",
-        "https://cert-portal.siemens.com/productcert/html/ssa-032379.html",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/31xxx/CVE-2026-31790.json",
-        "https://openssl-library.org/news/secadv/20260407.txt"
+        "https://openssl-library.org/news/secadv/20260407.txt",
+        "https://github.com/openssl/openssl/commit/001e01db3e996e13ffc72386fe79d03a6683b5ac"
       ]
     },
     {
@@ -15595,9 +15271,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2026-45447",
         "https://osv.dev/vulnerability/CVE-2026-45447",
-        "https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-45447.json",
-        "https://access.redhat.com/errata/RHSA-2026:25237",
-        "https://access.redhat.com/errata/RHSA-2026:25239"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/45xxx/CVE-2026-45447.json",
+        "https://openssl-library.org/news/secadv/20260609.txt",
+        "https://github.com/openssl/openssl/commit/3aad5eb7af4de4ee0633c30a8541a54d9bbde63c"
       ]
     },
     {
@@ -16130,10 +15806,7 @@
       "remedy": "No fixed Git release is listed for this advisory. Upgrade each listed install to the newest supported Git release and check the advisory.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-14867",
-        "https://osv.dev/vulnerability/CVE-2017-14867",
-        "https://public-inbox.org/git/xmqqy3p29ekj.fsf%40gitster.mtv.corp.google.com/T/#u",
-        "https://lists.debian.org/debian-security-announce/2017/msg00246.html",
-        "https://www.debian.org/security/2017/dsa-3984"
+        "https://osv.dev/vulnerability/CVE-2017-14867"
       ]
     },
     {
@@ -16266,10 +15939,7 @@
       "remedy": "No fixed Git release is listed for this advisory. Upgrade each listed install to the newest supported Git release and check the advisory.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-1000117",
-        "https://osv.dev/vulnerability/CVE-2017-1000117",
-        "https://www.mail-archive.com/linux-kernel%40vger.kernel.org/msg1466490.html",
-        "https://access.redhat.com/errata/RHSA-2017:2484",
-        "https://access.redhat.com/errata/RHSA-2017:2485"
+        "https://osv.dev/vulnerability/CVE-2017-1000117"
       ]
     },
     {
@@ -16306,10 +15976,7 @@
       "remedy": "No fixed Git release is listed for this advisory. Upgrade each listed install to the newest supported Git release and check the advisory.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-11233",
-        "https://osv.dev/vulnerability/CVE-2018-11233",
-        "https://access.redhat.com/errata/RHSA-2018:2147",
-        "https://marc.info/?l=git&m=152761328506724&w=2",
-        "https://security.gentoo.org/glsa/201805-13"
+        "https://osv.dev/vulnerability/CVE-2018-11233"
       ]
     },
     {
@@ -16346,10 +16013,7 @@
       "remedy": "No fixed Git release is listed for this advisory. Upgrade each listed install to the newest supported Git release and check the advisory.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-11235",
-        "https://osv.dev/vulnerability/CVE-2018-11235",
-        "https://access.redhat.com/errata/RHSA-2018:1957",
-        "https://access.redhat.com/errata/RHSA-2018:2147",
-        "https://marc.info/?l=git&m=152761328506724&w=2"
+        "https://osv.dev/vulnerability/CVE-2018-11235"
       ]
     },
     {
@@ -16391,9 +16055,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-17456",
         "https://osv.dev/vulnerability/CVE-2018-17456",
-        "https://access.redhat.com/errata/RHSA-2018:3408",
-        "https://access.redhat.com/errata/RHSA-2018:3505",
-        "https://access.redhat.com/errata/RHSA-2018:3541"
+        "https://github.com/git/git/commit/1a7fd1fb2998002da6e9ff2ee46e1bdd25ee8404",
+        "https://github.com/git/git/commit/a124133e1e6ab5c7a9fef6d0e6bcb084e3455b46"
       ]
     },
     {
@@ -16415,9 +16078,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-19486",
         "https://osv.dev/vulnerability/CVE-2018-19486",
-        "https://access.redhat.com/errata/RHSA-2018:3800",
         "https://git.kernel.org/pub/scm/git/git.git/tree/Documentation/RelNotes/2.19.2.txt",
-        "https://security.gentoo.org/glsa/201904-13"
+        "https://git.kernel.org/pub/scm/git/git.git/commit/?id=321fd82389742398d2924640ce3a61791fd27d60"
       ]
     },
     {
@@ -16479,9 +16141,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-1353",
         "https://osv.dev/vulnerability/CVE-2019-1353",
-        "https://lore.kernel.org/git/xmqqr21cqcn9.fsf%40gitster-ct.c.googlers.com/T/#u",
-        "https://public-inbox.org/git/xmqqr21cqcn9.fsf%40gitster-ct.c.googlers.com/",
-        "https://security.gentoo.org/glsa/202003-30"
+        "https://lore.kernel.org/git/xmqqr21cqcn9.fsf%40gitster-ct.c.googlers.com/T/#u"
       ]
     },
     {
@@ -16543,9 +16203,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-1387",
         "https://osv.dev/vulnerability/CVE-2019-1387",
-        "https://lists.debian.org/debian-lts-announce/2020/01/msg00019.html",
-        "https://lists.debian.org/debian-lts-announce/2024/06/msg00018.html",
-        "https://lists.debian.org/debian-lts-announce/2024/09/msg00009.html"
+        "https://lore.kernel.org/git/xmqqr21cqcn9.fsf%40gitster-ct.c.googlers.com/T/#u"
       ]
     },
     {
@@ -16582,10 +16240,7 @@
       "remedy": "Upgrade Git to 2.20.0, 2.21.1, 2.22.2, 2.23.1, 2.24.1 or a later release on the same line, in each listed install.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-19604",
-        "https://osv.dev/vulnerability/CVE-2019-19604",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/HCYSSCA5ZTEP46SB4XRPSQGFV2L3NKMZ/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/N6UGTEOXWIYSM5KDZL74QD2GK6YQNQCP/",
-        "https://public-inbox.org/git/xmqqr21cqcn9.fsf%40gitster-ct.c.googlers.com/"
+        "https://osv.dev/vulnerability/CVE-2019-19604"
       ]
     },
     {
@@ -16643,9 +16298,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2020-5260",
         "https://osv.dev/vulnerability/CVE-2020-5260",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/74Q7WVJ6FKLIN62VS2JD2XCNWK5TNKOW/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/7TVS5UG6JD3MYIGSBKMIOS6AF7CR5IPI/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/MOCTR2SEHCPSCOVUQJAGFPGKFMI2VE6V/"
+        "https://lore.kernel.org/git/xmqqy2qy7xn8.fsf%40gitster.c.googlers.com/",
+        "https://github.com/git/git/commit/9a6bbee8006c24b46a85d29e7b38cfa79e9ab21b",
+        "https://github.com/git/git/security/advisories/GHSA-qm7j-c969-7j4q"
       ]
     },
     {
@@ -16703,9 +16358,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2020-11008",
         "https://osv.dev/vulnerability/CVE-2020-11008",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/74Q7WVJ6FKLIN62VS2JD2XCNWK5TNKOW/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/MOCTR2SEHCPSCOVUQJAGFPGKFMI2VE6V/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/PN3FUOXKX3AXTULYV53ACABER2W2FSOU/"
+        "https://github.com/git/git/commit/c44088ecc4b0722636e0a305f9608d3047197282",
+        "https://github.com/git/git/security/advisories/GHSA-hjc9-x69f-jqj7",
+        "https://github.com/git/git/security/advisories/GHSA-qm7j-c969-7j4q"
       ]
     },
     {
@@ -16783,9 +16438,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-21300",
         "https://osv.dev/vulnerability/CVE-2021-21300",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/BBPNGLQSYJHLZZ37BO42YY6S5OTIF4L4/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/LCLJJLKKMS5WRFO6C475AOUZTWQLIARX/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/LMXX2POK5X576BSDWSXGU7EIK6I72ERU/"
+        "https://lore.kernel.org/git/xmqqim6019yd.fsf%40gitster.c.googlers.com/",
+        "https://git-scm.com/docs/git-config#Documentation/git-config.txt-coresymlinks",
+        "https://git-scm.com/docs/gitattributes#_filter"
       ]
     },
     {
@@ -16807,7 +16462,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-40330",
         "https://osv.dev/vulnerability/CVE-2021-40330",
-        "https://lists.debian.org/debian-lts-announce/2022/10/msg00014.html",
         "https://github.com/git/git/commit/a02ea577174ab8ed18f847cf1693f213e0b9c473",
         "https://github.com/git/git/compare/v2.30.0...v2.30.1"
       ]
@@ -16857,7 +16511,7 @@
         "https://osv.dev/vulnerability/CVE-2024-32002",
         "https://git-scm.com/docs/git-clone#Documentation/git-clone.txt---recurse-submodulesltpathspecgt",
         "https://git-scm.com/docs/git-config#Documentation/git-config.txt-coresymlinks",
-        "https://lists.debian.org/debian-lts-announce/2024/06/msg00018.html"
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/32xxx/CVE-2024-32002.json"
       ]
     },
     {
@@ -16955,9 +16609,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2024-52006",
         "https://osv.dev/vulnerability/CVE-2024-52006",
-        "https://lists.debian.org/debian-lts-announce/2025/01/msg00025.html",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/52xxx/CVE-2024-52006.json",
-        "https://github.com/git-ecosystem/git-credential-manager/security/advisories/GHSA-86c2-4x57-wc8g"
+        "https://github.com/git/git/security/advisories/GHSA-qm7j-c969-7j4q",
+        "https://github.com/git/git/security/advisories/GHSA-r5ph-xg7q-xfrp"
       ]
     },
     {
@@ -17058,9 +16712,7 @@
       "remedy": "No fixed Ruby release is listed for this advisory. Upgrade each listed install to the newest supported Ruby release and check the advisory.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-2337",
-        "https://osv.dev/vulnerability/CVE-2016-2337",
-        "https://lists.debian.org/debian-lts-announce/2018/08/msg00028.html",
-        "https://security.gentoo.org/glsa/201710-18"
+        "https://osv.dev/vulnerability/CVE-2016-2337"
       ]
     },
     {
@@ -17085,9 +16737,7 @@
       "remedy": "No fixed Ruby release is listed for this advisory. Upgrade each listed install to the newest supported Ruby release and check the advisory.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-2338",
-        "https://osv.dev/vulnerability/CVE-2016-2338",
-        "https://lists.debian.org/debian-lts-announce/2020/03/msg00032.html",
-        "https://security.netapp.com/advisory/ntap-20221228-0005/"
+        "https://osv.dev/vulnerability/CVE-2016-2338"
       ]
     },
     {
@@ -17112,8 +16762,7 @@
       "remedy": "No fixed Ruby release is listed for this advisory. Upgrade each listed install to the newest supported Ruby release and check the advisory.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2016-2339",
-        "https://osv.dev/vulnerability/CVE-2016-2339",
-        "https://lists.debian.org/debian-lts-announce/2018/07/msg00012.html"
+        "https://osv.dev/vulnerability/CVE-2016-2339"
       ]
     },
     {
@@ -17191,9 +16840,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-0898",
         "https://osv.dev/vulnerability/CVE-2017-0898",
-        "https://lists.debian.org/debian-lts-announce/2018/07/msg00012.html",
-        "https://usn.ubuntu.com/3685-1/",
-        "https://access.redhat.com/errata/RHSA-2017:3485"
+        "https://www.ruby-lang.org/en/news/2017/09/14/sprintf-buffer-underrun-cve-2017-0898/"
       ]
     },
     {
@@ -17237,9 +16884,7 @@
       "remedy": "No fixed Ruby release is listed for this advisory. Upgrade each listed install to the newest supported Ruby release and check the advisory.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-9225",
-        "https://osv.dev/vulnerability/CVE-2017-9225",
-        "https://github.com/kkos/oniguruma/commit/166a6c3999bf06b4de0ab4ce6b088a468cc4029f",
-        "https://github.com/kkos/oniguruma/issues/56"
+        "https://osv.dev/vulnerability/CVE-2017-9225"
       ]
     },
     {
@@ -17260,10 +16905,7 @@
       "remedy": "No fixed Ruby release is listed for this advisory. Upgrade each listed install to the newest supported Ruby release and check the advisory.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-9229",
-        "https://osv.dev/vulnerability/CVE-2017-9229",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
-        "https://github.com/kkos/oniguruma/commit/b690371bbf97794b4a1d3f295d4fb9a8b05d402d",
-        "https://github.com/kkos/oniguruma/issues/59"
+        "https://osv.dev/vulnerability/CVE-2017-9229"
       ]
     },
     {
@@ -17313,9 +16955,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-10784",
         "https://osv.dev/vulnerability/CVE-2017-10784",
-        "https://lists.debian.org/debian-lts-announce/2018/07/msg00012.html",
-        "https://usn.ubuntu.com/3528-1/",
-        "https://usn.ubuntu.com/3685-1/"
+        "https://www.ruby-lang.org/en/news/2017/09/14/webrick-basic-auth-escape-sequence-injection-cve-2017-10784/",
+        "https://www.ruby-lang.org/en/news/2017/09/14/ruby-2-2-8-released/",
+        "https://www.ruby-lang.org/en/news/2017/09/14/ruby-2-3-5-released/"
       ]
     },
     {
@@ -17416,9 +17058,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-14033",
         "https://osv.dev/vulnerability/CVE-2017-14033",
-        "https://lists.debian.org/debian-lts-announce/2018/07/msg00012.html",
-        "https://access.redhat.com/errata/RHSA-2018:0378",
-        "https://access.redhat.com/errata/RHSA-2018:0583"
+        "https://www.ruby-lang.org/en/news/2017/09/14/openssl-asn1-buffer-underrun-cve-2017-14033/",
+        "https://www.ruby-lang.org/en/news/2017/09/14/ruby-2-2-8-released/",
+        "https://www.ruby-lang.org/en/news/2017/09/14/ruby-2-3-5-released/"
       ]
     },
     {
@@ -17468,9 +17110,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-14064",
         "https://osv.dev/vulnerability/CVE-2017-14064",
-        "https://access.redhat.com/errata/RHSA-2017:3485",
-        "https://access.redhat.com/errata/RHSA-2018:0378",
-        "https://access.redhat.com/errata/RHSA-2018:0583"
+        "https://www.ruby-lang.org/en/news/2017/09/14/ruby-2-2-8-released/",
+        "https://www.ruby-lang.org/en/news/2017/09/14/ruby-2-3-5-released/",
+        "https://bugs.ruby-lang.org/issues/13853"
       ]
     },
     {
@@ -17500,9 +17142,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-17405",
         "https://osv.dev/vulnerability/CVE-2017-17405",
-        "https://access.redhat.com/errata/RHSA-2018:0378",
-        "https://access.redhat.com/errata/RHSA-2018:0583",
-        "https://access.redhat.com/errata/RHSA-2018:0584"
+        "https://www.ruby-lang.org/en/news/2017/12/14/net-ftp-command-injection-cve-2017-17405/",
+        "https://www.ruby-lang.org/en/news/2017/12/14/ruby-2-4-3-released/"
       ]
     },
     {
@@ -17532,9 +17173,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2017-17790",
         "https://osv.dev/vulnerability/CVE-2017-17790",
-        "https://lists.debian.org/debian-lts-announce/2017/12/msg00024.html",
-        "https://lists.debian.org/debian-lts-announce/2017/12/msg00025.html",
-        "https://lists.debian.org/debian-lts-announce/2018/07/msg00012.html"
+        "https://github.com/ruby/ruby/pull/1777"
       ]
     },
     {
@@ -17568,9 +17207,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-6914",
         "https://osv.dev/vulnerability/CVE-2018-6914",
-        "https://access.redhat.com/errata/RHSA-2018:3729",
-        "https://access.redhat.com/errata/RHSA-2018:3730",
-        "https://access.redhat.com/errata/RHSA-2018:3731"
+        "https://www.ruby-lang.org/en/news/2018/03/28/unintentional-file-and-directory-creation-with-directory-traversal-cve-2018-6914/",
+        "https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-2-10-released/",
+        "https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-3-7-released/"
       ]
     },
     {
@@ -17604,9 +17243,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-8777",
         "https://osv.dev/vulnerability/CVE-2018-8777",
-        "https://access.redhat.com/errata/RHSA-2018:3729",
-        "https://access.redhat.com/errata/RHSA-2018:3730",
-        "https://access.redhat.com/errata/RHSA-2018:3731"
+        "https://www.ruby-lang.org/en/news/2018/03/28/large-request-dos-in-webrick-cve-2018-8777/",
+        "https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-2-10-released/",
+        "https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-3-7-released/"
       ]
     },
     {
@@ -17640,9 +17279,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-8778",
         "https://osv.dev/vulnerability/CVE-2018-8778",
-        "https://access.redhat.com/errata/RHSA-2018:3729",
-        "https://access.redhat.com/errata/RHSA-2018:3730",
-        "https://access.redhat.com/errata/RHSA-2018:3731"
+        "https://www.ruby-lang.org/en/news/2018/03/28/buffer-under-read-unpack-cve-2018-8778/",
+        "https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-2-10-released/",
+        "https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-3-7-released/"
       ]
     },
     {
@@ -17676,9 +17315,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-8779",
         "https://osv.dev/vulnerability/CVE-2018-8779",
-        "https://access.redhat.com/errata/RHSA-2018:3729",
-        "https://access.redhat.com/errata/RHSA-2018:3730",
-        "https://access.redhat.com/errata/RHSA-2018:3731"
+        "https://www.ruby-lang.org/en/news/2018/03/28/poisoned-nul-byte-unixsocket-cve-2018-8779/",
+        "https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-2-10-released/",
+        "https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-3-7-released/"
       ]
     },
     {
@@ -17712,9 +17351,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-8780",
         "https://osv.dev/vulnerability/CVE-2018-8780",
-        "https://access.redhat.com/errata/RHSA-2018:3729",
-        "https://access.redhat.com/errata/RHSA-2018:3730",
-        "https://access.redhat.com/errata/RHSA-2018:3731"
+        "https://www.ruby-lang.org/en/news/2018/03/28/poisoned-nul-byte-dir-cve-2018-8780/",
+        "https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-2-10-released/",
+        "https://www.ruby-lang.org/en/news/2018/03/28/ruby-2-3-7-released/"
       ]
     },
     {
@@ -17744,9 +17383,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-16395",
         "https://osv.dev/vulnerability/CVE-2018-16395",
-        "https://www.oracle.com/security-alerts/cpujan2020.html",
-        "https://access.redhat.com/errata/RHSA-2018:3729",
-        "https://access.redhat.com/errata/RHSA-2018:3730"
+        "https://www.ruby-lang.org/en/news/2018/10/17/openssl-x509-name-equality-check-does-not-work-correctly-cve-2018-16395/",
+        "https://www.ruby-lang.org/en/news/2018/10/17/ruby-2-3-8-released/",
+        "https://www.ruby-lang.org/en/news/2018/10/17/ruby-2-4-5-released/"
       ]
     },
     {
@@ -17776,9 +17415,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2018-16396",
         "https://osv.dev/vulnerability/CVE-2018-16396",
-        "https://access.redhat.com/errata/RHSA-2018:3729",
-        "https://access.redhat.com/errata/RHSA-2018:3730",
-        "https://access.redhat.com/errata/RHSA-2018:3731"
+        "https://www.ruby-lang.org/en/news/2018/10/17/not-propagated-taint-flag-in-some-formats-of-pack-cve-2018-16396/",
+        "https://www.ruby-lang.org/en/news/2018/10/17/ruby-2-3-8-released/",
+        "https://www.ruby-lang.org/en/news/2018/10/17/ruby-2-4-5-released/"
       ]
     },
     {
@@ -17807,10 +17446,7 @@
       "remedy": "No fixed Ruby release is listed for this advisory. Upgrade each listed install to the newest supported Ruby release and check the advisory.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-16201",
-        "https://osv.dev/vulnerability/CVE-2019-16201",
-        "https://lists.debian.org/debian-lts-announce/2019/12/msg00009.html",
-        "https://lists.debian.org/debian-lts-announce/2020/08/msg00027.html",
-        "https://lists.debian.org/debian-lts-announce/2023/04/msg00033.html"
+        "https://osv.dev/vulnerability/CVE-2019-16201"
       ]
     },
     {
@@ -17840,9 +17476,9 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2019-16255",
         "https://osv.dev/vulnerability/CVE-2019-16255",
-        "https://lists.debian.org/debian-lts-announce/2023/04/msg00033.html",
-        "https://lists.debian.org/debian-lts-announce/2019/11/msg00025.html",
-        "https://lists.debian.org/debian-lts-announce/2019/12/msg00009.html"
+        "https://www.ruby-lang.org/ja/news/2019/10/01/code-injection-shell-test-cve-2019-16255/",
+        "https://www.ruby-lang.org/ja/news/2019/10/01/ruby-2-4-8-released/",
+        "https://www.ruby-lang.org/ja/news/2019/10/01/ruby-2-5-7-released/"
       ]
     },
     {
@@ -17876,9 +17512,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2020-5247",
         "https://osv.dev/vulnerability/CVE-2020-5247",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/BMJ3CGZ3DLBJ5WUUKMI5ZFXFJQMXJZIK/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/DIHVO3CQMU7BZC7FCTSRJ33YDNS3GFPK/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/NJ3LL5F5QADB6LM46GXZETREAKZMQNRD/"
+        "https://www.ruby-lang.org/en/news/2019/10/01/http-response-splitting-in-webrick-cve-2019-16254"
       ]
     },
     {
@@ -17908,9 +17542,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2020-25613",
         "https://osv.dev/vulnerability/CVE-2020-25613",
-        "https://lists.debian.org/debian-lts-announce/2023/04/msg00033.html",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/PFP3E7KXXT3H3KA6CBZPUOGA5VPFARRJ/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/YTZURYROG3FFED3TYCQOBV66BS4K6WOV/"
+        "https://www.ruby-lang.org/en/news/2020/09/29/http-request-smuggling-cve-2020-25613/",
+        "https://github.com/ruby/webrick/commit/8946bb38b4d87549f0d99ed73c62c41933f97cc7"
       ]
     },
     {
@@ -17940,8 +17573,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-28965",
         "https://osv.dev/vulnerability/CVE-2021-28965",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/WTVFTLFVCSUE5CXHINJEUCKSHU4SWDMT/",
-        "https://security.netapp.com/advisory/ntap-20210528-0003/",
         "https://www.ruby-lang.org/en/news/2021/04/05/xml-round-trip-vulnerability-in-rexml-cve-2021-28965/"
       ]
     },
@@ -17967,9 +17598,7 @@
       "remedy": "Upgrade Ruby to 2.7.3, 3.0.1 or a later release on the same line, in each listed install.",
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-28966",
-        "https://osv.dev/vulnerability/CVE-2021-28966",
-        "https://security.netapp.com/advisory/ntap-20210902-0004/",
-        "https://hackerone.com/reports/1131465"
+        "https://osv.dev/vulnerability/CVE-2021-28966"
       ]
     },
     {
@@ -17999,9 +17628,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-32066",
         "https://osv.dev/vulnerability/CVE-2021-32066",
-        "https://lists.debian.org/debian-lts-announce/2023/04/msg00033.html",
-        "https://lists.debian.org/debian-lts-announce/2021/10/msg00009.html",
-        "https://security.gentoo.org/glsa/202401-27"
+        "https://www.ruby-lang.org/en/news/2021/07/07/starttls-stripping-in-net-imap/",
+        "https://github.com/ruby/ruby/commit/a21a3b7d23704a01d34bd79d09dc37897e00922a"
       ]
     },
     {
@@ -18031,9 +17659,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-33621",
         "https://osv.dev/vulnerability/CVE-2021-33621",
-        "https://lists.debian.org/debian-lts-announce/2023/06/msg00012.html",
-        "https://lists.debian.org/debian-lts-announce/2024/09/msg00000.html",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/DQR7LWED6VAPD5ATYOBZIGJQPCUBRJBX/"
+        "https://www.ruby-lang.org/en/news/2022/11/22/http-response-splitting-in-cgi-cve-2021-33621/"
       ]
     },
     {
@@ -18063,9 +17689,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-41817",
         "https://osv.dev/vulnerability/CVE-2021-41817",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/IUXQCH6FRKANCVZO2Q7D2SQX33FP3KWN/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/UTOJGS5IEFDK3UOO7IY4OTTFGHGLSWZF/",
-        "https://security.gentoo.org/glsa/202401-27"
+        "https://www.ruby-lang.org/en/news/2021/11/15/date-parsing-method-regexp-dos-cve-2021-41817/"
       ]
     },
     {
@@ -18095,9 +17719,7 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2021-41819",
         "https://osv.dev/vulnerability/CVE-2021-41819",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/IUXQCH6FRKANCVZO2Q7D2SQX33FP3KWN/",
-        "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/UTOJGS5IEFDK3UOO7IY4OTTFGHGLSWZF/",
-        "https://security.gentoo.org/glsa/202401-27"
+        "https://www.ruby-lang.org/en/news/2021/11/24/cookie-prefix-spoofing-in-cgi-cookie-parse-cve-2021-41819/"
       ]
     },
     {
@@ -18123,9 +17745,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2022-28738",
         "https://osv.dev/vulnerability/CVE-2022-28738",
-        "https://hackerone.com/reports/1220911",
-        "https://security-tracker.debian.org/tracker/CVE-2022-28738",
-        "https://www.ruby-lang.org/en/news/2022/04/12/double-free-in-regexp-compilation-cve-2022-28738/"
+        "https://www.ruby-lang.org/en/news/2022/04/12/double-free-in-regexp-compilation-cve-2022-28738/",
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/28xxx/CVE-2022-28738.json"
       ]
     },
     {
@@ -18159,9 +17780,8 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2022-28739",
         "https://osv.dev/vulnerability/CVE-2022-28739",
-        "https://hackerone.com/reports/1248108",
-        "https://lists.debian.org/debian-lts-announce/2023/06/msg00012.html",
-        "https://lists.debian.org/debian-lts-announce/2024/09/msg00000.html"
+        "https://www.ruby-lang.org/en/news/2022/04/12/buffer-overrun-in-string-to-float-cve-2022-28739/",
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/28xxx/CVE-2022-28739.json"
       ]
     },
     {
@@ -18183,7 +17803,6 @@
       "references": [
         "https://nvd.nist.gov/vuln/detail/CVE-2026-46727",
         "https://osv.dev/vulnerability/CVE-2026-46727",
-        "https://hackerone.com/reports/3607434",
         "https://www.ruby-lang.org/en/news/2026/05/20/getaddrinfo-cve-2026-46727/",
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/46xxx/CVE-2026-46727.json"
       ]
