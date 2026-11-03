@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version": 2026110302,
+  "version": 2026110303,
   "rules": [
     {
       "id": "setting.sip",
@@ -481,10 +481,14 @@
         "osascript\\b(?:(?!osascript\\b).){0,512}display dialog(?:(?!display dialog).){0,512}hidden answer",
         "(curl|wget)(?:(?!curl|wget)[^|;]){0,512}\\|\\s*osascript",
         "curl\\s(?:(?!curl\\s).){0,512}--data-binary\\s+\\\"?@/(private/)?tmp/out\\.zip\\b",
-        "/(private/)?tmp/shub_"
+        "/(private/)?tmp/shub_",
+        "/(private/)?tmp/\\.2835b1b5098587a9"
       ],
       "summary": "A running process is doing what macOS stealers do: zipping your data into a temporary folder and uploading it, showing a fake password prompt, or running a downloaded AppleScript.",
-      "remedy": "Disconnect from the network now, quit the process in Activity Monitor, and scan again to find what started it. From another device, change your Apple Account, email and banking passwords, sign out of other sessions, and move any crypto to a new wallet."
+      "remedy": "Disconnect from the network now, quit the process in Activity Monitor, and scan again to find what started it. From another device, change your Apple Account, email and banking passwords, sign out of other sessions, and move any crypto to a new wallet.",
+      "references": [
+        "https://www.malwarebytes.com/blog/threat-intel/2026/03/infiniti-stealer-a-new-macos-infostealer-using-clickfix-and-python-nuitka"
+      ]
     },
     {
       "id": "process.stealer-backdoor",
@@ -1118,7 +1122,7 @@
       "severity": "medium",
       "category": "hardening",
       "check": "xprotect",
-      "minimumVersion": 5363,
+      "minimumVersion": 5365,
       "summary": "XProtect is the malware scanner built into macOS. Apple updates its definitions on its own every few weeks, and old definitions miss current stealers and backdoors. Updates usually stop when Install Security Responses and system files is turned off, or when the Mac can't reach Apple's servers.",
       "remedy": "Open System Settings › General › Software Update, click the info button next to Automatic Updates, and turn on Install Security Responses and system files. Stay online and restart; macOS updates XProtect on its own. If it still shows a day later, install any waiting macOS update.",
       "references": [
@@ -1848,6 +1852,257 @@
       "references": [
         "https://osv.dev/vulnerability/MAL-2026-2306",
         "https://unit42.paloaltonetworks.com/axios-supply-chain-attack/"
+      ]
+    },
+    {
+      "id": "npm.mastra-implant-2026-06",
+      "title": "Backdoor from the hijacked Mastra npm packages (June 2026)",
+      "severity": "critical",
+      "category": "backdoor",
+      "check": "path",
+      "paths": [
+        "~/Library/LaunchAgents/com.nvm.protocal.plist",
+        "~/Library/NodePackages/protocal.cjs"
+      ],
+      "summary": "More than 140 hijacked Mastra packages (June 2026) pulled in easy-day-js, whose install script left this backdoor disguised as Node tooling. It starts at every login and runs what its operators send. Microsoft attributes the attack to Sapphire Sleet, a North Korean group.",
+      "remedy": "Disconnect from the network. Delete the files listed, quit the node process running protocal.cjs in Activity Monitor, remove easy-day-js and the hijacked Mastra versions from your projects, and restart. From another device, replace your npm, GitHub and cloud tokens, AI service keys and SSH keys.",
+      "references": [
+        "https://www.microsoft.com/en-us/security/blog/2026/06/17/postinstall-payload-inside-mastra-npm-supply-chain-compromise/",
+        "https://socket.dev/blog/mastra-npm-packages-compromised"
+      ]
+    },
+    {
+      "id": "malware.nx-console-2026-05",
+      "title": "Backdoor from the tampered Nx Console editor extension (May 2026)",
+      "severity": "critical",
+      "category": "backdoor",
+      "check": "path",
+      "paths": [
+        "~/.local/share/kitty/cat.py",
+        "~/Library/LaunchAgents/com.user.kitty-monitor.plist",
+        "/var/tmp/.gh_update_state"
+      ],
+      "summary": "Nx Console 18.95.0 was tampered with for under an hour on 18 May 2026. On a Mac it stole credentials and left a Python backdoor that checks GitHub every hour for new code to run. The name kitty is a disguise: this is not the kitty terminal app.",
+      "remedy": "Disconnect from the network. Delete the files listed, quit the python process running cat.py in Activity Monitor, update Nx Console to 18.100.0 or later, and restart. From another device, replace your GitHub, npm, cloud and Vault tokens, AI service keys and SSH keys.",
+      "references": [
+        "https://nx.dev/blog/nx-console-v18-95-0-postmortem",
+        "https://www.stepsecurity.io/blog/nx-console-vs-code-extension-compromised"
+      ]
+    },
+    {
+      "id": "npm.velora-profiler-2026-04",
+      "title": "Backdoor from the hijacked @velora-dex/sdk npm release (April 2026)",
+      "severity": "critical",
+      "category": "backdoor",
+      "check": "path",
+      "paths": [
+        "~/Library/Application Support/com.apple.Terminal/profiler"
+      ],
+      "summary": "@velora-dex/sdk 9.4.1 (April 2026) downloaded this program as soon as a project loaded the package, even with install scripts turned off. It hides in a folder named like Terminal's own and keeps running as a background service called zsh.profiler.",
+      "remedy": "Disconnect from the network. Delete the file listed, quit its process in Activity Monitor, remove @velora-dex/sdk 9.4.1 from your projects, and restart. From another device, replace your npm, GitHub and cloud tokens, SSH keys and saved browser passwords, and move any crypto to a new wallet.",
+      "references": [
+        "https://www.stepsecurity.io/blog/velora-dex-sdk-compromised-on-npm-malicious-version-drops-macos-backdoor-via-launchctl-persistence"
+      ]
+    },
+    {
+      "id": "extension.cloudapi-stream-2026-04",
+      "title": "Browser extension from a 108-extension data theft campaign (April 2026)",
+      "severity": "high",
+      "category": "malware",
+      "check": "browserExtension",
+      "patterns": [
+        "^browser=\\S{1,32} id=aecccajigpipkpioaidignbgbeekglkd\\s",
+        "^browser=\\S{1,32} id=akebbllmckjphjiojeioooidhnddnplj\\s",
+        "^browser=\\S{1,32} id=akifdnfipbeoonhoeabdicnlcdhghmpn\\s",
+        "^browser=\\S{1,32} id=akkkopcadaalekbdgpdikhdablkgjagd\\s",
+        "^browser=\\S{1,32} id=alkfljfjkpiccfgbeocbbjjladigcleg\\s",
+        "^browser=\\S{1,32} id=alllblhkgghelnejlggmmgjbkdabidie\\s",
+        "^browser=\\S{1,32} id=amkkjdjjgiiamenbopfpdmjcleecjjgg\\s",
+        "^browser=\\S{1,32} id=amnaljnjmgajgajelnplfmidgjgbjfhe\\s",
+        "^browser=\\S{1,32} id=bbjdlbemjklojnbifkgameepcafflmem\\s",
+        "^browser=\\S{1,32} id=bdnanfggeppmkfhkgmpojkhanoplkacc\\s",
+        "^browser=\\S{1,32} id=bfoofgelpmalhcmedaaeogahlmbkopfd\\s",
+        "^browser=\\S{1,32} id=bgdkbjcdecedfoejdfgeafdodjgfohno\\s",
+        "^browser=\\S{1,32} id=bnchgibgpgmlickioneccggfobljmhjc\\s",
+        "^browser=\\S{1,32} id=bpljfbcejldmgeoodnogeefaihjdgbam\\s",
+        "^browser=\\S{1,32} id=cbfhnceafaenchbefokkngcbnejached\\s",
+        "^browser=\\S{1,32} id=cbnekafldflkmngbgmbnfmchjaelnhem\\s",
+        "^browser=\\S{1,32} id=cdpiopekjeonfjeocbfebemgocjciepp\\s",
+        "^browser=\\S{1,32} id=cehdkmmfadpplgchnbjgdngdcjmhlfcc\\s",
+        "^browser=\\S{1,32} id=cljengcehefhflhoahaambmkknjekjib\\s",
+        "^browser=\\S{1,32} id=clpgopiimdjcilllcjncdkoeikkkcfbi\\s",
+        "^browser=\\S{1,32} id=cmeoegkmpbpcoabhlklbamfeidebgmdf\\s",
+        "^browser=\\S{1,32} id=cmlbghnlnbjkdgfjlegkbjmadpbmlgjb\\s",
+        "^browser=\\S{1,32} id=cnibdhllkgidlgmaoanhkemjeklneolk\\s",
+        "^browser=\\S{1,32} id=cpnfioldnmhaihohppoaebillnambcgn\\s",
+        "^browser=\\S{1,32} id=dbohcpohlgnhgjmfkakoniiplglpfhcb\\s",
+        "^browser=\\S{1,32} id=dcamdpfclondppklabgkfaofjccpioil\\s",
+        "^browser=\\S{1,32} id=dljlpildgknddpnahppkihgodokfjbnd\\s",
+        "^browser=\\S{1,32} id=dlpiookhionidajbiopmaajeckifeehn\\s",
+        "^browser=\\S{1,32} id=dmaibhbbpmdihedidicfeigilkbobcog\\s",
+        "^browser=\\S{1,32} id=dohenclhhdfljpjlnpjnephpccbdgmmb\\s",
+        "^browser=\\S{1,32} id=dpdemambcedffmnkfmkephnhhnclmcio\\s",
+        "^browser=\\S{1,32} id=ejlcbfmhjbkgohopdkijfgggbikgbacb\\s",
+        "^browser=\\S{1,32} id=eljfpgehlncincemdmmnebmnlcmfamhm\\s",
+        "^browser=\\S{1,32} id=enmmilgindjmffoljaojkcgloakmloen\\s",
+        "^browser=\\S{1,32} id=eoklnfefipnjfeknpmigmogeeepddcch\\s",
+        "^browser=\\S{1,32} id=fddajeklkkggbnppabbhkdmnkdjindlo\\s",
+        "^browser=\\S{1,32} id=fibgndhgobbaaekmnneapojgkcehaeac\\s",
+        "^browser=\\S{1,32} id=fjfhejmbhpabkacpoddjbcfandjoacmb\\s",
+        "^browser=\\S{1,32} id=flkdjodmoefccepdihipjdlianmkmhgc\\s",
+        "^browser=\\S{1,32} id=fmajpchoiahphjiligpmghnhmabolhoh\\s",
+        "^browser=\\S{1,32} id=gaafhblhbnkekenogcjniofhbicchlke\\s",
+        "^browser=\\S{1,32} id=gbaoddbbpompjhmilbgiaapkkakldlpc\\s",
+        "^browser=\\S{1,32} id=gbhhgipmedccnankkjchgcidiigmioio\\s",
+        "^browser=\\S{1,32} id=gfhcdakcnpahfdealajmhcapnhhablbp\\s",
+        "^browser=\\S{1,32} id=gipmochingljoikdjakkdolfcbphmlom\\s",
+        "^browser=\\S{1,32} id=glofhphmolanicdaddgkmhfmjidjkaem\\s",
+        "^browser=\\S{1,32} id=haochenfmhglpholokliifmlpafilfdc\\s",
+        "^browser=\\S{1,32} id=hbobdcfpgonejphpemijgjddanoipbkj\\s",
+        "^browser=\\S{1,32} id=hdmppejcahhppjhkncagagopecddokpi\\s",
+        "^browser=\\S{1,32} id=heljkmdknlfhiecpknceodpbokeipigo\\s",
+        "^browser=\\S{1,32} id=hiofkndodabpioiheinoiojjobadpgmj\\s",
+        "^browser=\\S{1,32} id=hkbihmjhjmehlocilifheeaeiljabenb\\s",
+        "^browser=\\S{1,32} id=hlmdnedepbbihmbddepemmbkenbnoegd\\s",
+        "^browser=\\S{1,32} id=hmlnefhgicedcmebmkjdcogieefbaagl\\s",
+        "^browser=\\S{1,32} id=hnpbijogiiaegambgpaenjbcbgaeimlf\\s",
+        "^browser=\\S{1,32} id=ibelidmkbnjmmpjgfibbdbkamgcbnjdm\\s",
+        "^browser=\\S{1,32} id=ihbkmfoadnfjgkpdmgcboiehapkiflme\\s",
+        "^browser=\\S{1,32} id=ijccacgjefefdpglhclnbpfjlcbagafm\\s",
+        "^browser=\\S{1,32} id=ijfmkphjcogaealhjgijjfjlkpdhhojk\\s",
+        "^browser=\\S{1,32} id=ijpgccpmogehkjhdmomckpkfcpbjlmnj\\s",
+        "^browser=\\S{1,32} id=imjmnghlhiimodfkdkgnfplhlobehnpm\\s",
+        "^browser=\\S{1,32} id=jddinhnhplibccfmniaakhffpjpnaglp\\s",
+        "^browser=\\S{1,32} id=jmopjanoebpdbopigcbpjhiigmjolikk\\s",
+        "^browser=\\S{1,32} id=jnmmbmkmbkcccpihjgnhjmhhkokfdnfe\\s",
+        "^browser=\\S{1,32} id=jodocbbdcdclkhjkibnlfhbmllcpfkfo\\s",
+        "^browser=\\S{1,32} id=kahcolfecjbejjjadhjafmihdnifonjf\\s",
+        "^browser=\\S{1,32} id=kblomapfkjidbbbdllmofkcakcenkmec\\s",
+        "^browser=\\S{1,32} id=kbmindomjiejdikjaagfdbdfpnlanobi\\s",
+        "^browser=\\S{1,32} id=kbnkkecifeppobnemkielnpagifkobki\\s",
+        "^browser=\\S{1,32} id=kjnakdbpijigdbfepipnbafnhbcfdkga\\s",
+        "^browser=\\S{1,32} id=kknakidneabpfgepadgpkibalcnabnnh\\s",
+        "^browser=\\S{1,32} id=klglejfbdeipgklgaepnodpjcnhaihkd\\s",
+        "^browser=\\S{1,32} id=kmiidcaojgeepjlccoalkdimgpfnbagj\\s",
+        "^browser=\\S{1,32} id=lcijkepobdokkgmefebkiejhealgblle\\s",
+        "^browser=\\S{1,32} id=ldmnhdllijbchflpbmnlgndfnlgmkgif\\s",
+        "^browser=\\S{1,32} id=lefndgfmmbdklidbkeifpgclmpnhcilg\\s",
+        "^browser=\\S{1,32} id=lfkknbmaifjomagejflmjklcmpadmmdg\\s",
+        "^browser=\\S{1,32} id=ljbgkfbiifhpgpipepnfefijldolkhlm\\s",
+        "^browser=\\S{1,32} id=lmcpbhamfpbonaenickjclacodolkbdl\\s",
+        "^browser=\\S{1,32} id=lmgenhmehbcolpikplhkoelmagdhoojn\\s",
+        "^browser=\\S{1,32} id=lnajjhohknhgemncbaomjjjpmpdigedg\\s",
+        "^browser=\\S{1,32} id=maeccdadgnadblfddcmanhpofobhgfme\\s",
+        "^browser=\\S{1,32} id=mdcfennpfgkngnibjbpnpaafcjnhcjno\\s",
+        "^browser=\\S{1,32} id=medkneifmjcpgmmibfppjpfjbkgbgebl\\s",
+        "^browser=\\S{1,32} id=mheomooihiffmcgldolenemmplpgoahn\\s",
+        "^browser=\\S{1,32} id=mmbbjakjlpmndjlbhihlddgcdppblpka\\s",
+        "^browser=\\S{1,32} id=mmbkmjmlnhocfcnjmbchmflamalekbnb\\s",
+        "^browser=\\S{1,32} id=mmecpiobcdbjkaijljohghhpfgngpjmk\\s",
+        "^browser=\\S{1,32} id=nbgligggjfgkpphhghhjdoiefbimgooc\\s",
+        "^browser=\\S{1,32} id=ncpdkpcgmdhhnmcjgiiifdhefmekdcnf\\s",
+        "^browser=\\S{1,32} id=ndajcmifndknmkckdcdefkpgcodciggk\\s",
+        "^browser=\\S{1,32} id=nelbpdjegmhhgpfcjclhdmkcglimkjpp\\s",
+        "^browser=\\S{1,32} id=nkacmelgoeejhjgmmgflbcdhonpaplcg\\s",
+        "^browser=\\S{1,32} id=nmegibgeklckejdlfhoadhhbgcdjnojb\\s",
+        "^browser=\\S{1,32} id=nodobilhjanebkafmpihkpoabiggnnfl\\s",
+        "^browser=\\S{1,32} id=oanpifaoclmgmflmddlgkikfaggejobn\\s",
+        "^browser=\\S{1,32} id=obifanppcpchlehkjipahhphbcbjekfa\\s",
+        "^browser=\\S{1,32} id=ocflhkadmmnlbieoiiekfcdcmjcfeahe\\s",
+        "^browser=\\S{1,32} id=odeccdcabdffpebnfancpkepjeecempn\\s",
+        "^browser=\\S{1,32} id=oejhnncfanbaogjlbknmlgjpleachclf\\s",
+        "^browser=\\S{1,32} id=ogbaedmbbmmipljceodeimlckohbnfan\\s",
+        "^browser=\\S{1,32} id=ogogpebnagniggbnkbpjioobomdbmdcj\\s",
+        "^browser=\\S{1,32} id=ojkbafekojdcedacileemekjdfdpkbkf\\s",
+        "^browser=\\S{1,32} id=pdgaknahllnfldmclpcllpieafkaibmf\\s",
+        "^browser=\\S{1,32} id=peflgkmfmoijonfgcjdlpnnfdegnlaji\\s",
+        "^browser=\\S{1,32} id=phfkdailnomcbcknpdmokejhellbecjb\\s",
+        "^browser=\\S{1,32} id=pkghgkfjhjghinikeanecbgjehojfhdg\\s",
+        "^browser=\\S{1,32} id=pllkanemicadpcmkfodglahcocfdgkhj\\s"
+      ],
+      "summary": "Socket linked 108 Chrome extensions, many of them slot games and Telegram sidebars, to one operator. Dozens take your Google identity when you sign in, one steals Telegram Web sessions, and others contact the operator's server on every browser start and act on its replies.",
+      "remedy": "Remove it from the browser's extensions page. If you signed in with Google through it, remove its access in your Google account's third-party settings. If it handled Telegram, log out of all web sessions from the Telegram mobile app.",
+      "references": [
+        "https://socket.dev/blog/108-chrome-ext-linked-to-data-exfil-session-theft-shared-c2"
+      ]
+    },
+    {
+      "id": "malware.ghostclaw",
+      "title": "GhostClaw (GhostLoader) remote access tool files",
+      "severity": "critical",
+      "category": "backdoor",
+      "check": "path",
+      "paths": [
+        "~/.cache/.npm_telemetry"
+      ],
+      "summary": "GhostClaw is a fake OpenClaw installer on npm. It asks for your Mac password, then installs a remote access tool in this folder that steals Keychain, browser, wallet, SSH and cloud credentials and restarts from your shell startup files.",
+      "remedy": "Disconnect from the network. Delete the folder listed, remove the lines marked NPM Telemetry Integration Service from your shell startup files such as ~/.zshrc, uninstall @openclaw-ai/openclawai, and restart. From another device, change your Apple Account, email and banking passwords, replace your cloud tokens and SSH keys, and move any crypto to a new wallet.",
+      "references": [
+        "https://research.jfrog.com/post/ghostclaw-unmasked/"
+      ]
+    },
+    {
+      "id": "npm.ghostclaw-openclawai-2026-03",
+      "title": "@openclaw-ai/openclawai, the fake OpenClaw installer (March 2026)",
+      "severity": "critical",
+      "category": "malware",
+      "check": "npmPackage",
+      "packages": [
+        {
+          "name": "@openclaw-ai/openclawai",
+          "versions": [
+            "1.5.14",
+            "1.5.15"
+          ],
+          "advisory": "XRAY-949975"
+        }
+      ],
+      "summary": "This npm package poses as an OpenClaw installer. Installing it starts GhostClaw, which asks for your Mac password and steals credentials.",
+      "references": [
+        "https://research.jfrog.com/post/ghostclaw-unmasked/"
+      ]
+    },
+    {
+      "id": "malware.unc1069",
+      "title": "UNC1069 (North Korea) backdoor files",
+      "severity": "critical",
+      "category": "backdoor",
+      "check": "path",
+      "paths": [
+        "/Library/LaunchDaemons/com.apple.system.updater.plist",
+        "/Library/OSRecovery/SystemUpdater",
+        "/Library/OSRecovery/com.apple.os.config",
+        "/Library/Caches/.Logs.db",
+        "/Library/Caches/System Settings",
+        "/Library/Caches/com.apple.mond",
+        "/Library/Caches/chromeext",
+        "/Library/SystemSettings/com.apple.system.settings",
+        "/Library/SystemSettings/.CacheLogs.db",
+        "/Library/Fonts/com.apple.logd",
+        "~/Library/Application Support/com.apple.os.receipts",
+        "~/Library/Application Support/Google/Chrome/NativeMessagingHosts/Google Chrome Docs",
+        "~/Library/Application Support/Google/Chrome/NativeMessagingHosts/Brave Browser Docs"
+      ],
+      "summary": "Mandiant found these files after a North Korean group targeted a cryptocurrency company. Victims join a fake Zoom call, are told to fix an audio problem by running commands, and end up with several backdoors that steal browser data and other files.",
+      "remedy": "Disconnect from the network. Delete the items listed and restart; files in system folders will ask for your password. From another device, change your Apple Account, email, banking and Telegram passwords, sign out of other sessions, and move any crypto to a new wallet.",
+      "references": [
+        "https://cloud.google.com/blog/topics/threat-intelligence/unc1069-targets-cryptocurrency-ai-social-engineering"
+      ]
+    },
+    {
+      "id": "malware.glassworm",
+      "title": "GlassWorm stealer staging folder",
+      "severity": "critical",
+      "category": "malware",
+      "check": "path",
+      "paths": [
+        "/tmp/ijewf"
+      ],
+      "summary": "GlassWorm spreads through tampered VS Code and Open VSX extensions. On a Mac it copies Keychain, Notes, browser, SSH and cloud files into this folder before uploading them, and restarts at login through a LaunchAgent.",
+      "remedy": "Disconnect from the network. Delete the folder listed, remove extensions you don't recognize from your editor, and restart. From another device, change your Apple Account, email and banking passwords, replace your cloud tokens and SSH keys, and move any crypto to a new wallet.",
+      "references": [
+        "https://socket.dev/blog/glassworm-loader-hits-open-vsx-via-suspected-developer-account-compromise",
+        "https://attack.mitre.org/software/S9010"
       ]
     },
     {
