@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version": 2026110104,
+  "version": 2026110301,
   "rules": [
     {
       "id": "setting.sip",
@@ -498,10 +498,24 @@
         "/GoogleUpdate\\.app/Contents/MacOS/GoogleUpdate\\b",
         "/(private/)?tmp/\\.c\\.sh\\b",
         "\\bcurl\\s(?:(?!\\bcurl\\s).){0,512}/(api/)?v1/bot/(joinsystem|actions|repeat)/",
-        "^/(private/)?tmp/socks(\\s|$)"
+        "^/(private/)?tmp/socks(\\s|$)",
+        "/Library/Application Support/(System|com\\.apple\\.finder\\.core)/Finder\\.app/",
+        "/Library/Application Support/System/\\.repair-run\\b",
+        "/(private/)?tmp/System Settings\\s+/Users/",
+        "/\\.task/tokenlinux\\.sh\\b",
+        "/\\.task/node-v20\\.11\\.1-darwin-x64/bin/",
+        "/\\.local/share/\\.stream/profiles/",
+        "/Library/Caches/com\\.apple\\.act\\.mond\\b"
       ],
-      "summary": "A process matching a known stealer backdoor is running: AMOS's hidden .helper or .agent loop, ClickLock's fake SystemUIServer, SHub's fake GoogleUpdate, or Odyssey's bot loop or SOCKS proxy. Attackers can send it commands.",
-      "remedy": "Disconnect from the network, then follow the steps for the matching malware files finding. Killing the process alone isn't enough; AMOS restarts it within a second."
+      "summary": "A process matching a known backdoor is running: AMOS's hidden .helper or .agent loop, ClickLock's fake SystemUIServer, SHub's fake GoogleUpdate, Odyssey's bot loop or SOCKS proxy, PamStealer's fake Finder, Contagious Interview's .task payload, AmnesiaStealer's hidden browser, or the backdoor from the hijacked axios npm releases. Attackers can send it commands.",
+      "remedy": "Disconnect from the network, then follow the steps for the matching malware files finding. Killing the process alone isn't enough; AMOS restarts it within a second and PamStealer within 15 seconds.",
+      "references": [
+        "https://www.jamf.com/blog/pamstealer-wavel-macos-infostealer/",
+        "https://www.jamf.com/blog/pamstealer-macos-infostealer-applescript-rust/",
+        "https://www.jamf.com/blog/contagious-interview-trojanized-macos-installers/",
+        "https://www.jamf.com/blog/amnesia-stealer-macos-infostealer-clickfix/",
+        "https://unit42.paloaltonetworks.com/axios-supply-chain-attack/"
+      ]
     },
     {
       "id": "ssh.authorized-key",
@@ -920,10 +934,11 @@
         "\"((pre|post)?(install|prepare)|prepublish|dependencies)\"\\s*:\\s*\"(?:[^\"\\\\\\n]|\\\\.){0,300}\\b(curl|wget)\\b(?:[^\"\\\\\\n]|\\\\.){0,300}(&&|;)\\s*(chmod\\s|\\./|/tmp/|(ba|z)?sh\\s|node\\s)"
       ],
       "summary": "This package.json has an install script (preinstall, install, postinstall or prepare) that downloads a file and runs it. npm runs these scripts on npm install without asking, so the download runs as you before you have looked at the project.",
-      "remedy": "Don't run npm install in this project. If you already did, treat the Mac as compromised: from another device rotate npm, GitHub and cloud tokens and SSH keys, and check Bluehat's other findings. Install unfamiliar projects with npm install --ignore-scripts.",
+      "remedy": "Don't run npm install in this project. If you already did, treat the Mac as compromised: first act on Bluehat's other findings, because a worm's token monitor can erase your home folder if a token is revoked before it's removed. Then from another device rotate npm, GitHub and cloud tokens and SSH keys. Install unfamiliar projects with npm install --ignore-scripts.",
       "references": [
         "https://docs.npmjs.com/cli/v10/using-npm/scripts",
-        "https://unit42.paloaltonetworks.com/two-campaigns-by-north-korea-bad-actors-target-job-hunters/"
+        "https://unit42.paloaltonetworks.com/two-campaigns-by-north-korea-bad-actors-target-job-hunters/",
+        "https://www.stepsecurity.io/blog/tensorlake-npm-compromised-hostage-token-worm"
       ]
     },
     {
@@ -939,10 +954,11 @@
         "\"((pre|post)?(install|prepare)|prepublish|dependencies)\"\\s*:\\s*\"(?:[^\"\\\\\\n]|\\\\.){0,100}\\bnode\\s+(-e|--eval|-p|--print)\\s(?:[^\"\\\\\\n]|\\\\.){0,500}(https?://|https?\\.(get|request)\\b|\\bfetch\\s*\\(|require\\(\\\\?['\\\"](node:)?(https?|child_process)\\\\?['\\\"]\\))"
       ],
       "summary": "This package.json has an install script that runs inline JavaScript with node -e and reaches the internet or starts commands. npm runs it on npm install without asking, so a downloaded payload runs before you have looked at the project.",
-      "remedy": "Don't run npm install in this project. If you already did, treat the Mac as compromised: from another device rotate npm, GitHub and cloud tokens and SSH keys, and check Bluehat's other findings. Install unfamiliar projects with npm install --ignore-scripts.",
+      "remedy": "Don't run npm install in this project. If you already did, treat the Mac as compromised: first act on Bluehat's other findings, because a worm's token monitor can erase your home folder if a token is revoked before it's removed. Then from another device rotate npm, GitHub and cloud tokens and SSH keys. Install unfamiliar projects with npm install --ignore-scripts.",
       "references": [
         "https://docs.npmjs.com/cli/v10/using-npm/scripts",
-        "https://unit42.paloaltonetworks.com/two-campaigns-by-north-korea-bad-actors-target-job-hunters/"
+        "https://unit42.paloaltonetworks.com/two-campaigns-by-north-korea-bad-actors-target-job-hunters/",
+        "https://www.stepsecurity.io/blog/tensorlake-npm-compromised-hostage-token-worm"
       ]
     },
     {
@@ -995,7 +1011,7 @@
     },
     {
       "id": "npm.mini-shai-hulud-monitor",
-      "title": "Mini Shai-Hulud token monitor files",
+      "title": "Mini Shai-Hulud and ChainDrop token monitor files",
       "severity": "critical",
       "category": "persistence",
       "check": "path",
@@ -1004,26 +1020,34 @@
         "~/.local/bin/gh-token-monitor.sh",
         "~/.config/gh-token-monitor/token"
       ],
-      "summary": "The Mini Shai-Hulud worm (May 2026, TanStack and other hijacked npm packages) installs a gh-token-monitor launch agent that keeps a stolen GitHub token on disk and starts again at every login.",
-      "remedy": "Run launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/com.user.gh-token-monitor.plist, delete the files listed and the gh-token-monitor folder, and restart. From another device revoke and replace your GitHub and npm tokens, cloud keys and SSH keys.",
+      "summary": "The Mini Shai-Hulud and ChainDrop npm worms (May to October 2026, including TanStack, keyv and tensorlake) keep a stolen GitHub token on disk. gh-token-monitor checks it every minute, and in the tensorlake version, if GitHub rejects the token it erases your home folder.",
+      "remedy": "Don't revoke any GitHub token yet: while the monitor runs, revoking it from any device can erase your home folder. Back up what you can't lose. Run launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/com.user.gh-token-monitor.plist, delete the files listed and the gh-token-monitor folder, and restart. Only then, from another device, revoke and replace your GitHub and npm tokens, cloud keys and SSH keys.",
       "references": [
-        "https://www.stepsecurity.io/blog/mini-shai-hulud-is-back-a-self-spreading-supply-chain-attack-hits-the-npm-ecosystem"
+        "https://www.stepsecurity.io/blog/mini-shai-hulud-is-back-a-self-spreading-supply-chain-attack-hits-the-npm-ecosystem",
+        "https://www.stepsecurity.io/blog/tensorlake-npm-compromised-hostage-token-worm",
+        "https://socket.dev/blog/tensorlake-compromise",
+        "https://www.stepsecurity.io/blog/chaindrop-npm-worm"
       ]
     },
     {
       "id": "npm.mini-shai-hulud-process",
-      "title": "Mini Shai-Hulud worm is running",
+      "title": "Mini Shai-Hulud or ChainDrop worm is running",
       "severity": "critical",
       "category": "worm",
       "check": "process",
       "patterns": [
         "/\\.local/bin/gh-token-monitor\\.sh\\b",
-        "\\bbun\\s+run\\s+(opensearch_init|tanstack_runner)\\.js\\b"
+        "\\bbun\\s+run\\s+(opensearch_init|tanstack_runner)\\.js\\b",
+        "\\bbun\\b(?:(?!\\bbun\\b).){0,512}[/\\s]Math_Symbol\\.js\\b",
+        "\\bbun\\b(?:(?!\\bbun\\b).){0,512}(/node_modules/|[\\s/]\\.claude/)(?:(?!\\bbun\\b).){0,255}math_init\\.js\\b"
       ],
-      "summary": "A running process matches the Mini Shai-Hulud npm worm: its gh-token-monitor script or its Bun payload. It steals GitHub, npm and cloud tokens and uses them to publish infected versions of your packages.",
-      "remedy": "Disconnect from the network, quit the process in Activity Monitor, then follow the steps for the Mini Shai-Hulud files finding. From another device revoke and replace your GitHub and npm tokens, cloud keys and SSH keys.",
+      "summary": "A running process matches the Mini Shai-Hulud or ChainDrop npm worm: its gh-token-monitor script or its Bun payload. It steals GitHub, npm and cloud tokens and uses them to publish infected versions of your packages.",
+      "remedy": "Don't revoke any GitHub token yet: while the monitor runs, revoking it from any device can erase your home folder. Disconnect from the network, quit the process in Activity Monitor, then follow the steps for the token monitor files finding. Only after that, from another device, revoke and replace your GitHub and npm tokens, cloud keys and SSH keys.",
       "references": [
-        "https://www.stepsecurity.io/blog/mini-shai-hulud-is-back-a-self-spreading-supply-chain-attack-hits-the-npm-ecosystem"
+        "https://www.stepsecurity.io/blog/mini-shai-hulud-is-back-a-self-spreading-supply-chain-attack-hits-the-npm-ecosystem",
+        "https://www.stepsecurity.io/blog/chaindrop-npm-worm",
+        "https://www.elastic.co/security-labs/threat-command/shai-hulud-chaindrop-npm-supply-chain",
+        "https://www.stepsecurity.io/blog/tensorlake-npm-compromised-hostage-token-worm"
       ]
     },
     {
@@ -1094,7 +1118,7 @@
       "severity": "medium",
       "category": "hardening",
       "check": "xprotect",
-      "minimumVersion": 5360,
+      "minimumVersion": 5363,
       "summary": "XProtect is the malware scanner built into macOS. Apple updates its definitions on its own every few weeks, and old definitions miss current stealers and backdoors. Updates usually stop when Install Security Responses and system files is turned off, or when the Mac can't reach Apple's servers.",
       "remedy": "Open System Settings › General › Software Update, click the info button next to Automatic Updates, and turn on Install Security Responses and system files. Stay online and restart; macOS updates XProtect on its own. If it still shows a day later, install any waiting macOS update.",
       "references": [
@@ -1483,6 +1507,347 @@
       "remedy": "Remove it from the browser's extensions page, clear the browser's cookies and site data, and change the passwords of sites you signed in to while it was installed.",
       "references": [
         "https://web.archive.org/web/20251205211626/https://www.koi.ai/blog/4-million-browsers-infected-inside-shadypanda-7-year-malware-campaign"
+      ]
+    },
+    {
+      "id": "malware.claude-code-cursor-2026-10",
+      "title": "Tampered Claude Code extension from Cursor's marketplace (October 2026)",
+      "severity": "critical",
+      "category": "backdoor",
+      "check": "path",
+      "paths": [
+        "~/.config/.smt",
+        "~/.config/.smtk",
+        "~/.config/smt.cmd",
+        "~/Library/LaunchAgents/com.apple.sysmond.plist"
+      ],
+      "summary": "On October 29, 2026 tampered copies of the Claude Code extension, versions 2.1.312 and 2.1.313, were published to Cursor's extension marketplace. They add an attacker's SSH key and open a hidden tunnel so the attacker can log in to this Mac. They also send details about the Mac to the attacker. Anthropic's own downloads were not affected.",
+      "remedy": "Disconnect from the network. Run launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/com.apple.sysmond.plist and delete the files listed. Delete the line ending in svc-telemetry from ~/.ssh/authorized_keys. Remove the extension from Cursor and restart. From another device, replace your SSH keys, GitHub, npm and cloud tokens, and AI tool keys.",
+      "references": [
+        "https://www.stepsecurity.io/blog/claude-code-extension-trojanized",
+        "https://socket.dev/blog/claude-code-extension-compromise"
+      ]
+    },
+    {
+      "id": "ssh.claude-code-cursor-key",
+      "title": "SSH key added by the tampered Claude Code extension",
+      "severity": "critical",
+      "category": "backdoor",
+      "check": "sshKey",
+      "patterns": [
+        "AAAAC3NzaC1lZDI1NTE5AAAAIDdvylCEJ/k2TpezcTfedrkHyFSK9IZ3vmP6vhY4Ss0P"
+      ],
+      "summary": "This exact SSH key, labeled svc-telemetry, was added by the tampered Claude Code extension on Cursor's marketplace (October 2026). Whoever holds the matching private key can log in to this Mac as you when Remote Login is on.",
+      "remedy": "Delete the line with this key from the authorized_keys file the finding names, then follow the steps for the tampered Claude Code files finding. From another device, replace your SSH keys, GitHub, npm and cloud tokens, and AI tool keys.",
+      "references": [
+        "https://www.stepsecurity.io/blog/claude-code-extension-trojanized"
+      ]
+    },
+    {
+      "id": "process.claude-code-cursor-tunnel",
+      "title": "Hidden SSH tunnel from the tampered Claude Code extension",
+      "severity": "critical",
+      "category": "backdoor",
+      "check": "process",
+      "patterns": [
+        "-R\\s+'?\\*:0:localhost:22'?\\s(?:(?!-R\\s).){0,512}\\btunnel@"
+      ],
+      "summary": "An ssh or autossh process is exposing this Mac's SSH login to a remote server, in the form used by the tampered Claude Code extension from Cursor's marketplace (October 2026). While it runs, the attacker can reach this Mac from outside.",
+      "remedy": "Disconnect from the network, quit the process in Activity Monitor, then follow the steps for the tampered Claude Code files finding.",
+      "references": [
+        "https://www.stepsecurity.io/blog/claude-code-extension-trojanized"
+      ]
+    },
+    {
+      "id": "extension.firefox-wallet-impersonators-2026-10",
+      "title": "Firefox add-on posing as a crypto wallet (October 2026)",
+      "severity": "high",
+      "category": "malware",
+      "check": "browserExtension",
+      "patterns": [
+        "^browser=\\S{1,32} id=view-focus-bright@webtools\\.co\\s",
+        "^browser=\\S{1,32} id=quick-track-nest@tabtools\\.co\\s",
+        "^browser=\\S{1,32} id=vibe-kit-tool@fasttools\\.co\\s",
+        "^browser=\\S{1,32} id=edge-hub-snap@protools\\.net\\s",
+        "^browser=\\S{1,32} id=core-hub-peak@neattools\\.example\\s",
+        "^browser=\\S{1,32} id=sipoo-grozza@browserweb\\.com\\s",
+        "^browser=\\S{1,32} id=mozart-seo@webtools\\.com\\s",
+        "^browser=\\S{1,32} id=clean-file-bar@neattools\\.com\\s",
+        "^browser=\\S{1,32} id=clean-net-timer@plugify\\.example\\s",
+        "^browser=\\S{1,32} id=manager-square@webtools\\.com\\s",
+        "^browser=\\S{1,32} id=manager-course@webtools\\.com\\s",
+        "^browser=\\S{1,32} id=val-andrew@browserweb\\.com\\s",
+        "^browser=\\S{1,32} id=manager-team@browserweb\\.com\\s",
+        "^browser=\\S{1,32} id=valory-andrew@browserweb\\.com\\s",
+        "^browser=\\S{1,32} id=franklin-uk@browserweb\\.com\\s",
+        "^browser=\\S{1,32} id=franklin-uro@browserweb\\.com\\s",
+        "^browser=\\S{1,32} id=a8f3k2m9x1fefb7q4n6p0r5t@j2w8c4fefy6v1d3z9\\s",
+        "^browser=\\S{1,32} id=\\{48392751-9302-4817-5621-703829164830\\}\\s",
+        "^browser=\\S{1,32} id=\\{c31e7a95-2f64-4b18-a0d3-6e92f5c7481b\\}\\s"
+      ],
+      "summary": "Socket found these Firefox add-ons posing as wallets such as Rabby, OKX, Phantom, Jupiter and Bitget. They ask for your recovery phrase or wallet secrets and send them to the attackers.",
+      "remedy": "Remove it from the browser's extensions page. From another device, move any crypto to a new wallet with a new recovery phrase, and change the passwords of sites you signed in to while it was installed.",
+      "references": [
+        "https://socket.dev/blog/firefox-crypto-wallet-stealers",
+        "https://socket.dev/blog/firefox-wallet-impersonators"
+      ]
+    },
+    {
+      "id": "malware.litellm-2026-10",
+      "title": "Files left by the backdoored LiteLLM 1.107.0 Python package",
+      "severity": "critical",
+      "category": "malware",
+      "check": "path",
+      "paths": [
+        "/tmp/remote_code_loader.lock",
+        "/tmp/.pc_once_72129118c59f5636c0bb"
+      ],
+      "summary": "LiteLLM 1.107.0 on PyPI (October 2026) added cook.pth, cook.py and sitecustomize.py to Python's site-packages, so every Python start on this Mac stole credentials and started a hidden loader that downloads and runs new code every hour.",
+      "remedy": "Disconnect from the network. In each Python environment with LiteLLM 1.107.0, delete cook.pth, cook.py and sitecustomize.py from site-packages and install a clean release such as 1.106.4. Delete the files listed and restart. From another device, replace your cloud, GitHub and AI tool keys, SSH keys and browser passwords.",
+      "references": [
+        "https://www.stepsecurity.io/blog/litellm-1-107-0-compromised-pypi-backdoored-wheels-credential-stealer"
+      ]
+    },
+    {
+      "id": "malware.cloudsyncd",
+      "title": "CloudSyncD backdoor from a fake Zoom installer",
+      "severity": "critical",
+      "category": "backdoor",
+      "check": "path",
+      "paths": [
+        "~/.local/share/cloudsync/.config/logs/sync.err"
+      ],
+      "summary": "CloudSyncD arrives as a fake Zoom installer that asks for your Mac password, hides it in a file named data.json in ~/.config/zoom and uses it to run a backdoor as administrator.",
+      "remedy": "Disconnect from the network. Delete the file listed and the data.json file in ~/.config/zoom, then restart. Change your Mac login password. From another device, change your Apple Account, email and banking passwords and sign out of other sessions.",
+      "references": [
+        "https://www.jamf.com/blog/cloudsyncd-macos-backdoor-fake-zoom-installer/"
+      ]
+    },
+    {
+      "id": "malware.pamstealer",
+      "title": "PamStealer backdoor posing as Finder",
+      "severity": "critical",
+      "category": "backdoor",
+      "check": "path",
+      "paths": [
+        "~/Library/LaunchAgents/com.apple.finder.agent.plist",
+        "~/Library/Application Support/System/Finder.app",
+        "~/Library/Application Support/System/.repair-run",
+        "~/Library/Application Support/System/.sysnotif-backup.tgz",
+        "~/Library/Application Support/System/.githooks",
+        "~/Library/Logs/.sysnotif-agent.log",
+        "~/Library/Application Support/com.apple.finder.core/Finder.app",
+        "~/Library/Caches/com.apple.finder.core",
+        "~/Library/HTTPStorages/com.apple.finder.core",
+        "/private/tmp/System Settings"
+      ],
+      "summary": "Jamf calls this stealer PamStealer, and Kaspersky describes the same files in a new version of MacSync. It arrives as a fake app such as a crypto wallet or Maccy, runs a backdoor disguised as Finder, and restores it through your zsh startup file and Git hooks if you only delete part of it. Assume your passwords, browser sessions and crypto wallets were stolen.",
+      "remedy": "Delete everything in one go, because the repair script puts missing parts back. Run launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/com.apple.finder.agent.plist, remove the sysnotif-repair block from ~/.zshrc, and delete the files listed. If git config --global core.hooksPath points to the .githooks folder listed, unset it. Restart. From another device, change your Apple Account, email and banking passwords, sign out of other sessions, and move any crypto to a new wallet.",
+      "references": [
+        "https://www.jamf.com/blog/pamstealer-wavel-macos-infostealer/",
+        "https://securelist.com/macsync-new-version/121383/",
+        "https://www.jamf.com/blog/pamstealer-macos-infostealer-applescript-rust/"
+      ]
+    },
+    {
+      "id": "profile.pamstealer-repair",
+      "title": "Shell startup file restarts the PamStealer backdoor",
+      "severity": "critical",
+      "category": "persistence",
+      "check": "shellProfile",
+      "patterns": [
+        "#\\s*sysnotif-repair\\b",
+        "/Library/Application Support/System/\\.repair-run\\b"
+      ],
+      "summary": "A block added to your shell startup file runs PamStealer's repair script each time you open a terminal, which reinstalls the backdoor if it was removed.",
+      "remedy": "Remove the block starting with # sysnotif-repair from this file in a text editor, then follow the steps for the PamStealer files finding.",
+      "references": [
+        "https://www.jamf.com/blog/pamstealer-wavel-macos-infostealer/",
+        "https://securelist.com/macsync-new-version/121383/"
+      ]
+    },
+    {
+      "id": "extension.crypto-trader-sessions-2026-09",
+      "title": "Browser extension that steals crypto trading sessions (September 2026)",
+      "severity": "high",
+      "category": "malware",
+      "check": "browserExtension",
+      "patterns": [
+        "^browser=\\S{1,32} id=ingjjklimdeocggninaaapofondbeopd\\s",
+        "^browser=\\S{1,32} id=nngccnjcllkehfiaidagbffjgbikcoij\\s",
+        "^browser=\\S{1,32} id=bnolicehjnimmdfkihmojhonickmhegp\\s",
+        "^browser=\\S{1,32} id=kkkoejaiilcofkhggclkbogjpinhjppm\\s",
+        "^browser=\\S{1,32} id=vreo@j7tracker\\.io\\s",
+        "^browser=\\S{1,32} id=orbittracker@snapshot\\.xyz\\s"
+      ],
+      "summary": "Socket found that J7Tracker, VREO, Orbit Tracker and GhostApe steal session tokens and wallet data from crypto traders using sites such as Axiom Trade, so attackers can act as you without your password.",
+      "remedy": "Remove it from the browser's extensions page. Sign out of your trading sites everywhere, change their passwords, and from another device move any crypto to a new wallet.",
+      "references": [
+        "https://socket.dev/blog/chrome-firefox-crypto-data-theft"
+      ]
+    },
+    {
+      "id": "malware.contagious-interview-installers",
+      "title": "Contagious Interview fake installer files",
+      "severity": "critical",
+      "category": "backdoor",
+      "check": "path",
+      "paths": [
+        "~/.task/tokenlinux.sh",
+        "~/.task/node-v20.11.1-darwin-x64/bin/parser.js",
+        "~/.task/node-v20.11.1-darwin-x64/bin/scdata",
+        "~/.task/node-v20.11.1-darwin-x64/bin/ldata",
+        "/Library/Application Support/MoleExtra/preinstall"
+      ],
+      "summary": "Jamf found 14 fake DMG and PKG installers for apps such as The Unarchiver, Sketch, Bartender and Mole that install a stealer and backdoor in a hidden .task folder, as part of the Contagious Interview attacks on developers. Assume your passwords, browser sessions and crypto wallets were stolen.",
+      "remedy": "Disconnect from the network. Delete the files listed and the node-v20.11.1-darwin-x64 folder inside ~/.task, leaving other files there alone (Taskwarrior also uses that folder). Delete the fake app, download it from its developer, and restart. From another device, change your Apple Account, email and banking passwords, sign out of other sessions, and move any crypto to a new wallet. Replace your SSH keys and GitHub and npm tokens.",
+      "references": [
+        "https://www.jamf.com/blog/contagious-interview-trojanized-macos-installers/"
+      ]
+    },
+    {
+      "id": "extension.superior-2026-08",
+      "title": "Browser extension from the Superior wallet-draining campaign (August 2026)",
+      "severity": "high",
+      "category": "malware",
+      "check": "browserExtension",
+      "patterns": [
+        "^browser=\\S{1,32} id=pkoccklolohdacbfooifnpebakpbeipc\\s",
+        "^browser=\\S{1,32} id=fegckejpfnlmfgkfjpinlbgmeeijjkel\\s",
+        "^browser=\\S{1,32} id=kdenlnncndfnhkognokgfpabgkgehodd\\s",
+        "^browser=\\S{1,32} id=jamminefolhgepgihbmcjjhgldbfcikp\\s",
+        "^browser=\\S{1,32} id=inmkjedjdhgpknjogbjomhnbgdccckkg\\s",
+        "^browser=\\S{1,32} id=fcgdejjichpgfaaafflplhfijcnieopb\\s",
+        "^browser=\\S{1,32} id=cfpnjdbpojpcongfaefcamjbaolpelcd\\s",
+        "^browser=\\S{1,32} id=aapdalkmclfaahehnmicbglkohkldhne\\s",
+        "^browser=\\S{1,32} id=dkdadldmiefjldmegbjbnhhfddnkhlhm\\s",
+        "^browser=\\S{1,32} id=fjmlhlkccegopebcllcmafahkmeejpph\\s",
+        "^browser=\\S{1,32} id=iekoapohahgmogbagegmcgplbkikcgke\\s",
+        "^browser=\\S{1,32} id=ahpnnnjbnfbhoikhohglpohnoocjcoco\\s",
+        "^browser=\\S{1,32} id=oeacadlaclegkkkdehjmiifnjhcekclj\\s",
+        "^browser=\\S{1,32} id=jmlgannjlbliikgcaieomgmcnfplglea\\s",
+        "^browser=\\S{1,32} id=lhmcajhgadanidbopgaoobjlldegjmke\\s",
+        "^browser=\\S{1,32} id=gfackggoapepdmnjnkblogdcjpgcjiak\\s",
+        "^browser=\\S{1,32} id=hfijkbdkpidafdbeebnnkhfccildbcle\\s",
+        "^browser=\\S{1,32} id=pcngchfbfgejllcbhmeadjhiebebiome\\s",
+        "^browser=\\S{1,32} id=aodkjdeghbjiaienipfjkbpcikkacbcp\\s"
+      ],
+      "summary": "Socket linked 18 Chrome extensions and one Edge extension, including QuickLens and Enable Right Click. They drain crypto wallets, show fake Ledger and Trezor screens to steal recovery phrases, and steal passwords and form data.",
+      "remedy": "Remove it from the browser's extensions page. From another device, move any crypto to a new wallet with a new recovery phrase, and change the passwords of sites you signed in to while it was installed.",
+      "references": [
+        "https://socket.dev/blog/chrome-edge-extension-wallet-drainer"
+      ]
+    },
+    {
+      "id": "extension.firefox-wallet-stealers-2026-08",
+      "title": "Firefox add-on that steals crypto wallets and passwords (August 2026)",
+      "severity": "high",
+      "category": "malware",
+      "check": "browserExtension",
+      "patterns": [
+        "^browser=\\S{1,32} id=bliss-heaven@webbrol\\.com\\s",
+        "^browser=\\S{1,32} id=bold-page-vault@addonslab\\.example\\s",
+        "^browser=\\S{1,32} id=bright-save-feed@tabtools\\.org\\s",
+        "^browser=\\S{1,32} id=chiro-di-red@tools\\.com\\s",
+        "^browser=\\S{1,32} id=chiro-redok@webtools\\.com\\s",
+        "^browser=\\S{1,32} id=cool-block-gear@protools\\.com\\s",
+        "^browser=\\S{1,32} id=fast-akap-safe@browsertools\\.com\\s",
+        "^browser=\\S{1,32} id=fast-map-safe@linktools\\.co\\s",
+        "^browser=\\S{1,32} id=flex-clock-dash@extrakits\\.com\\s",
+        "^browser=\\S{1,32} id=free-note-bolt@webtools\\.co\\s",
+        "^browser=\\S{1,32} id=green-fam-heav@browsertool\\.com\\s",
+        "^browser=\\S{1,32} id=herman-rich@browsertools\\.com\\s",
+        "^browser=\\S{1,32} id=live-football-scores@live-scores\\.com\\s",
+        "^browser=\\S{1,32} id=park-static-small@devblogs\\.com\\s",
+        "^browser=\\S{1,32} id=peters-schools@webtoolbrowser\\.com\\s",
+        "^browser=\\S{1,32} id=safe-stat-pure@proaddons\\.net\\s",
+        "^browser=\\S{1,32} id=sharp-stat-gear@netplugs\\.net\\s",
+        "^browser=\\S{1,32} id=swift-clip-link@fasttools\\.co\\s",
+        "^browser=\\S{1,32} id=vibe-timer-fast@extrakits\\.co\\s",
+        "^browser=\\S{1,32} id=\\{91ac3e4f-1874-409d-b01f-aeb2409a23b8\\}\\s",
+        "^browser=\\S{1,32} id=\\{b1f3c8a9-4a2e-4b7c-9e1f-8a3d6c5b4e2f\\}\\s",
+        "^browser=\\S{1,32} id=\\{d8a5f7c3-9e4b-2f2a-b1d7-8c7e9f4a2b3c\\}\\s",
+        "^browser=\\S{1,32} id=\\{d8a5f7c3-9e4b-4f2a-b1d6-8c7e9f3a2b2c\\}\\s",
+        "^browser=\\S{1,32} id=\\{d8a5f7c3-9e9b-2f8a-b1d6-8c1e9f4a2b7c\\}\\s",
+        "^browser=\\S{1,32} id=\\{d8a5f9c3-9e4b-4f2a-b1d7-8c7e9f4a2b3c\\}\\s",
+        "^browser=\\S{1,32} id=\\{d9a5f9c3-9e4b-2f3a-b2d7-8c8e9f4a2b3c\\}\\s",
+        "^browser=\\S{1,32} id=\\{f746f950-bd73-43de-bfe1-add342147853\\}\\s",
+        "^browser=\\S{1,32} id=bolt-save-vault@devplugs\\.co\\s",
+        "^browser=\\S{1,32} id=core-note-nova@webtools\\.net\\s",
+        "^browser=\\S{1,32} id=deep-tip-sharp@browsify\\.co\\s",
+        "^browser=\\S{1,32} id=fast-zip-true@smartext\\.co\\s",
+        "^browser=\\S{1,32} id=flex-lab-save@foxplugin\\.co\\s",
+        "^browser=\\S{1,32} id=gear-save-tip@extrakits\\.example\\s",
+        "^browser=\\S{1,32} id=pure-net-snap@fasttools\\.co\\s",
+        "^browser=\\S{1,32} id=silver-fox@browser-app\\.com\\s",
+        "^browser=\\S{1,32} id=smart-lab-glow@webkits\\.co\\s",
+        "^browser=\\S{1,32} id=\\{64d210f4-9b7f-489f-8207-e042400041b7\\}\\s",
+        "^browser=\\S{1,32} id=\\{842fa1ed-b948-4bf8-b796-21044d3419eb\\}\\s",
+        "^browser=\\S{1,32} id=\\{b0043917-9d75-425b-977a-4bb553f2a8ee\\}\\s",
+        "^browser=\\S{1,32} id=\\{d8a5f7c3-9e4b-2f2a-b1d7-8c7e9f4a2b7c\\}\\s"
+      ],
+      "summary": "Socket found that these 40 Firefox add-ons steal crypto wallet secrets or passwords. Many use look-alike names such as Portal.",
+      "remedy": "Remove it from the browser's extensions page. From another device, move any crypto to a new wallet with a new recovery phrase, and change the passwords of sites you signed in to while it was installed.",
+      "references": [
+        "https://socket.dev/blog/firefox-crypto-wallet-theft"
+      ]
+    },
+    {
+      "id": "malware.amnesia-stealer",
+      "title": "AmnesiaStealer files",
+      "severity": "critical",
+      "category": "malware",
+      "check": "path",
+      "paths": [
+        "~/tempFolder-32555443",
+        "~/.local/share/.stream/profiles",
+        "/tmp/.com.apple.dt.88811",
+        "/tmp/.com.apple.dt.80347",
+        "/tmp/.tcc_mod.db",
+        "/tmp/.tcc_bak.db",
+        "/tmp/.snap_tcc",
+        "/tmp/.snap_read"
+      ],
+      "summary": "AmnesiaStealer arrives through a fake GitHub download page with paste-this-into-Terminal instructions. It steals the Keychain, browser data, notes and Telegram data, and copies your browser profile so attackers can use your signed-in sessions through a hidden browser. Assume your passwords, browser sessions and crypto wallets were stolen.",
+      "remedy": "Disconnect from the network. Delete the files listed and restart. If ~/.pwd holds your Mac password in plain text, delete it too. Change your Mac login password. From another device, change your Apple Account, email and banking passwords, sign out of other sessions, and move any crypto to a new wallet.",
+      "references": [
+        "https://www.jamf.com/blog/amnesia-stealer-macos-infostealer-clickfix/"
+      ]
+    },
+    {
+      "id": "npm.axios-waveshaper",
+      "title": "Backdoor from the hijacked axios npm releases (March 2026)",
+      "severity": "critical",
+      "category": "backdoor",
+      "check": "path",
+      "paths": [
+        "/Library/Caches/com.apple.act.mond"
+      ],
+      "summary": "Hijacked axios 1.14.1 and 0.30.4 (March 2026) pulled in plain-crypto-js, whose install script downloaded a backdoor to this path.",
+      "remedy": "Disconnect from the network. Delete the file listed, quit its process in Activity Monitor, remove the hijacked axios and plain-crypto-js from your projects, and restart. From another device, replace your npm, GitHub and cloud tokens and SSH keys.",
+      "references": [
+        "https://unit42.paloaltonetworks.com/axios-supply-chain-attack/"
+      ]
+    },
+    {
+      "id": "npm.axios-plain-crypto-js-2026-03",
+      "title": "plain-crypto-js, the malicious dependency of hijacked axios (March 2026)",
+      "severity": "critical",
+      "category": "malware",
+      "check": "npmPackage",
+      "packages": [
+        {
+          "name": "plain-crypto-js",
+          "versions": [
+            "4.2.1"
+          ],
+          "advisory": "MAL-2026-2306"
+        }
+      ],
+      "summary": "plain-crypto-js 4.2.1 is the package hijacked axios releases pulled in to install a backdoor when npm runs its install script.",
+      "references": [
+        "https://osv.dev/vulnerability/MAL-2026-2306",
+        "https://unit42.paloaltonetworks.com/axios-supply-chain-attack/"
       ]
     },
     {
@@ -5169,74 +5534,6 @@
         "https://security.netapp.com/advisory/ntap-20180112-0001/",
         "https://bugzilla.redhat.com/show_bug.cgi?id=1358395",
         "https://bugs.php.net/bug.php?id=72613"
-      ]
-    },
-    {
-      "id": "cve.php.cve-2016-7418",
-      "title": "PHP: The php_wddx_push_element function in ext/wddx/wddx.c in PHP before 5.6.26 and 7.x before 7.0.11… (CVE-2016-7418)",
-      "severity": "high",
-      "category": "hardening",
-      "check": "softwareVersion",
-      "product": "php",
-      "advisory": "CVE-2016-7418",
-      "ranges": [
-        {
-          "introduced": "0",
-          "lastAffected": "5.6.25"
-        },
-        {
-          "introduced": "7.0.0",
-          "lastAffected": "7.0.0"
-        },
-        {
-          "introduced": "7.0.1",
-          "lastAffected": "7.0.1"
-        },
-        {
-          "introduced": "7.0.2",
-          "lastAffected": "7.0.2"
-        },
-        {
-          "introduced": "7.0.3",
-          "lastAffected": "7.0.3"
-        },
-        {
-          "introduced": "7.0.4",
-          "lastAffected": "7.0.4"
-        },
-        {
-          "introduced": "7.0.5",
-          "lastAffected": "7.0.5"
-        },
-        {
-          "introduced": "7.0.6",
-          "lastAffected": "7.0.6"
-        },
-        {
-          "introduced": "7.0.7",
-          "lastAffected": "7.0.7"
-        },
-        {
-          "introduced": "7.0.8",
-          "lastAffected": "7.0.8"
-        },
-        {
-          "introduced": "7.0.9",
-          "lastAffected": "7.0.9"
-        },
-        {
-          "introduced": "7.0.10",
-          "lastAffected": "7.0.10"
-        }
-      ],
-      "summary": "The php_wddx_push_element function in ext/wddx/wddx.c in PHP before 5.6.26 and 7.x before 7.0.11 allows remote attackers to cause a denial of service (invalid pointer access and out-of-bounds read) or possibly have unspecified other impact via an incorrect boolean element in a wddxPacket XML document, leading to mishandling in a wddx_deserialize call.",
-      "remedy": "No fixed PHP release is listed for this advisory. Upgrade each listed install to the newest supported PHP release and check the advisory.",
-      "references": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2016-7418",
-        "https://osv.dev/vulnerability/CVE-2016-7418",
-        "https://www.tenable.com/security/tns-2016-19",
-        "https://access.redhat.com/errata/RHSA-2018:1296",
-        "https://security.gentoo.org/glsa/201611-22"
       ]
     },
     {
@@ -13122,6 +13419,46 @@
         "https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/82xxx/CVE-2026-82049.json",
         "https://mail.python.org/archives/list/security-announce@python.org/thread/EFJWGAZJA56AKSBR2WHMHQZO7RRLZPRH/",
         "https://github.com/python/cpython/issues/157190"
+      ]
+    },
+    {
+      "id": "cve.python.cve-2026-115557",
+      "title": "Python: Distrust compromised intermediate certificates in ssl module (CVE-2026-115557)",
+      "severity": "critical",
+      "category": "hardening",
+      "check": "softwareVersion",
+      "product": "python",
+      "advisory": "CVE-2026-115557",
+      "ranges": [
+        {
+          "introduced": "0",
+          "fixed": "3.11.18"
+        },
+        {
+          "introduced": "3.12.0",
+          "fixed": "3.12.16"
+        },
+        {
+          "introduced": "3.13.0",
+          "fixed": "3.13.18"
+        },
+        {
+          "introduced": "3.14.0",
+          "fixed": "3.14.10"
+        },
+        {
+          "introduced": "3.15.0",
+          "fixed": "3.15.2"
+        }
+      ],
+      "summary": "Python has added a denylist for known compromised certificates to the \"ssl\" module to ensure user safety even without certificate revocation configured. Known compromised certificates will automatically be rejected regardless of the SSLContext policy configuration.",
+      "remedy": "Upgrade Python to 3.11.18, 3.12.16, 3.13.18, 3.14.10, 3.15.2 or a later release on the same line, in each listed install.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-115557",
+        "https://osv.dev/vulnerability/CVE-2026-115557",
+        "https://emudhra.we-have-a-problem.com/",
+        "https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/115xxx/CVE-2026-115557.json",
+        "https://mail.python.org/archives/list/security-announce@python.org/thread/FNAJMZV6XQYLVPABNINDMF3VF66AYLW4/"
       ]
     },
     {
