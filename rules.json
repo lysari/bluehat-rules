@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version": 2026110303,
+  "version": 2026110601,
   "rules": [
     {
       "id": "setting.sip",
@@ -1122,7 +1122,7 @@
       "severity": "medium",
       "category": "hardening",
       "check": "xprotect",
-      "minimumVersion": 5365,
+      "minimumVersion": 5368,
       "summary": "XProtect is the malware scanner built into macOS. Apple updates its definitions on its own every few weeks, and old definitions miss current stealers and backdoors. Updates usually stop when Install Security Responses and system files is turned off, or when the Mac can't reach Apple's servers.",
       "remedy": "Open System Settings › General › Software Update, click the info button next to Automatic Updates, and turn on Install Security Responses and system files. Stay online and restart; macOS updates XProtect on its own. If it still shows a day later, install any waiting macOS update.",
       "references": [
@@ -2103,6 +2103,76 @@
       "references": [
         "https://socket.dev/blog/glassworm-loader-hits-open-vsx-via-suspected-developer-account-compromise",
         "https://attack.mitre.org/software/S9010"
+      ]
+    },
+    {
+      "id": "malware.phexia",
+      "title": "Phexia stealer and miner files",
+      "severity": "critical",
+      "category": "malware",
+      "check": "path",
+      "paths": [
+        "~/tempFolderC",
+        "~/.txid",
+        "/private/tmp/updstat.txt",
+        "/private/tmp/rigupdater",
+        "/private/tmp/applecomlistupdate"
+      ],
+      "summary": "Phexia is a Mac stealer and backdoor spread by fake \"fix it\" pages that ask you to paste a command into Terminal. It copies your browser passwords, cookies and Keychain, keeps your Mac password in plain text, uploads everything, and can run a hidden crypto miner. These are its working files.",
+      "remedy": "Disconnect from the network. If Bluehat also shows a launch item that runs base64 or osascript, follow that finding first. Delete the files and folders listed and restart. Change your Mac login password, then from another device change your Apple Account, email and banking passwords, sign out of other sessions, and move any crypto to a new wallet.",
+      "references": [
+        "https://www.withsecure.com/en/resources-hub/w-labs/phexia-macos-malware/"
+      ]
+    },
+    {
+      "id": "malware.tradertraitor",
+      "title": "TraderTraitor (North Korea) FLATROOF and ROOFDECK backdoor files",
+      "severity": "critical",
+      "category": "backdoor",
+      "check": "path",
+      "paths": [
+        "~/Library/com.apple.iTunesCloud/SystemUpdate",
+        "~/Library/com.apple.internal.ck/iSync",
+        "~/Library/com.apple.appleaccountd/loginwindow",
+        "/private/tmp/.pipe-airway"
+      ],
+      "summary": "TraderTraitor, the North Korean group behind large crypto thefts, targets developers and cloud engineers with fake job interviews, booby-trapped code projects and a fake Terraform provider. Its FLATROOF and ROOFDECK backdoors hide under Apple-like folder names in your Library and give the attackers remote control and your browser and cloud credentials.",
+      "remedy": "Disconnect from the network. Delete the files listed and restart. If Bluehat also shows one of these backdoors running or a launch item, follow those findings too. From another device, replace your cloud keys, GitHub tokens, SSH keys and saved browser passwords, and tell your security team if this is a work Mac.",
+      "references": [
+        "https://www.sentinelone.com/labs/dont-call-us-well-call-your-apis-tradertraitor-backdoors-resurface-on-victim-with-no-crypto-ties/",
+        "https://www.zscaler.com/blogs/security-research/suspected-tradertraitor-group-uses-trojanized-terraform-provider-deliver"
+      ]
+    },
+    {
+      "id": "process.tradertraitor-backdoor",
+      "title": "TraderTraitor (North Korea) backdoor is running",
+      "severity": "critical",
+      "category": "backdoor",
+      "check": "process",
+      "patterns": [
+        "/Library/com\\.apple\\.(iTunesCloud/SystemUpdate|internal\\.ck/iSync|appleaccountd/loginwindow)"
+      ],
+      "summary": "A program running from a hidden Apple-like folder in your Library matches TraderTraitor's FLATROOF or ROOFDECK backdoor. The attackers can run commands on your Mac and steal browser, cloud and source-code credentials, and they often delete the files while the backdoor keeps running.",
+      "remedy": "Disconnect from the network. In Activity Monitor, quit only the process this finding names, whose path is in your Library folder; never quit the system loginwindow. Delete the file at that path and restart. From another device, replace your cloud keys, GitHub tokens, SSH keys and saved browser passwords, and tell your security team if this is a work Mac.",
+      "references": [
+        "https://www.sentinelone.com/labs/dont-call-us-well-call-your-apis-tradertraitor-backdoors-resurface-on-victim-with-no-crypto-ties/",
+        "https://www.zscaler.com/blogs/security-research/suspected-tradertraitor-group-uses-trojanized-terraform-provider-deliver"
+      ]
+    },
+    {
+      "id": "npm.testmetest-worm",
+      "title": "testmetest npm worm with a home-folder wiper (October 2026)",
+      "severity": "critical",
+      "category": "worm",
+      "check": "path",
+      "paths": [
+        "~/Library/LaunchAgents/com.user.net-health-checker.plist",
+        "~/Library/LaunchAgents/com.user.pkg-runtime.plist"
+      ],
+      "summary": "The testmetest npm packages carry a Miasma-family worm that steals GitHub, npm, cloud and AI tokens and spreads through your repositories. Its net-health-checker keeps testing the stolen GitHub token for two days and erases your home folder if GitHub rejects it. pkg-runtime downloads and runs more code every hour.",
+      "remedy": "Don't revoke any GitHub token yet: while net-health-checker runs, revoking it can erase your home folder. Back up what you can't lose. Disconnect from the network, run launchctl bootout gui/$(id -u) followed by the path of each plist listed, delete them, and restart. Only then, from another device, replace your GitHub, npm, cloud, SSH and AI provider tokens.",
+      "references": [
+        "https://safedep.io/testmetest-npm-worm-miasma-variant/"
       ]
     },
     {
