@@ -116,6 +116,7 @@ The whole file stays under 4,000,000 bytes.
 | `systemExtension` | optional `teams`, `bundles` (see below) | system extensions from `systemextensionsctl list` and loaded third-party kernel extensions from `kmutil showloaded` (`com.apple.*` skipped); every one not from a listed vendor is reported |
 | `outbound` | `hosts` or `ports` (see below) | open TCP and UDP connections of every process, from `netstat -anlv`, by remote address and port |
 | `xprotect` | `minimumVersion` (see below) | the version of Apple's XProtect malware definitions, the higher `CFBundleShortVersionString` of `/Library/Apple/System/Library/CoreServices/XProtect.bundle` and `/private/var/protected/xprotect/XProtect.bundle`; reported when it is below `minimumVersion` |
+| `nodeInstall` | `files`, `patterns` | lines of the named files inside the global `node_modules` of each Node.js install (Homebrew, nvm, Volta, fnm, asdf, mise) and of `/opt/homebrew` and `/usr/local`; the finding names the first matching line of each file |
 
 Patterns run against text an attacker can control (process command lines, launch item arguments, extension names), so write them to run in linear time:
 
@@ -138,6 +139,13 @@ Patterns run against text an attacker can control (process command lines, launch
 |---|---|
 | `files` | 1-20 file names, matched without regard to case; `*` matches any run of characters (`*.config.js`, `package.json`): `^(?=.*[A-Za-z0-9])[A-Za-z0-9._*-]{1,64}$`, no `..` and no folders |
 | `patterns` | regexes, each run on every line of the file. Only the first 1,000,000 bytes of a file and the first 8,192 UTF-16 units of each line are read, so a pattern must still match when the end of a long line is cut off, for example by matching the long run of padding itself rather than the code after it |
+
+`nodeInstall` fields:
+
+| Field | Values |
+|---|---|
+| `files` | 1-20 exact paths inside a global `node_modules` folder, such as `npm/lib/cli.js` or `corepack/dist/corepack.js`: parts separated by `/`, each matching `^(?=.*[A-Za-z0-9])[A-Za-z0-9._-]{1,64}$` with no `..`, at most 1,024 characters. No leading `/` or `~`, no empty parts and no `*` |
+| `patterns` | regexes, each run on every line of the file, with the same limits as `projectFile`: the first 1,000,000 bytes of a file and the first 8,192 UTF-16 units of each line |
 
 `systemExtension` fields:
 

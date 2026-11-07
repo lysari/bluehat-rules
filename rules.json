@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version": 2026110601,
+  "version": 2026110701,
   "rules": [
     {
       "id": "setting.sip",
@@ -964,6 +964,31 @@
         "https://unit42.paloaltonetworks.com/two-campaigns-by-north-korea-bad-actors-target-job-hunters/",
         "https://www.stepsecurity.io/blog/tensorlake-npm-compromised-hostage-token-worm"
       ]
+    },
+    {
+      "id": "npm.cli-injected-payload",
+      "title": "Code injected into npm's own files",
+      "severity": "critical",
+      "category": "malware",
+      "check": "nodeInstall",
+      "files": [
+        "npm/bin/npm-cli.js",
+        "npm/bin/npx-cli.js",
+        "npm/lib/cli.js",
+        "npm/lib/cli/entry.js",
+        "npm/lib/npm.js",
+        "corepack/dist/corepack.js"
+      ],
+      "patterns": [
+        "\\bglobal\\s*(\\.\\s*[A-Za-z_$][\\w$]{0,2}|\\[\\s*['\"][A-Za-z_$][\\w$]{0,2}['\"]\\s*\\])\\s*=\\s*['\"]\\d{1,2}-\\d{3,5}-[a-z]{2}['\"]",
+        "\\bglobal\\s*(\\.\\s*[A-Za-z_$][\\w$]{0,30}|\\[\\s*['\"][A-Za-z_$][\\w$]{0,30}['\"]\\s*\\])\\s*=\\s*require\\b(?!\\s*[(.\\[])",
+        "\\b(var|let|const)\\s+[A-Za-z_$][\\w$]{0,30}\\s*=\\s*require\\s*[;,]",
+        "\\b(eval|Function)\\s*\\((?:(?!\\b(eval|Function)\\s*\\()[^\\n]){0,200}\\b(atob|Buffer\\.from|fromCharCode|unescape)\\s*\\(",
+        "\\S[ \\t]{150}",
+        "^[ \\t]{150,8192}\\S"
+      ],
+      "summary": "A file that npm runs on every npm or npx command holds code npm never ships: a marker such as global.i='5-1857-du', require stored under another name, decoded code passed to eval, or a long run of spaces that pushes code off-screen. Malware appends obfuscated code to files such as npm/lib/cli.js, so it runs with your rights each time you use npm and can read the tokens and keys on this Mac.",
+      "remedy": "Stop using npm and npx with this Node.js version. Reinstall it so npm's files are replaced: with nvm, nvm uninstall <version> then nvm install <version>; with Homebrew, brew reinstall node; with Volta, fnm, asdf or mise, their uninstall and install commands; for /usr/local, the installer from nodejs.org. Act on Bluehat's other findings first, then from another device rotate your npm, GitHub and cloud tokens and SSH keys."
     },
     {
       "id": "npm.shai-hulud-files",
